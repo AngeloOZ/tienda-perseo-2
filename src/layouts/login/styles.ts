@@ -14,6 +14,7 @@ export const StyledRoot = styled('main')(() => ({
 export const StyledSection = styled('div')(({ theme }) => ({
   display: 'none',
   position: 'relative',
+  // background: "#f1f1f1",
   [theme.breakpoints.up('md')]: {
     flexGrow: 1,
     display: 'flex',
@@ -44,8 +45,9 @@ export const StyledContent = styled('div')(({ theme }) => ({
   minHeight: '100vh',
   justifyContent: 'center',
   padding: theme.spacing(15, 2),
+  background: "#ffffff",
   [theme.breakpoints.up('md')]: {
     flexShrink: 0,
-    padding: theme.spacing(30, 8, 0, 8),
+    padding: theme.spacing(25, 8, 0, 8),
   },
 }));

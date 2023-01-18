@@ -27,7 +27,7 @@ import ColorPresetsOptions from './ColorPresetsOptions';
 
 const SPACING = 2.5;
 
-export default function SettingsDrawer() {
+export default function SettingsDrawer({ visible = false}) {
   const {
     themeMode,
     themeLayout,
@@ -60,7 +60,7 @@ export default function SettingsDrawer() {
 
   return (
     <>
-      {!open && <ToggleButton open={open} notDefault={notDefault} onToggle={handleToggle} />}
+      {!open && visible && <ToggleButton open={open} notDefault={notDefault} onToggle={handleToggle} />}
 
       <Drawer
         anchor="right"
