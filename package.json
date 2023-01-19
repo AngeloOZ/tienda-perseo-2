@@ -57,6 +57,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@types/autosuggest-highlight": "^3.2.0",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/lodash": "^4.14.190",
     "@types/node": "^18.11.9",
     "@types/nprogress": "^0.2.0",
