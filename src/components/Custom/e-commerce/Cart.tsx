@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Box, Container } from '@mui/system';
 import { CartContext } from '../../../context';
 import { CheckoutCart } from '../../../sections/@dashboard/e-commerce/checkout';
-import { CustomBaseCart } from './BaseCart';
+import { BaseCart } from './BaseCart';
 
 export const CustomCart = () => {
   const ctx = useContext(CartContext);
@@ -14,7 +14,7 @@ export const CustomCart = () => {
     <>
       <Box sx={{ width: 'auto' }}>
         <Container>          
-          <CustomBaseCart
+          <BaseCart
             checkout={ctx}
             funDeleteCart={handleDeleteCart}
             funApplyDiscount={handleApplyDiscount}
