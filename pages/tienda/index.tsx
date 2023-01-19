@@ -2,7 +2,7 @@ import { Box, Grid } from '@mui/material'
 import React from 'react'
 import { ShopProductCard } from 'src/sections/shop'
 import { ICheckoutCartItem } from 'src/@types/product'
-
+import { CartProvider } from 'src/context'
 
 export default function index () {
     const arrproducto: ICheckoutCartItem[] = [
@@ -29,10 +29,10 @@ export default function index () {
             quantity: 1,
             subtotal: 20.00
         },
-    ]
+    ];
 
     return (
-        <div>
+        <CartProvider>
             <Box
                 gap={3}
                 display="grid"
@@ -44,13 +44,10 @@ export default function index () {
                     lg: 'repeat(4, 1fr)',
                 }}
             >
-                {arrproducto.map((producto: Productos) => (
+                {arrproducto.map((producto: ICheckoutCartItem) => (
                     <ShopProductCard key={producto.id} product={producto} />
-                ))}
-                    
-                
+                ))}            
             </Box>
-
-        </div>
+        </CartProvider>
     )
 }
