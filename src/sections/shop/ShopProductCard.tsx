@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 
 // next
 import NextLink from 'next/link';
@@ -10,20 +11,34 @@ import { Box, Card, Link, Stack, Fab } from '@mui/material';
 import Iconify from '../../components/iconify';
 import Label from '../../components/label';
 import Image from '../../components/image';
+import { price } from 'src/_mock/assets';
 // import { ColorPreview } from '../../components/color-utils';
 // import { fCurrency } from '../../utils/formatNumber';
+
+import { useRouter } from 'next/router';
 
 
 // --------------------------------------s--------------------------------
 
+interface Productos{
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: any;  
+}
+
 type Props = {
-  product: any;
+  product: Productos;
 };
 
 export default function ShopProductCard({ product }: Props) {
   // const { id, name, cover, price, colors, status, available, sizes, priceSale } = product;
 
-  const linkTo = '#';
+  //const linkTo = (`/tienda/${product.title}`);
+  const linkTo = "#";
   const status = "sale";
 
   const handleAddCart = async () => {
@@ -44,12 +59,13 @@ export default function ShopProductCard({ product }: Props) {
     }
   };
 
+
   return (
     <Card
       sx={{
         padding: 0,
         margin: 0,
-        '&:hover .add-cart-btn': {
+        ' .add-cart-btn': {
           opacity: 1,
         },
       }}
@@ -92,12 +108,12 @@ export default function ShopProductCard({ product }: Props) {
           <Iconify icon="ic:round-add-shopping-cart" />
         </Fab>
 
-        <Image alt={""} src={"https://img.freepik.com/psd-premium/maqueta-caja-papel_35913-1372.jpg?w=2000"} ratio="1/1" sx={{ borderRadius: 1.5 }} />
-      </Box>
+          <Image alt={""} src={product.image} ratio="1/1" sx={{ borderRadius: 1.5 }} />
+         </Box>
 
       <Stack spacing={2.5} sx={{ p: 3 }}>
         <Link component={NextLink} href={linkTo} color="inherit" variant="subtitle2" noWrap>
-          {"Prueba producto"}
+          {product.title}
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -106,11 +122,12 @@ export default function ShopProductCard({ product }: Props) {
           <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
             {true && (
               <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
-                {12.10}
+                {product.price}
               </Box>
             )}
 
             <Box component="span">{15.20}</Box>
+
           </Stack>
         </Stack>
       </Stack>
