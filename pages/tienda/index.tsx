@@ -1,40 +1,34 @@
 import { Box, Grid } from '@mui/material'
 import React from 'react'
 import { ShopProductCard } from 'src/sections/shop'
+import { ICheckoutCartItem } from 'src/@types/product'
 
-
-
-interface Productos {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
-    rating: any;
-}
 
 export default function index () {
-    const arrproducto: Productos[] = [
+    const arrproducto: ICheckoutCartItem[] = [
         {
-            id: 1,
-            title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+            id: "1",
+            name: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+            cover: "https://i.pinimg.com/564x/26/8b/e4/268be487927664b39974baa500d199ef--red-blazer-blazer-outfits.jpg",
+            available: 5,
             price: 109.95,
-            description: "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-            category: "men's clothing",
-            image: "https://i.pinimg.com/564x/26/8b/e4/268be487927664b39974baa500d199ef--red-blazer-blazer-outfits.jpg",
-            rating: { rate: 3.9, count: 120 }
+            colors: ["Rojo"],
+            size: "M",
+            quantity: 2,
+            subtotal: 100.00
         },
     
         {
-            id: 2,
-            title: "Mens Casual Premium Slim Fit T-Shirts ",
+            id: "",
+            name: "Mens Casual Premium Slim Fit T-Shirts",
+            cover: "https://i.pinimg.com/564x/26/8b/e4/268be487927664b39974baa500d199ef--red-blazer-blazer-outfits.jpg",
+            available: 8,
             price: 22.3,
-            description: "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
-            category: "men's clothing",
-            image: "https://i.pinimg.com/564x/26/8b/e4/268be487927664b39974baa500d199ef--red-blazer-blazer-outfits.jpg",
-            rating: { rate: 4.1, count: 259 }
-        }
+            colors: ["Rojo", "Cafe"],
+            size: "S",
+            quantity: 1,
+            subtotal: 20.00
+        },
     ]
 
     return (
