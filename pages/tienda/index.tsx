@@ -44,7 +44,7 @@ export default function index () {
                     lg: 'repeat(4, 1fr)',
                 }}
             >
-                {arrproducto.map((producto: Productos) => (
+                {arrproducto.map((producto: ICheckoutCartItem) => (
                     <ShopProductCard key={producto.id} product={producto} />
                 ))}
                     
