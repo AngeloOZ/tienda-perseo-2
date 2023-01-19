@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 
 import { CartContext } from 'src/context';
 import { ICheckoutCartItem } from 'src/@types/product';
+import { fCurrency } from 'src/utils/formatNumber';
 
 // --------------------------------------s--------------------------------
 
@@ -28,7 +29,7 @@ export default function ShopProductCard({ product }: Props) {
   // const { id, name, cover, price, colors, status, available, sizes, priceSale } = product;
   //const linkTo = (`/tienda/${product.title}`);
   const linkTo = '#';
-  const status = 'sale';
+  const status = '';
 
   const ctx = useContext(CartContext);
   const { handleAddCart } = ctx;
@@ -96,15 +97,20 @@ export default function ShopProductCard({ product }: Props) {
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           {/* <ColorPreview colors={colors} /> */}
 
+          
           <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
             {true && (
-              <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
-                {product.price}
+              <Box component="span" sx={{ color: 'inherit' }}>
+                {fCurrency(product.price)}
               </Box>
             )}
-
-            <Box component="span">{15.2}</Box>
+            
+            {/* <Box component="span">{15.2}</Box> */}
           </Stack>
+
+
+
+
         </Stack>
       </Stack>
     </Card>

@@ -1,10 +1,14 @@
-import { useContext } from 'react';
+import { useContext, FC } from 'react';
 import { Box, Container } from '@mui/system';
-import { CartContext } from '../../../context';
-import { CheckoutCart } from '../../../sections/@dashboard/e-commerce/checkout';
+import { CartContext } from '../../../../context';
+import { CheckoutCart } from '../../../../sections/@dashboard/e-commerce/checkout';
 import { BaseCart } from './BaseCart';
 
-export const CustomCart = () => {
+interface Props {
+  onShowCart: VoidFunction;
+}
+
+export const Cart:FC<Props> = ({onShowCart}) => {
   const ctx = useContext(CartContext);
   const { handleDeleteCart, handleIncreaseQuantity, handleDecreaseQuantity, handleApplyDiscount } = ctx;
 
@@ -13,13 +17,14 @@ export const CustomCart = () => {
   return (
     <>
       <Box sx={{ width: 'auto' }}>
-        <Container>          
+        <Container>            
           <BaseCart
             checkout={ctx}
             funDeleteCart={handleDeleteCart}
             funApplyDiscount={handleApplyDiscount}
             funIncreaseQuantity={handleIncreaseQuantity}
             funDecreaseQuantity={handleDecreaseQuantity}
+            funShowCart={onShowCart}
           />       
         </Container>
       </Box>

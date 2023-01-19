@@ -1,6 +1,6 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Box, Button, AppBar, Toolbar, Container, Link, BoxProps } from '@mui/material';
+import { Box, Button, AppBar, Toolbar, Container, Link, BoxProps, Badge } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
@@ -21,13 +21,16 @@ import Label from '../../components/label';
 //-------------------- CART -------------------------
 // import CartWidget from 'src/sections/@dashboard/e-commerce/CartWidget';
 import Iconify from 'src/components/iconify';
+import { StyledRoot } from '../login/styles';
 
 // ----------------------------------------------------------------------
-interface Props {  
-  handleShowCart: React.MouseEventHandler<HTMLButtonElement>;
+interface Props {
+  totalItems: number;
+  //handleShowCart: React.MouseEventHandler<HTMLButtonElement>;  
+  handleShowCart: VoidFunction;  
 }
 
-export default function Header({handleShowCart}: Props) {
+export default function Header({ totalItems ,handleShowCart }: Props) {
   const theme = useTheme();
 
   const isDesktop = useResponsive('up', 'md');
@@ -79,8 +82,13 @@ export default function Header({handleShowCart}: Props) {
 
           {/* -------------------- CART ------------------------- */}
           {/* <CartWidget totalItems={checkout.totalItems} /> */}
-          <Button variant="contained" style={{ margin: 10 }} onClick={handleShowCart}>
-            <Iconify icon="eva:shopping-cart-fill" width={24} />            
+                              
+          <Button variant="contained" style={{ margin: 10 }} size='large' 
+          onClick={handleShowCart}>            
+            <Badge showZero badgeContent={totalItems} color="error" max={99}>            
+              Carrito
+              <Iconify icon="eva:shopping-cart-fill" width={25} />
+            </Badge>
           </Button>
 
           {/* {!isDesktop && <NavMobile isOffset={isOffset} data={navConfig} />} */}

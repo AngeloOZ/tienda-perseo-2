@@ -2,8 +2,7 @@ import { FC } from 'react';
 import sum from 'lodash/sum';
 import { Grid, Card, Button, CardHeader, Typography } from '@mui/material';
 import { Box, Container } from '@mui/system';
-import { useContext, useEffect } from 'react';
-import { CartContext } from '../../../context';
+import CloseIcon from '@mui/icons-material/Close';
 import EmptyContent from 'src/components/empty-content';
 
 import {
@@ -18,7 +17,8 @@ interface Props {
   funApplyDiscount: (value: number) => void;
   funIncreaseQuantity: (productId: string) => void;
   funDecreaseQuantity: (productID: string) => void;
-}``
+  funShowCart: VoidFunction;
+}
 
 export const BaseCart: FC<Props> = ({
   checkout,
@@ -26,6 +26,7 @@ export const BaseCart: FC<Props> = ({
   funApplyDiscount,
   funIncreaseQuantity,
   funDecreaseQuantity,
+  funShowCart,
 }) => {
   const { cart, total, discount, subtotal, totalItems } = checkout;
   const isEmptyCart = !cart.length;
@@ -33,6 +34,11 @@ export const BaseCart: FC<Props> = ({
   return (
     <Container>
       <Box sx={{ width: 'auto', paddingTop: 10, paddingLeft: 0, paddingRight: 0 }}>
+
+        <Button variant="contained" style={{ margin: 10 }} size="large" onClick={funShowCart}>
+          <CloseIcon />
+        </Button>
+
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
             <Card sx={{ mb: 3 }}>
