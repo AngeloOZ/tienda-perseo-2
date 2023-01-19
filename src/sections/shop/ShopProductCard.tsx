@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 // next
 import NextLink from 'next/link';
@@ -6,59 +6,36 @@ import NextLink from 'next/link';
 import { Box, Card, Link, Stack, Fab } from '@mui/material';
 // routes
 
-
 // components
 import Iconify from '../../components/iconify';
 import Label from '../../components/label';
 import Image from '../../components/image';
-import { price } from 'src/_mock/assets';
+// import { price } from 'src/_mock/assets';
 // import { ColorPreview } from '../../components/color-utils';
 // import { fCurrency } from '../../utils/formatNumber';
-
 import { useRouter } from 'next/router';
 
+import { CartContext } from 'src/context';
+import { ICheckoutCartItem } from 'src/@types/product';
 
 // --------------------------------------s--------------------------------
 
-interface Productos{
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: any;  
-}
-
 type Props = {
-  product: Productos;
+  product: ICheckoutCartItem;
 };
 
 export default function ShopProductCard({ product }: Props) {
   // const { id, name, cover, price, colors, status, available, sizes, priceSale } = product;
-
   //const linkTo = (`/tienda/${product.title}`);
-  const linkTo = "#";
-  const status = "sale";
+  const linkTo = '#';
+  const status = 'sale';
 
-  const handleAddCart = async () => {
-    // const newProduct = {
-    //   id,
-    //   name,
-    //   cover,
-    //   available,
-    //   price,
-    //   colors: [colors[0]],
-    //   size: sizes[0],
-    //   quantity: 1,
-    // };
-    try {
+  const ctx = useContext(CartContext);
+  const { handleAddCart } = ctx;
 
-    } catch (error) {
-      console.error(error);
-    }
+  const onAddCart = () => {
+    handleAddCart(product);
   };
-
 
   return (
     <Card
@@ -91,7 +68,7 @@ export default function ShopProductCard({ product }: Props) {
           color="warning"
           size="medium"
           className="add-cart-btn"
-          onClick={handleAddCart}
+          onClick={onAddCart}
           sx={{
             right: 16,
             bottom: 16,
@@ -108,12 +85,12 @@ export default function ShopProductCard({ product }: Props) {
           <Iconify icon="ic:round-add-shopping-cart" />
         </Fab>
 
-          <Image alt={""} src={product.image} ratio="1/1" sx={{ borderRadius: 1.5 }} />
-         </Box>
+        <Image alt={''} src={product.cover} ratio="1/1" sx={{ borderRadius: 1.5 }} />
+      </Box>
 
       <Stack spacing={2.5} sx={{ p: 3 }}>
         <Link component={NextLink} href={linkTo} color="inherit" variant="subtitle2" noWrap>
-          {product.title}
+          {product.name}
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -126,8 +103,7 @@ export default function ShopProductCard({ product }: Props) {
               </Box>
             )}
 
-            <Box component="span">{15.20}</Box>
-
+            <Box component="span">{15.2}</Box>
           </Stack>
         </Stack>
       </Stack>
