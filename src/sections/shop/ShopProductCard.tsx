@@ -6,7 +6,6 @@ import NextLink from 'next/link';
 import { Box, Card, Link, Stack, Fab } from '@mui/material';
 // routes
 
-
 // components
 import Iconify from '../../components/iconify';
 import Label from '../../components/label';
@@ -28,8 +27,8 @@ type Props = {
 export default function ShopProductCard({ product }: Props) {
   // const { id, name, cover, price, colors, status, available, sizes, priceSale } = product;
   //const linkTo = (`/tienda/${product.title}`);
-  const linkTo = "#";
-  const status = "sale";
+  const linkTo = '#';
+  const status = 'sale';
 
   const ctx = useContext(CartContext);
   const { handleAddCart } = ctx;
@@ -86,8 +85,8 @@ export default function ShopProductCard({ product }: Props) {
           <Iconify icon="ic:round-add-shopping-cart" />
         </Fab>
 
-          <Image alt={""} src={product.cover} ratio="1/1" sx={{ borderRadius: 1.5 }} />
-         </Box>
+        <Image alt={''} src={product.cover} ratio="1/1" sx={{ borderRadius: 1.5 }} />
+      </Box>
 
       <Stack spacing={2.5} sx={{ p: 3 }}>
         <Link component={NextLink} href={linkTo} color="inherit" variant="subtitle2" noWrap>
@@ -104,8 +103,7 @@ export default function ShopProductCard({ product }: Props) {
               </Box>
             )}
 
-            <Box component="span">{15.20}</Box>
-
+            <Box component="span">{15.2}</Box>
           </Stack>
         </Stack>
       </Stack>
