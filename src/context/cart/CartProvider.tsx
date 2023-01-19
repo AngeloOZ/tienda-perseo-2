@@ -21,23 +21,6 @@ const CART_INITIAL_STATE: IProductCheckoutState = {
 export const CartProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
-  useEffect(()=>{
-    const produ1: ICheckoutCartItem = {
-      id: '1',
-      name: 'nikemax',
-      cover: '',
-      available: 5,
-      price: 50.6,
-      colors: [],
-      size: '',
-      quantity: 1,
-      subtotal: 0
-    }
-    dispatch({ type: '[Cart] - Add products in cart', payload: produ1 });
-    dispatch({ type: '[Cart] - Add products in cart', payload: produ1 });
-    dispatch({ type: '[Cart] - Add products in cart', payload: produ1 });
-  },[]);
-
   useEffect(() => {
     if(state.cart.length)
       sessionStorage.setItem('CART', JSON.stringify(state.cart));

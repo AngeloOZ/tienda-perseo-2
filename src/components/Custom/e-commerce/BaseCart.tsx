@@ -18,9 +18,9 @@ interface Props {
   funApplyDiscount: (value: number) => void;
   funIncreaseQuantity: (productId: string) => void;
   funDecreaseQuantity: (productID: string) => void;
-}
+}``
 
-export const CustomBaseCart: FC<Props> = ({
+export const BaseCart: FC<Props> = ({
   checkout,
   funDeleteCart,
   funApplyDiscount,
