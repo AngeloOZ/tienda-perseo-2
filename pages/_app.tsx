@@ -26,11 +26,12 @@ import SnackbarProvider from '../src/components/snackbar';
 import { MotionLazyContainer } from '../src/components/animate';
 import { ThemeSettings, SettingsProvider } from '../src/components/settings';
 import '../custom/styles/globals.css'
+import { AuthProvider } from 'src/auth/context';
 
 // Check our docs
 // https://docs.minimals.cc/authentication/ts-version
 
-import { AuthProvider } from '../src/auth/JwtContext';
+// import { AuthProvider } from '../src/auth/JwtContext';
 
 // ----------------------------------------------------------------------
 
@@ -55,9 +56,8 @@ export default function MyApp(props: MyAppProps) {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-
-{/*       <AuthProvider>
- */}        <SettingsProvider>
+      <AuthProvider>
+        <SettingsProvider>
           <MotionLazyContainer>
             <ThemeProvider>
               <ThemeSettings>
@@ -71,7 +71,7 @@ export default function MyApp(props: MyAppProps) {
             </ThemeProvider>
           </MotionLazyContainer>
         </SettingsProvider>
-{/*       </AuthProvider>
- */}    </CacheProvider>
+      </AuthProvider>
+    </CacheProvider>
   );
 }

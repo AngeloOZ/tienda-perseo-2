@@ -1,5 +1,4 @@
 // routes
-import { PATH_AUTH, PATH_DOCS, PATH_PAGE } from '../../../routes/paths';
 // config
 import { PATH_AFTER_LOGIN } from '../../../config-global';
 // components
@@ -16,7 +15,7 @@ const navConfig = [
   {
     title: 'Components',
     icon: <Iconify icon="ic:round-grain" />,
-    path: PATH_PAGE.components,
+    path: "#",
   },
   {
     title: 'Pages',
@@ -26,30 +25,30 @@ const navConfig = [
       {
         subheader: 'Other',
         items: [
-          { title: 'About us', path: PATH_PAGE.about },
-          { title: 'Contact us', path: PATH_PAGE.contact },
-          { title: 'FAQs', path: PATH_PAGE.faqs },
-          { title: 'Pricing', path: PATH_PAGE.pricing },
-          { title: 'Payment', path: PATH_PAGE.payment },
-          { title: 'Maintenance', path: PATH_PAGE.maintenance },
-          { title: 'Coming Soon', path: PATH_PAGE.comingSoon },
+          { title: 'About us', path: "#" },
+          { title: 'Contact us', path: "#" },
+          { title: 'FAQs', path: "#" },
+          { title: 'Pricing', path: "#" },
+          { title: 'Payment', path: "#" },
+          { title: 'Maintenance', path: "#" },
+          { title: 'Coming Soon', path: "#" },
         ],
       },
       {
         subheader: 'Authentication',
         items: [
-          { title: 'Login', path: PATH_AUTH.loginUnprotected },
-          { title: 'Register', path: PATH_AUTH.registerUnprotected },
-          { title: 'Reset password', path: PATH_AUTH.resetPassword },
-          { title: 'Verify code', path: PATH_AUTH.verify },
+          { title: 'Login', path: "#" },
+          { title: 'Register', path: "#" },
+          { title: 'Reset password', path: "#" },
+          { title: 'Verify code', path: "#" },
         ],
       },
       {
         subheader: 'Error',
         items: [
-          { title: 'Page 403', path: PATH_PAGE.page403 },
-          { title: 'Page 404', path: PATH_PAGE.page404 },
-          { title: 'Page 500', path: PATH_PAGE.page500 },
+          { title: 'Page 403', path: "#" },
+          { title: 'Page 404', path: "#" },
+          { title: 'Page 500', path: "#" },
         ],
       },
       {
@@ -61,7 +60,7 @@ const navConfig = [
   {
     title: 'Documentation',
     icon: <Iconify icon="eva:book-open-fill" />,
-    path: PATH_DOCS.root,
+    path: "#",
   },
 ];
 

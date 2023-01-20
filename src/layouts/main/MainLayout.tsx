@@ -17,7 +17,7 @@ import { CartContext } from 'src/context';
 
 type Props = {
   children?: React.ReactNode;
-  handleShowCart: React.MouseEventHandler<HTMLButtonElement>;
+  handleShowCart: VoidFunction;
 };
 
 export default function MainLayout({ children, handleShowCart }: Props) {

@@ -10,10 +10,12 @@ type Data =
         message: string
     } |
     {
-        id: number,
-        nombre: string,
-        identificacion: string,
-        correo: string,
+        user: {
+            id: number,
+            nombre: string,
+            identificacion: string,
+            correo: string,
+        }
         token: string
     }
 
@@ -43,10 +45,12 @@ async function verifyJWT(req: NextApiRequest, res: NextApiResponse<Data>) {
         }
 
         return res.status(200).json({
-            id: user.id,
-            nombre: user.nombres,
-            identificacion: user.identificacion,
-            correo: user.correo,
+            user: {
+                id: user.id,
+                nombre: user.nombres,
+                identificacion: user.identificacion,
+                correo: user.correo,
+            },
             token: await jwt.signToken(user)
         });
 

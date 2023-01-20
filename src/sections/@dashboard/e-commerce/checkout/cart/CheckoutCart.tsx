@@ -73,7 +73,7 @@ export default function CheckoutCart({
 
         <Button
           component={NextLink}
-          href={PATH_DASHBOARD.eCommerce.root}
+          href={"#"}
           color="inherit"
           startIcon={<Iconify icon="eva:arrow-ios-back-fill" />}
         >

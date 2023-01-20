@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 // next
 import { useRouter } from 'next/router';
 // @mui
@@ -7,12 +7,12 @@ import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
 // routes
 import { PATH_AUTH } from '../../../routes/paths';
 // auth
-import { useAuthContext } from '../../../auth/useAuthContext';
 // components
 import { CustomAvatar } from '../../../components/custom-avatar';
 import { useSnackbar } from '../../../components/snackbar';
 import MenuPopover from '../../../components/menu-popover';
 import { IconButtonAnimate } from '../../../components/animate';
+import { AuthContext } from 'src/auth';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ const OPTIONS = [
 export default function AccountPopover() {
   const { replace, push } = useRouter();
 
-  const { user, logout } = useAuthContext();
+  const { user, logoutUser } = useContext(AuthContext);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -52,12 +52,12 @@ export default function AccountPopover() {
 
   const handleLogout = async () => {
     try {
-      logout();
+      logoutUser();
       replace(PATH_AUTH.login);
       handleClosePopover();
     } catch (error) {
       console.error(error);
-      enqueueSnackbar('Unable to logout!', { variant: 'error' });
+      enqueueSnackbar('Unable to logoutUser!', { variant: 'error' });
     }
   };
 
@@ -85,17 +85,17 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <CustomAvatar src={user?.photoURL} alt={user?.displayName} name={user?.displayName} />
+        <CustomAvatar src={ 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg'} alt={user?.nombres} name={user?.nombres} />
       </IconButtonAnimate>
 
       <MenuPopover open={openPopover} onClose={handleClosePopover} sx={{ width: 200, p: 0 }}>
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {user?.displayName}
+            {user?.nombres}
           </Typography>
 
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {user?.email}
+            {user?.correo}
           </Typography>
         </Box>
 

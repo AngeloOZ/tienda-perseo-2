@@ -11,10 +11,12 @@ type Data =
         data?: any
     } |
     {
-        id: number,
-        nombre: string,
-        identificacion: string,
-        correo: string,
+        user: {
+            id: number,
+            nombre: string,
+            identificacion: string,
+            correo: string,
+        }
         token: string
     }
 
@@ -43,10 +45,12 @@ async function loginUser(req: NextApiRequest, res: NextApiResponse<Data>) {
 
         const token = await jwt.signToken(user)
         return res.status(200).json({
-            id: user.id,
-            nombre: user.nombres,
-            identificacion: user.identificacion,
-            correo: user.correo,
+            user: {
+                id: user.id,
+                nombre: user.nombres,
+                identificacion: user.identificacion,
+                correo: user.correo,
+            },
             token
         });
 
