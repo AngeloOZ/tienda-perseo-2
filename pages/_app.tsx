@@ -1,5 +1,6 @@
 // i18n
 import '../src/locales/i18n';
+import 'react-quill/dist/quill.snow.css';
 
 // scroll bar
 import 'simplebar/src/simplebar.css';

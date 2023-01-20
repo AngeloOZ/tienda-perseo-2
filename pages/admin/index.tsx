@@ -1,12 +1,25 @@
-import { NextPage } from 'next'
-import AuthGuard from 'src/auth/AuthGuard'
+import { Container } from '@mui/material'
+import Head from 'next/head'
 
-const PageAdmin: NextPage = () => {
+import { BlogNewPostForm } from '../../src/sections/blog';
+import { useSettingsContext } from 'src/components/settings'
+import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
+
+
+PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>
+
+export default function PageAdmin() {
+    const { themeStretch } = useSettingsContext();
+
     return (
-        <AuthGuard>
-            Dashboad
-        </AuthGuard>
-    )
-}
+        <>
+            <Head>
+                <title> Blog: New Post | Minimal UI</title>
+            </Head>
 
-export default PageAdmin
+            <Container maxWidth={themeStretch ? false : 'lg'}>
+                <BlogNewPostForm />
+            </Container>
+        </>
+    )
+} 1

@@ -11,20 +11,21 @@ datasource db {
 }
 
 model Producto {
-  id          Int     @id @default(autoincrement())
-  name      String  @db.LongText
-  description String  @db.LongText
-  cover       String? @db.LongText
-  available  Int     @default(0)
-  price       Float   @default(0.0)    
+  id          Int    @id @default(autoincrement())
+  name        String @db.LongText
+  description String @db.LongText
+  cover       String @db.LongText
+  imagenes    String @db.LongText
+  available   Int    @default(0)
+  price       Float  @default(0.0)
 }
 
 model Usuario {
-  id    Int     @id @default(autoincrement())
-  identificacion String @db.VarChar(10) @unique 
-  correo String @db.VarChar(100)
-  nombres  String @db.VarChar(100)
-  clave String @db.VarChar(100)
-  rol String
-  fechacreado DateTime? @default(now())
+  id             Int       @id @default(autoincrement())
+  identificacion String    @unique @db.VarChar(10)
+  correo         String    @db.VarChar(100)
+  nombres        String    @db.VarChar(100)
+  clave          String    @db.VarChar(100)
+  rol            String
+  fechacreado    DateTime? @default(now())
 }
