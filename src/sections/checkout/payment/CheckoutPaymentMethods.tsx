@@ -19,12 +19,12 @@ import {
   FormControlLabel,
 } from '@mui/material';
 // @types
-import { ICheckoutCardOption, ICheckoutPaymentOption } from '../../../../../@types/product';
+import { ICheckoutCardOption, ICheckoutPaymentOption } from '../../../@types/product';
 // components
-import Image from '../../../../../components/image';
-import Iconify from '../../../../../components/iconify';
+import Image from '../../../components/image';
+import Iconify from '../../../components/iconify';
 // section
-import { PaymentNewCardDialog } from '../../../../payment';
+import { PaymentNewCardDialog } from '../../payment';
 
 // ----------------------------------------------------------------------
 

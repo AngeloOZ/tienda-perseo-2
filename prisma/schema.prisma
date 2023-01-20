@@ -10,13 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model Usuario {
-  id    Int     @id @default(autoincrement())
-  identificacion String @db.VarChar(10) @unique 
-  correo String @db.VarChar(100)
-  nombres  String @db.VarChar(100)
-  clave String @db.VarChar(100)
-  rol String
-  fechacreado DateTime? @default(now())
+model Producto {
+  id          Int     @id @default(autoincrement())
+  nombre      String  @db.LongText
+  description String  @db.LongText
+  cover       String? @db.LongText
+  disponible  Int     @default(0)
+  price       Float   @default(0.0)
+  cantidad    Int     @default(0)
+  subtotal    Float   @default(0.0)
 }

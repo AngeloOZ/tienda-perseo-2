@@ -4,12 +4,12 @@ import NextLink from 'next/link';
 // @mui
 import { Grid, Card, Button, CardHeader, Typography } from '@mui/material';
 // routes
-import { PATH_DASHBOARD } from '../../../../../routes/paths';
+import { PATH_DASHBOARD } from '../../../routes/paths';
 // @types
-import { IProductCheckoutState } from '../../../../../@types/product';
+import { IProductCheckoutState } from '../../../@types/product';
 // components
-import Iconify from '../../../../../components/iconify';
-import EmptyContent from '../../../../../components/empty-content';
+import Iconify from '../../../components/iconify';
+import EmptyContent from '../../../components/empty-content';
 //
 import CheckoutSummary from '../CheckoutSummary';
 import CheckoutCartProductList from './CheckoutCartProductList';
@@ -73,7 +73,7 @@ export default function CheckoutCart({
 
         <Button
           component={NextLink}
-          href={PATH_DASHBOARD.eCommerce.root}
+          //href={PATH_DASHBOARD.eCommerce.root}
           color="inherit"
           startIcon={<Iconify icon="eva:arrow-ios-back-fill" />}
         >

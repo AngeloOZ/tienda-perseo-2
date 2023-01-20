@@ -5,8 +5,8 @@ import { CartProvider } from 'src/context';
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout';
 import { ICheckoutCartItem } from 'src/@types/product';
 import MainLayout from 'src/layouts/main/MainLayout';
-import { Cart } from 'src/components/Custom/e-commerce/cart';
-import { ShopProducts } from 'src/components/Custom/e-commerce/shop';
+import { Cart } from 'src/components/e-commerce/cart';
+import { ShopProducts } from 'src/components/e-commerce/shop';
 
 interface Props {
   products: ICheckoutCartItem[];

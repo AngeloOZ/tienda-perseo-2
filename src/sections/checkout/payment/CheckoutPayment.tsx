@@ -11,10 +11,10 @@ import {
   ICheckoutPaymentOption,
   ICheckoutDeliveryOption,
   IProductCheckoutState,
-} from '../../../../../@types/product';
+} from '../../../@types/product';
 // components
-import Iconify from '../../../../../components/iconify';
-import FormProvider from '../../../../../components/hook-form';
+import Iconify from '../../../components/iconify';
+import FormProvider from '../../../components/hook-form';
 //
 import CheckoutSummary from '../CheckoutSummary';
 import CheckoutDelivery from './CheckoutDelivery';

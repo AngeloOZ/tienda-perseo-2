@@ -14,15 +14,15 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // @types
-import { ICheckoutBillingAddress } from '../../../../../@types/product';
+import { ICheckoutBillingAddress } from '../../../@types/product';
 // assets
-import { countries } from '../../../../../assets/data';
+import { countries } from '../../../assets/data';
 import FormProvider, {
   RHFCheckbox,
   RHFSelect,
   RHFTextField,
   RHFRadioGroup,
-} from '../../../../../components/hook-form';
+} from '../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 

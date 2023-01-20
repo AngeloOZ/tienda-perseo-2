@@ -8,7 +8,7 @@ import EmptyContent from 'src/components/empty-content';
 import {
   CheckoutCartProductList,
   CheckoutSummary,
-} from 'src/sections/@dashboard/e-commerce/checkout';
+} from '../../../sections/checkout';
 import { IProductCheckoutState } from 'src/@types/product';
 
 interface Props {
