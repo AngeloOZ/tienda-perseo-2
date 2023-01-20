@@ -1,14 +1,15 @@
 // @mui
 import { Stack, Button, Typography, Box } from '@mui/material';
 // auth
-import { useAuthContext } from '../../../auth/useAuthContext';
 // locales
 import { useLocales } from '../../../locales';
+import { useContext } from 'react';
+import { AuthContext } from 'src/auth';
 
 // ----------------------------------------------------------------------
 
 export default function NavDocs() {
-  const { user } = useAuthContext();
+  const { user } = useContext(AuthContext);
 
   const { translate } = useLocales();
 
@@ -28,7 +29,7 @@ export default function NavDocs() {
 
       <div>
         <Typography gutterBottom variant="subtitle1">
-          {`${translate('docs.hi')}, ${user?.displayName}`}
+          {`${translate('docs.hi')}, ${user?.nombres}`}
         </Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary', whiteSpace: 'pre-line' }}>

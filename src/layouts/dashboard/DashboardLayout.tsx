@@ -12,7 +12,6 @@ import Main from './Main';
 import Header from './header';
 import NavMini from './nav/NavMini';
 import NavVertical from './nav/NavVertical';
-import NavHorizontal from './nav/NavHorizontal';
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +26,6 @@ export default function DashboardLayout({ children }: Props) {
 
   const [open, setOpen] = useState(false);
 
-  const isNavHorizontal = themeLayout === 'horizontal';
 
   const isNavMini = themeLayout === 'mini';
 
