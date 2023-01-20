@@ -78,7 +78,6 @@ export default function DashboardLayout({ children }: Props) {
         </Box>
       </>
     );
-  };
-
+  };  
   return <AuthGuard> {renderContent()} </AuthGuard>;
 }

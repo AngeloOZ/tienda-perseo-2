@@ -56,8 +56,8 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
-      <AuthProvider>
-        <SettingsProvider>
+{/*       <AuthProvider>
+ */}        <SettingsProvider>
           <MotionLazyContainer>
             <ThemeProvider>
               <ThemeSettings>
@@ -71,7 +71,7 @@ export default function MyApp(props: MyAppProps) {
             </ThemeProvider>
           </MotionLazyContainer>
         </SettingsProvider>
-      </AuthProvider>
-    </CacheProvider>
+{/*       </AuthProvider>
+ */}    </CacheProvider>
   );
 }
