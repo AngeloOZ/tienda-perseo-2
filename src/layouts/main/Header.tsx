@@ -69,8 +69,8 @@ export default function Header({ totalItems ,handleShowCart }: Props) {
             underline="none"
             sx={{ ml: 1 }}
           >
-            <Label color="info"> v4.1.0 </Label>
-          </Link>
+{/*             <Label color="info"> v4.1.0 </Label>
+ */}          </Link>
 
           <Box sx={{ flexGrow: 1 }} />
 
