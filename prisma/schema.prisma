@@ -12,11 +12,9 @@ datasource db {
 
 model Producto {
   id          Int     @id @default(autoincrement())
-  nombre      String  @db.LongText
+  name      String  @db.LongText
   description String  @db.LongText
   cover       String? @db.LongText
-  disponible  Int     @default(0)
-  price       Float   @default(0.0)
-  cantidad    Int     @default(0)
-  subtotal    Float   @default(0.0)
+  available  Int     @default(0)
+  price       Float   @default(0.0)    
 }
