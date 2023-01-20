@@ -28,7 +28,10 @@ export default function MainLayout({ children, handleShowCart }: Props) {
   const { totalItems } = ctx;
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: 1 }}>      
+  <Box sx={{ 
+    display: 'flex' , flexDirection: 'column', height: 1 , position: 'fixed'
+    
+    }}>      
       <Header totalItems={totalItems} handleShowCart={handleShowCart} />
       
       <Box
@@ -40,7 +43,7 @@ export default function MainLayout({ children, handleShowCart }: Props) {
           }),
         }}
       >
-        <Divider sx={{ border: 1, color:'inherit'}}/>
+        <Divider sx={{ color:'inherit'}}/>
         {children}
       </Box>
 
