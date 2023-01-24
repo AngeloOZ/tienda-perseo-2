@@ -35,7 +35,7 @@ export const BaseCart: FC<Props> = ({
     <Container>
       <Box sx={{ width: 'auto', paddingTop: 3, paddingLeft: 0, paddingRight: 0 }}>
 
-        <Button variant="contained" style={{ margin: 10 }} size="large" onClick={funShowCart}>
+        <Button variant="contained" style={{ margin: 10}} size="large" onClick={funShowCart}>
           <CloseIcon />
         </Button>
 
@@ -45,9 +45,9 @@ export const BaseCart: FC<Props> = ({
               <CardHeader
                 title={
                   <Typography variant="h6">
-                    Cart
+                    Carrito
                     <Typography component="span" sx={{ color: 'text.secondary' }}>
-                      &nbsp;({totalItems} item)
+                      &nbsp;({totalItems} productos)
                     </Typography>
                   </Typography>
                 }
@@ -63,9 +63,9 @@ export const BaseCart: FC<Props> = ({
                 />
               ) : (
                 <EmptyContent
-                  title="Cart is empty"
-                  description="Look like you have no items in your shopping cart."
-                  img="/assets/illustrations/illustration_empty_cart.svg"
+                  title="El carrito esta vacío"
+                  description="No tiene productos en su carrito de compras."
+                  img="../../../assets/illustrations/illustration_empty_cart.svg"
                 />
               )}
             </Card>
@@ -86,9 +86,22 @@ export const BaseCart: FC<Props> = ({
               variant="contained"
               disabled={!cart.length}
               // onClick={handleNextStep}
+              sx={{ mb:2 }}
             >
-              Check Out
+              Siguiente
             </Button>
+
+            <Button 
+              fullWidth
+              size="large"
+              type="submit"
+              variant="outlined" 
+              onClick={funShowCart}
+              sx={{ mb:2 }}
+              >
+              <CloseIcon />
+            </Button>
+
           </Grid>
         </Grid>
       </Box>
