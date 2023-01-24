@@ -28,7 +28,7 @@ export const BaseCart: FC<Props> = ({
   funDecreaseQuantity,
   funShowCart,
 }) => {
-  const { cart, total, discount, subtotal, totalItems } = checkout;
+  const { cart, total, discount, iva, subtotal, totalItems } = checkout;
   const isEmptyCart = !cart.length;
 
   return (
@@ -74,6 +74,7 @@ export const BaseCart: FC<Props> = ({
           <Grid item xs={12} md={4}>
             <CheckoutSummary
               enableDiscount={true}
+              iva={iva}
               total={total}
               discount={discount}
               subtotal={subtotal}

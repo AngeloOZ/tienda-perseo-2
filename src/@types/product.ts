@@ -11,18 +11,15 @@ export type IProductReview = {
 };
 
 export type IProduct = {
-  id: string;
-  cover: string;
+  id: string;  
   images: string[];
   name: string;
   price: number;      
-  // priceSale: number | null;
+  priceSale: number | null;
   totalRating: number;
   totalReview: number;
-  // colors: string[];
   status: string;
-  inventoryType: string;
-  // sizes: string[];
+  inventoryType: string;  
   available: number;
   description: string;      
 };
@@ -33,10 +30,8 @@ export type ICheckoutCartItem = {
   id: string;
   name: string;
   cover: string;
-  available: number;
-  price: number;
-  colors: string[];
-  size: string;
+  available: number;  
+  price: number;  
   quantity: number;
   subtotal: number;
 };
@@ -54,6 +49,7 @@ export type IProductCheckoutState = {
   activeStep: number;
   cart: ICheckoutCartItem[];
   subtotal: number;
+  iva: number
   total: number;
   discount: number;
   shipping: number;

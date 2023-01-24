@@ -3,7 +3,7 @@ import { useContext } from 'react';
 // next
 import NextLink from 'next/link';
 // @mui
-import { Box, Card, Link, Stack, Fab } from '@mui/material';
+import { Box, Card, Link, Stack, Fab, Typography } from '@mui/material';
 // routes
 
 // components
@@ -26,9 +26,11 @@ type Props = {
 };
 
 export default function ShopProductCard({ product }: Props) {
-  // const { id, name, cover, price, colors, status, available, sizes, priceSale } = product;
-  //const linkTo = (`/tienda/${product.title}`);
-  const linkTo = '#';
+  const { name, cover, price } = product;
+  
+  const router = useRouter();
+
+  const linkTo = `tienda/producto/${name}`;
   const status = '';
 
   const ctx = useContext(CartContext);
@@ -36,6 +38,10 @@ export default function ShopProductCard({ product }: Props) {
 
   const onAddCart = () => {
     handleAddCart(product);
+  };
+
+  const redirectToProducto = () => {
+    router.push(linkTo);
   };
 
   return (
@@ -85,32 +91,35 @@ export default function ShopProductCard({ product }: Props) {
         >
           <Iconify icon="ic:round-add-shopping-cart" />
         </Fab>
-
-        <Image alt={''} src={product.cover} ratio="1/1" sx={{ borderRadius: 1.5 }} />
+        <Image
+          alt={'Imagen'}
+          src={cover}
+          ratio="1/1"
+          sx={{ borderRadius: 1.5 }}
+          onClick={redirectToProducto}
+        />
       </Box>
 
       <Stack spacing={2.5} sx={{ p: 3 }}>
         <Link component={NextLink} href={linkTo} color="inherit" variant="subtitle2" noWrap>
-          {product.name}
+          {name}
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           {/* <ColorPreview colors={colors} /> */}
 
-          
           <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
             {true && (
               <Box component="span" sx={{ color: 'inherit' }}>
-                {fCurrency(product.price)}
+                {fCurrency(price) + " "}
+                <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
+                  + IVA
+                </Typography>
               </Box>
             )}
-            
+
             {/* <Box component="span">{15.2}</Box> */}
           </Stack>
-
-
-
-
         </Stack>
       </Stack>
     </Card>

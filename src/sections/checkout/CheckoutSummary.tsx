@@ -21,6 +21,7 @@ import Iconify from '../../components/iconify';
 type Props = {
   total: number;
   discount?: number;
+  iva?: number;
   subtotal: number;
   shipping?: number;
   onEdit?: VoidFunction;
@@ -33,6 +34,7 @@ export default function CheckoutSummary({
   total,
   onEdit,
   discount,
+  iva,
   subtotal,
   shipping,
   onApplyDiscount,
@@ -76,6 +78,15 @@ export default function CheckoutSummary({
             </Typography>
             <Typography variant="subtitle2">
               {shipping ? fCurrency(shipping) : displayShipping}
+            </Typography>
+          </Stack>
+          
+          <Stack direction="row" justifyContent="space-between">
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              IVA
+            </Typography>
+            <Typography variant="subtitle2">
+              {iva ? fCurrency(iva) : '-'}
             </Typography>
           </Stack>
 

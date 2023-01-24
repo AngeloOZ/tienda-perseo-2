@@ -1,6 +1,6 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Box, Button, AppBar, Toolbar, Container, Link, BoxProps, Badge } from '@mui/material';
+import { Box, Button, AppBar, Toolbar, Container, BoxProps, Badge } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
@@ -25,8 +25,7 @@ import { StyledRoot } from '../login/styles';
 
 // ----------------------------------------------------------------------
 interface Props {
-  totalItems: number;
-  //handleShowCart: React.MouseEventHandler<HTMLButtonElement>;
+  totalItems: number;  
   onShowCart: VoidFunction;
 }
 
@@ -61,18 +60,7 @@ export default function Header({ totalItems, onShowCart }: Props) {
         }}
       >
         <Container maxWidth="xl" sx={{ height: 1, display: 'flex', alignItems: 'center' }}>
-          <Logo />
-          <Link
-            // href={PATH_DOCS.changelog}
-            target="_blank"
-            rel="noopener"
-            underline="none"
-            sx={{ ml: 1 }}
-          >
-            {/*             <Label color="info"> v4.1.0 </Label>
-             */}
-          </Link>
-
+          <Logo />          
           <Box sx={{ flexGrow: 1 }} />
 
           {/* {isDesktop && <NavDesktop isOffset={isOffset} data={navConfig} />} */}
@@ -81,8 +69,7 @@ export default function Header({ totalItems, onShowCart }: Props) {
             Purchase Now
           </Button> */}
 
-          {/* -------------------- CART ------------------------- */}
-          {/* <CartWidget totalItems={checkout.totalItems} /> */}
+          {/* -------------------- CART ------------------------- */}          
 
           <Button variant="contained" style={{ margin: 10 }} size="large" onClick={onShowCart}>
             <Badge showZero badgeContent={totalItems} color="error" max={99}>
