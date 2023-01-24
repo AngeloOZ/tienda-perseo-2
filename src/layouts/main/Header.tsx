@@ -26,11 +26,11 @@ import { StyledRoot } from '../login/styles';
 // ----------------------------------------------------------------------
 interface Props {
   totalItems: number;
-  //handleShowCart: React.MouseEventHandler<HTMLButtonElement>;  
-  handleShowCart: VoidFunction;  
+  //handleShowCart: React.MouseEventHandler<HTMLButtonElement>;
+  onShowCart: VoidFunction;
 }
 
-export default function Header({ totalItems ,handleShowCart }: Props) {
+export default function Header({ totalItems, onShowCart }: Props) {
   const theme = useTheme();
 
   const isDesktop = useResponsive('up', 'md');
@@ -60,7 +60,7 @@ export default function Header({ totalItems ,handleShowCart }: Props) {
           }),
         }}
       >
-        <Container sx={{ height: 1, display: 'flex', alignItems: 'center' }}>
+        <Container maxWidth="xl" sx={{ height: 1, display: 'flex', alignItems: 'center' }}>
           <Logo />
           <Link
             // href={PATH_DOCS.changelog}
@@ -69,8 +69,9 @@ export default function Header({ totalItems ,handleShowCart }: Props) {
             underline="none"
             sx={{ ml: 1 }}
           >
-{/*             <Label color="info"> v4.1.0 </Label>
- */}          </Link>
+            {/*             <Label color="info"> v4.1.0 </Label>
+             */}
+          </Link>
 
           <Box sx={{ flexGrow: 1 }} />
 
@@ -82,10 +83,9 @@ export default function Header({ totalItems ,handleShowCart }: Props) {
 
           {/* -------------------- CART ------------------------- */}
           {/* <CartWidget totalItems={checkout.totalItems} /> */}
-                              
-          <Button variant="contained" style={{ margin: 10 }} size='large' 
-          onClick={handleShowCart}>            
-            <Badge showZero badgeContent={totalItems} color="error" max={99}>            
+
+          <Button variant="contained" style={{ margin: 10 }} size="large" onClick={onShowCart}>
+            <Badge showZero badgeContent={totalItems} color="error" max={99}>
               Carrito
               <Iconify icon="eva:shopping-cart-fill" width={25} />
             </Badge>

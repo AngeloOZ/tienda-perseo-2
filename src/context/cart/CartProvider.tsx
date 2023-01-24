@@ -22,7 +22,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
   useEffect(() => {
-    if(state.cart.length)
+    // if(state.cart.length)
       sessionStorage.setItem('CART', JSON.stringify(state.cart));
   }, [state.cart]);
 

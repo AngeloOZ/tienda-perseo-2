@@ -11,13 +11,19 @@ datasource db {
 }
 
 model Producto {
-  id          Int    @id @default(autoincrement())
-  name        String @db.LongText
-  description String @db.LongText
-  cover       String @db.LongText
-  imagenes    String @db.LongText
-  available   Int    @default(0)
-  price       Float  @default(0.0)
+  id          Int     @id @default(autoincrement())
+  name      String  @db.LongText
+  description String  @db.LongText
+  available  Int     @default(0)
+  price       Float   @default(0.0)    
+  images Images[]
+}
+
+model Images{
+  id Int @id @default(autoincrement())
+  image String @db.LongText
+  fk_product Int
+  product Producto @relation(fields: [fk_product], references: [id])
 }
 
 model Usuario {

@@ -3,13 +3,13 @@ import { useState, useRef, useEffect } from 'react';
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 // utils
-import { bgGradient } from '../../../../utils/cssStyles';
+import { bgGradient } from '../../utils/cssStyles';
 // @types
-import { IProduct } from '../../../../@types/product';
+import { IProduct } from '../../@types/product';
 // components
-import Image from '../../../../components/image';
-import Lightbox from '../../../../components/lightbox';
-import Carousel, { CarouselArrowIndex } from '../../../../components/carousel';
+import Image from '../../components/image';
+import Lightbox from '../../components/lightbox';
+import Carousel, { CarouselArrowIndex } from '../../components/carousel';
 
 // ----------------------------------------------------------------------
 
@@ -150,7 +150,7 @@ export default function ProductDetailsCarousel({ product }: Props) {
             key={img}
             alt="product"
             src={img}
-            ratio="1/1"
+            // ratio="1/1"
             onClick={() => handleOpenLightbox(img)}
             sx={{ cursor: 'zoom-in' }}
           />

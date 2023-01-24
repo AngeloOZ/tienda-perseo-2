@@ -33,7 +33,7 @@ export const BaseCart: FC<Props> = ({
 
   return (
     <Container>
-      <Box sx={{ width: 'auto', paddingTop: 10, paddingLeft: 0, paddingRight: 0 }}>
+      <Box sx={{ width: 'auto', paddingTop: 3, paddingLeft: 0, paddingRight: 0 }}>
 
         <Button variant="contained" style={{ margin: 10 }} size="large" onClick={funShowCart}>
           <CloseIcon />
