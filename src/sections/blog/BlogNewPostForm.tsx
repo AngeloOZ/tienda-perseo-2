@@ -58,6 +58,7 @@ export default function BlogNewPostForm() {
     tags: Yup.array().min(2, 'Must have at least 2 tags'),
     metaKeywords: Yup.array().min(1, 'Meta keywords is required'),
     cover: Yup.mixed().required('Cover is required').nullable(true),
+    cover2: Yup.mixed().required('Cover is required').nullable(true),
     content: Yup.string().required('Content is required'),
   });
 
@@ -66,6 +67,7 @@ export default function BlogNewPostForm() {
     description: '',
     content: '',
     cover: null,
+    cover2: [],
     tags: ['The Kid'],
     publish: true,
     comments: true,
@@ -129,6 +131,32 @@ export default function BlogNewPostForm() {
     setValue('cover', null);
   };
 
+  const handleDrop2 = useCallback(
+    (acceptedFiles: File[]) => {
+
+      const newFiles = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      );
+      const files = values.cover2;
+      setValue('cover2', [...files, ...newFiles], { shouldValidate: true });
+
+    },
+    [values.cover2, setValue]
+  );
+
+  const handleRemoveAllFiles = () => {
+    setValue('cover2', []);
+  };
+
+  const handleRemoveSpecificFile = (inputFile: File | string) => {
+    const filtered = values.cover2.filter((file: File | string) => file !== inputFile);
+    setValue('cover2', filtered);
+  }
+
+
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
@@ -161,6 +189,7 @@ export default function BlogNewPostForm() {
                   maxSize={3145728}
                   onDrop={handleDrop}
                   onDelete={handleRemoveFile}
+                  onRemove={handleRemoveFile}
                 />
               </Stack>
 
@@ -180,17 +209,27 @@ export default function BlogNewPostForm() {
                   sx={{ mx: 0, }}
                 />
 
-                <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                  Imagenes
-                </Typography>
 
 
-                <RHFUpload
-                  name="cover"
-                  maxSize={3145728}
-                  onDrop={handleDrop}
-                  onDelete={handleRemoveFile}
-                />
+                <Stack>
+                  <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                    Imagenes
+                  </Typography>
+                  <RHFUpload
+                    name="cover2"
+                    multiple
+                    maxSize={3145728}
+                    onDrop={handleDrop2}
+                    onRemove={handleRemoveSpecificFile}
+                  />
+                  {!!values.cover2.length && (
+                    <Button variant="outlined" color="inherit" onClick={handleRemoveAllFiles}>
+                      Remover todos los archivos
+                    </Button>
+                  )}
+                </Stack>
+
+
               </Stack>
             </Stack>
 

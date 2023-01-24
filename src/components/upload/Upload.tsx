@@ -170,11 +170,11 @@ function Placeholder({ sx, ...other }: StackProps) {
 
       <div>
         <Typography gutterBottom variant="h5">
-          Drop or Select file
+          Arrastre y suelte
         </Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Drop files here or click
+          Arrastre los archivos aquí, o haga 
           <Typography
             variant="body2"
             component="span"
@@ -184,9 +184,9 @@ function Placeholder({ sx, ...other }: StackProps) {
               textDecoration: 'underline',
             }}
           >
-            browse
+            clic aquí
           </Typography>
-          thorough your machine
+          para seleccionar los archivos
         </Typography>
       </div>
     </Stack>
