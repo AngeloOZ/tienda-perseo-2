@@ -1,9 +1,11 @@
 import { Container } from '@mui/material'
 import Head from 'next/head'
 
-import { BlogNewPostForm } from '../../src/sections/blog';
+
 import { useSettingsContext } from 'src/components/settings'
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
+import { BlogNewPostForm } from 'src/sections/blog'
+// import BlogNewPostForm from 'src/sections/blog/Nuevo'
 
 
 PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>

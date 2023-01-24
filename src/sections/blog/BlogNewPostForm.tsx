@@ -7,10 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
-import { Grid, Card, Stack, Button, Typography } from '@mui/material';
+import { Grid, Card, Stack, Button, Typography, MenuItem } from '@mui/material';
 
-
-// @types
 // components
 import { useSnackbar } from '../../components/snackbar';
 import FormProvider, {
@@ -18,62 +16,46 @@ import FormProvider, {
   RHFEditor,
   RHFUpload,
   RHFTextField,
-  RHFAutocomplete,
+  RHFSelect,
 } from '../../components/hook-form';
 //
 import BlogNewPostPreview from './BlogNewPostPreview';
 
-// ----------------------------------------------------------------------
+interface IProduct {
+  name: string;
+  price: number;
+  available: boolean;
+  category: string;
+  photo: string | File | null;
+  description: string;
+  images_list: [] | File[];
+};
 
-const TAGS_OPTION = [
-  'Toy Story 3',
-  'Logan',
-  'Full Metal Jacket',
-  'Dangal',
-  'The Sting',
-  '2001: A Space Odyssey',
-  "Singin' in the Rain",
-  'Toy Story',
-  'Bicycle Thieves',
-  'The Kid',
-  'Inglourious Basterds',
-  'Snatch',
-  '3 Idiots',
-];
-
-// ----------------------------------------------------------------------
-
-export type FormValuesProps = any;
+export type FormValuesProps = IProduct;
 
 export default function BlogNewPostForm() {
   const { push } = useRouter();
 
   const { enqueueSnackbar } = useSnackbar();
-
   const [openPreview, setOpenPreview] = useState(false);
 
   const NewBlogSchema = Yup.object().shape({
-    title: Yup.string().required('Title is required'),
-    description: Yup.string().required('Description is required'),
-    tags: Yup.array().min(2, 'Must have at least 2 tags'),
-    metaKeywords: Yup.array().min(1, 'Meta keywords is required'),
-    cover: Yup.mixed().required('Cover is required').nullable(true),
-    cover2: Yup.mixed().required('Cover is required').nullable(true),
-    content: Yup.string().required('Content is required'),
+    name: Yup.string().required('El titulo es requerido'),
+    price: Yup.number().required('El precio es requerido').min(1,'El precio debe ser mayor a 0').positive('El precio no puede ser negativo'),
+    category: Yup.string().required('La categoria es requerida'),
+    photo: Yup.mixed().required('La foto principal es requerida'),
+    description: Yup.string().required('La descripcion es requerida'),
+    images_list: Yup.array().min(1, 'Debe tener al menos 1 imagen').required('Las imagenes son requeridas'),
   });
 
   const defaultValues = {
-    title: '',
+    name: '',
+    price: 0,
+    available: true,
+    category: '',
+    photo: null,
     description: '',
-    content: '',
-    cover: null,
-    cover2: [],
-    tags: ['The Kid'],
-    publish: true,
-    comments: true,
-    metaTitle: '',
-    metaDescription: '',
-    metaKeywords: [],
+    images_list: [],
   };
 
   const methods = useForm<FormValuesProps>({
@@ -101,11 +83,11 @@ export default function BlogNewPostForm() {
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      handleClosePreview();
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      // reset();
+      // handleClosePreview();
       enqueueSnackbar('Post success!');
-      push("#productos");
+      // push("#productos");
       console.log('DATA', data);
     } catch (error) {
       console.error(error);
@@ -121,14 +103,14 @@ export default function BlogNewPostForm() {
       });
 
       if (file) {
-        setValue('cover', newFile, { shouldValidate: true });
+        setValue('photo', newFile, { shouldValidate: true });
       }
     },
     [setValue]
   );
 
   const handleRemoveFile = () => {
-    setValue('cover', null);
+    setValue('photo', null);
   };
 
   const handleDrop2 = useCallback(
@@ -139,23 +121,21 @@ export default function BlogNewPostForm() {
           preview: URL.createObjectURL(file),
         })
       );
-      const files = values.cover2;
-      setValue('cover2', [...files, ...newFiles], { shouldValidate: true });
+      const files = values.images_list;
+      setValue('images_list', [...files, ...newFiles], { shouldValidate: true });
 
     },
-    [values.cover2, setValue]
+    [values.images_list, setValue]
   );
 
   const handleRemoveAllFiles = () => {
-    setValue('cover2', []);
+    setValue('images_list', []);
   };
 
   const handleRemoveSpecificFile = (inputFile: File | string) => {
-    const filtered = values.cover2.filter((file: File | string) => file !== inputFile);
-    setValue('cover2', filtered);
+    const filtered = values.images_list.filter((file: File | string) => file !== inputFile);
+    setValue('images_list', filtered);
   }
-
-
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -165,27 +145,27 @@ export default function BlogNewPostForm() {
 
             <Stack spacing={3}>
               <RHFSwitch
-                name="publish"
+                name="available"
                 label="Disponibilidad del producto"
                 labelPlacement="start"
                 sx={{ mb: 1, mx: 0, width: 1, }}
               />
 
-              <RHFTextField name="title" label="Titulo" />
+              <RHFTextField name="name" label="Titulo" />
+              <RHFTextField name="price" label="Precio" type='number' />
+
+              <RHFSelect name='category' placeholder='Categoria' label='Categoria'>
+                <MenuItem value="">Default</MenuItem>
+                <MenuItem value="1">Hola 1</MenuItem>
+                <MenuItem value="2">Hola 2</MenuItem>
+              </RHFSelect>
 
               <Stack spacing={1}>
-                <RHFSwitch
-                  name=''
-                  label="Subir cover"
-                  labelPlacement="start"
-                  sx={{ mx: 0, }}
-                />
                 <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                  Cover
+                  Imagen principal
                 </Typography>
-
                 <RHFUpload
-                  name="cover"
+                  name="photo"
                   maxSize={3145728}
                   onDrop={handleDrop}
                   onDelete={handleRemoveFile}
@@ -195,45 +175,32 @@ export default function BlogNewPostForm() {
 
               <Stack spacing={1}>
                 <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                  Content
+                  Descripcion
                 </Typography>
-                <RHFEditor simple placeholder='Detalle del producto' name="content" />
+                <RHFEditor simple placeholder='Detalle del producto' name="description" />
               </Stack>
 
-              <Stack spacing={1}>
-
-                <RHFSwitch
-                  name=''
-                  label="Subir imagenes"
-                  labelPlacement="start"
-                  sx={{ mx: 0, }}
+              <Stack>
+                <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                  Imagenes
+                </Typography>
+                <RHFUpload
+                  name="images_list"
+                  multiple
+                  maxSize={3145728}
+                  onDrop={handleDrop2}
+                  onRemove={handleRemoveSpecificFile}
                 />
-
-
-
-                <Stack>
-                  <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                    Imagenes
-                  </Typography>
-                  <RHFUpload
-                    name="cover2"
-                    multiple
-                    maxSize={3145728}
-                    onDrop={handleDrop2}
-                    onRemove={handleRemoveSpecificFile}
-                  />
-                  {!!values.cover2.length && (
-                    <Button variant="outlined" color="inherit" onClick={handleRemoveAllFiles}>
-                      Remover todos los archivos
-                    </Button>
-                  )}
-                </Stack>
-
-
+                {!!values.images_list.length && (
+                  <Button variant="outlined" color="error" onClick={handleRemoveAllFiles}>
+                    Remover todos los archivos
+                  </Button>
+                )}
               </Stack>
+
             </Stack>
 
-            <Stack direction="row" spacing={1.5} sx={{ mt: 3 }}>
+            <Stack direction="row" spacing={1.5} sx={{ mt: 5 }}>
               <Button
                 fullWidth
                 color="inherit"
@@ -241,7 +208,7 @@ export default function BlogNewPostForm() {
                 size="large"
                 onClick={handleOpenPreview}
               >
-                Preview
+                Vista previa
               </Button>
 
               <LoadingButton
@@ -251,9 +218,10 @@ export default function BlogNewPostForm() {
                 size="large"
                 loading={isSubmitting}
               >
-                Post
+                Guardar
               </LoadingButton>
             </Stack>
+
           </Card>
         </Grid>
       </Grid>
