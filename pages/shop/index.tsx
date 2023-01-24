@@ -1,10 +1,8 @@
 import { NextPage } from 'next';
-import { useEffect, useState } from 'react';
-import { Drawer } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { ICheckoutCartItem } from 'src/@types/product';
 import { ShopProducts } from 'src/components/e-commerce/shop';
 import { CartProvider } from 'src/context';
-import { Cart } from 'src/components/e-commerce/cart';
 import MainLayout from 'src/layouts/main/MainLayout';
 
 const index: NextPage = () => {
@@ -12,7 +10,6 @@ const index: NextPage = () => {
   const handleShowCart = () => {
     setStateViewCart(!stateViewCart);
   };
-  useEffect(() => {}, [stateViewCart]);
 
   const products: ICheckoutCartItem[] = [
     {
@@ -25,7 +22,7 @@ const index: NextPage = () => {
       colors: [],
       size: '',
       quantity: 1,
-      subtotal: 100.0,
+      subtotal: 0,
     },
 
     {
@@ -38,24 +35,62 @@ const index: NextPage = () => {
       colors: [],
       size: '',
       quantity: 1,
-      subtotal: 20.0,
+      subtotal: 0,
+    },
+    {
+      id: '3',
+      name: 'Sneakers',
+      cover:
+        'https://paylessec.vtexassets.com/arquivos/ids/351896-800-800?v=637914449574030000&width=800&height=800&aspect=true',
+      available: 8,
+      price: 22.3,
+      colors: [],
+      size: '',
+      quantity: 1,
+      subtotal: 0,
+    },
+    {
+      id: '4',
+      name: 'Sneakers',
+      cover:
+        'https://paylessec.vtexassets.com/arquivos/ids/351896-800-800?v=637914449574030000&width=800&height=800&aspect=true',
+      available: 8,
+      price: 22.3,
+      colors: [],
+      size: '',
+      quantity: 1,
+      subtotal: 0,
+    },
+    {
+      id: '5',
+      name: 'Sneakers',
+      cover:
+        'https://paylessec.vtexassets.com/arquivos/ids/351896-800-800?v=637914449574030000&width=800&height=800&aspect=true',
+      available: 8,
+      price: 22.3,
+      colors: [],
+      size: '',
+      quantity: 1,
+      subtotal: 0,
+    },
+    {
+      id: '6',
+      name: 'Sneakers',
+      cover:
+        'https://paylessec.vtexassets.com/arquivos/ids/351896-800-800?v=637914449574030000&width=800&height=800&aspect=true',
+      available: 8,
+      price: 22.3,
+      colors: [],
+      size: '',
+      quantity: 1,
+      subtotal: 0,
     },
   ];
 
   return (
-    <CartProvider>
-      <MainLayout handleShowCart={handleShowCart}>
-        <Drawer
-          anchor="right"
-          open={stateViewCart}
-          onClose={handleShowCart}
-          PaperProps={{ sx: { width: '85%' } }}
-        >
-          <Cart onShowCart={handleShowCart} />
-        </Drawer>
-        <ShopProducts products={products} />
-      </MainLayout>
-    </CartProvider>
+    <MainLayout>
+      <ShopProducts products={products} />
+    </MainLayout>
   );
 };
 

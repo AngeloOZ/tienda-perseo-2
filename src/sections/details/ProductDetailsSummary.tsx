@@ -17,19 +17,18 @@ import {
   IconButton,
 } from '@mui/material';
 // routes
-import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
-import { fShortenNumber, fCurrency } from '../../../../utils/formatNumber';
+import { fShortenNumber, fCurrency } from '../../../src/utils/formatNumber';
 // @types
-import { IProduct, ICheckoutCartItem } from '../../../../@types/product';
+import { IProduct, ICheckoutCartItem } from '../../../src/@types/product';
 // _mock
-import { _socials } from '../../../../_mock/arrays';
+import { _socials } from '../../../src/_mock/arrays';
 // components
-import Label from '../../../../components/label';
-import Iconify from '../../../../components/iconify';
-import { IncrementerButton } from '../../../../components/custom-input';
-import { ColorSinglePicker } from '../../../../components/color-utils';
-import FormProvider, { RHFSelect } from '../../../../components/hook-form';
+import Label from '../../../src/components/label';
+import Iconify from '../../../src/components/iconify';
+import { IncrementerButton } from '../../../src/components/custom-input';
+import { ColorSinglePicker } from '../../../src/components/color-utils';
+import FormProvider, { RHFSelect } from '../../../src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -56,13 +55,13 @@ export default function ProductDetailsSummary({
   const {
     id,
     name,
-    sizes,
+    // sizes,
     price,
     cover,
     status,
-    colors,
+    // colors,
     available,
-    priceSale,
+    // priceSale,
     totalRating,
     totalReview,
     inventoryType,
@@ -79,8 +78,8 @@ export default function ProductDetailsSummary({
     cover,
     available,
     price,
-    colors: colors[0],
-    size: sizes[4],
+    // colors: colors[0],
+    // size: sizes[4],
     quantity: available < 1 ? 0 : 1,
   };
 
@@ -109,7 +108,7 @@ export default function ProductDetailsSummary({
         });
       }
       onGotoStep(0);
-      push(PATH_DASHBOARD.eCommerce.checkout);
+      push('#');
     } catch (error) {
       console.error(error);
     }
@@ -169,14 +168,14 @@ export default function ProductDetailsSummary({
           </Stack>
 
           <Typography variant="h4">
-            {priceSale && (
+           {/*  {priceSale && (
               <Box
                 component="span"
                 sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 0.5 }}
               >
                 {fCurrency(priceSale)}
               </Box>
-            )}
+            )} */}
 
             {fCurrency(price)}
           </Typography>
@@ -184,7 +183,7 @@ export default function ProductDetailsSummary({
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
+{/*         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="subtitle2">Color</Typography>
 
           <Controller
@@ -204,9 +203,9 @@ export default function ProductDetailsSummary({
               />
             )}
           />
-        </Stack>
+        </Stack> */}
 
-        <Stack direction="row" justifyContent="space-between">
+       {/*  <Stack direction="row" justifyContent="space-between">
           <Typography variant="subtitle2" sx={{ height: 40, lineHeight: '40px', flexGrow: 1 }}>
             Size
           </Typography>
@@ -234,7 +233,7 @@ export default function ProductDetailsSummary({
               </MenuItem>
             ))}
           </RHFSelect>
-        </Stack>
+        </Stack> */}
 
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="subtitle2" sx={{ height: 36, lineHeight: '36px' }}>
@@ -282,13 +281,13 @@ export default function ProductDetailsSummary({
           </Button>
         </Stack>
 
-        <Stack direction="row" alignItems="center" justifyContent="center">
+        {/* <Stack direction="row" alignItems="center" justifyContent="center">
           {_socials.map((social) => (
             <IconButton key={social.name}>
               <Iconify icon={social.icon} />
             </IconButton>
           ))}
-        </Stack>
+        </Stack> */}
       </Stack>
     </FormProvider>
   );
