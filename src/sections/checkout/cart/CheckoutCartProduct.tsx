@@ -57,7 +57,7 @@ export default function CheckoutCartProduct({
           />
 
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            available: {available}
+            Disponible: {available}
           </Typography>
         </Box>
       </TableCell>

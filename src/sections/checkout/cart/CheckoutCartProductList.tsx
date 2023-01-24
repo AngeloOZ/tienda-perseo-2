@@ -11,10 +11,10 @@ import CheckoutCartProduct from './CheckoutCartProduct';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'product', label: 'Product' },
-  { id: 'price', label: 'Price' },
-  { id: 'quantity', label: 'Quantity' },
-  { id: 'totalPrice', label: 'Total Price', align: 'right' },
+  { id: 'product', label: 'Producto' },
+  { id: 'price', label: 'Precio', align: 'center' },
+  { id: 'quantity', label: 'Cantidad' , align: 'center'},
+  { id: 'totalPrice', label: 'Precio Total', align: 'center' },
   { id: '' },
 ];
 
@@ -36,7 +36,7 @@ export default function CheckoutCartProductList({
   return (
     <TableContainer sx={{ overflow: 'unset' }}>
       <Scrollbar>
-        <Table sx={{ minWidth: 720 }}>
+        <Table sx={{ minWidth: 700 }}>
           <TableHeadCustom headLabel={TABLE_HEAD} />
 
           <TableBody>
