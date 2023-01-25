@@ -61,7 +61,7 @@ export default function ProductDetailsSummary({
     priceSale,
     totalRating,
     totalReview,
-    inventoryType,
+    category,
   } = product;
 
   const alreadyProduct = cart.map((item) => item.id).includes(id);
@@ -136,10 +136,10 @@ export default function ProductDetailsSummary({
         <Stack spacing={2}>
           <Label
             variant="soft"
-            color={inventoryType === 'in_stock' ? 'success' : 'error'}
+            color={category === 'in_stock' ? 'success' : 'error'}
             sx={{ textTransform: 'uppercase', mr: 'auto' }}
           >
-            {sentenceCase(inventoryType || '')}
+            {sentenceCase(category || '')}
           </Label>
 
           <Typography

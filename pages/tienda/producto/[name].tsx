@@ -77,10 +77,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       'https://i.dell.com/is/image/DellContent/content/dam/ss2/page-specific/category-pages/prod-2354-printer-epson-wf-c4810-lf-800x620.png?fmt=png-alpha&wid=800&hei=620',
       'https://imageio.forbes.com/blogs-images/davidhochman/files/2018/01/6042206_rd-1200x938.jpg?format=jpg&width=960',
     ],
-    inventoryType: 'Impresoras',
+    category: 'Impresoras',
     status: '',
     totalRating: 0,
-    totalReview: 0,
+    totalReview: 10,
   };
 
   return {

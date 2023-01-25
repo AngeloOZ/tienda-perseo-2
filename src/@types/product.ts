@@ -12,16 +12,20 @@ export type IProductReview = {
 
 export type IProduct = {
   id: string;  
-  images: string[];
   name: string;
-  price: number;      
-  priceSale: number | null;
-  totalRating: number;   //no va
-  totalReview: number;
-  status: string;  //in bool data
-  inventoryType: string;  //no va
-  available: number; //stock
   description: string;      
+  available: number; //stock
+  price: number;      
+  category: string
+  images: string[];
+  //cover: string;
+  status: string;  //in bool data
+  totalReview: number; //no va
+  priceSale: number | null;
+  totalRating: number;   
+  //inventoryType: string;  //no va
+  
+  
 };
 
 // ----------------------------------------------------------------------
