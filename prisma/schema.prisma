@@ -20,7 +20,7 @@ model Producto {
   images      String  @db.LongText
   cover       String  @db.LongText
   status      Boolean
-  review      Int
+  rating      Int
 }
 
 model Usuario {
