@@ -14,8 +14,7 @@ import { useContext, useState } from 'react';
 import { CartContext } from 'src/context';
 
 import { Cart } from 'src/components/e-commerce/cart';
-import FormasPago from 'custom/components/principal/FormasPago';
-import ImagenPricipal from 'custom/components/principal/ImagenPrincipal';
+
 
 // ----------------------------------------------------------------------
 
@@ -55,8 +54,6 @@ export default function MainLayout({ children }: Props) {
         }}
       >
         <Divider sx={{ color: 'inherit' }} />
-        <ImagenPricipal/> 
-         <FormasPago/>
  
         <Drawer
           anchor="right"

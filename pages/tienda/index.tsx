@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { ICheckoutCartItem } from 'src/@types/product';
 import { ShopProducts } from 'src/components/e-commerce/shop';
 import MainLayout from 'src/layouts/main/MainLayout';
+import ImagenPricipal from 'custom/components/principal/ImagenPrincipal';
+import FormasPago from 'custom/components/principal/FormasPago';
+import Categoria from 'custom/components/principal/Categoria';
 
 const index: NextPage = () => {
   const [stateViewCart, setStateViewCart] = useState(false);
@@ -36,6 +39,9 @@ const index: NextPage = () => {
 
   return (
     <MainLayout>
+        <ImagenPricipal/> 
+        <FormasPago/>
+        <Categoria/>
       <ShopProducts products={products} />
     </MainLayout>
   );
