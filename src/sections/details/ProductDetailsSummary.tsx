@@ -54,17 +54,14 @@ export default function ProductDetailsSummary({
 
   const {
     id,
-    name,
-    // sizes,
-    price,
-    cover,
-    status,
-    // colors,
+    name,    
+    price,    
+    status,    
     available,
-    // priceSale,
+    priceSale,
     totalRating,
     totalReview,
-    inventoryType,
+    category,
   } = product;
 
   const alreadyProduct = cart.map((item) => item.id).includes(id);
@@ -74,12 +71,9 @@ export default function ProductDetailsSummary({
 
   const defaultValues = {
     id,
-    name,
-    cover,
+    name,    
     available,
     price,
-    // colors: colors[0],
-    // size: sizes[4],
     quantity: available < 1 ? 0 : 1,
   };
 
@@ -97,13 +91,15 @@ export default function ProductDetailsSummary({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
+  
 
-  const onSubmit = async (data: FormValuesProps) => {
+
+/*   const onSubmit = async (data: FormValuesProps) => {
     try {
       if (!alreadyProduct) {
         onAddCart({
           ...data,
-          colors: [values.colors],
+          // colors: [values.colors],
           subtotal: data.price * data.quantity,
         });
       }
@@ -118,16 +114,16 @@ export default function ProductDetailsSummary({
     try {
       onAddCart({
         ...values,
-        colors: [values.colors],
+        // colors: [values.colors],
         subtotal: values.price * values.quantity,
       });
     } catch (error) {
       console.error(error);
     }
-  };
-
+  }; */
+  // onSubmit={handleSubmit(onSubmit)}
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider methods={methods} onSubmit={()=>{}}>
       <Stack
         spacing={3}
         sx={{
@@ -140,10 +136,10 @@ export default function ProductDetailsSummary({
         <Stack spacing={2}>
           <Label
             variant="soft"
-            color={inventoryType === 'in_stock' ? 'success' : 'error'}
+            color={category === 'in_stock' ? 'success' : 'error'}
             sx={{ textTransform: 'uppercase', mr: 'auto' }}
           >
-            {sentenceCase(inventoryType || '')}
+            {sentenceCase(category || '')}
           </Label>
 
           <Typography
@@ -168,7 +164,7 @@ export default function ProductDetailsSummary({
           </Stack>
 
           <Typography variant="h4">
-           {/*  {priceSale && (
+            {/* {priceSale && (
               <Box
                 component="span"
                 sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 0.5 }}
@@ -176,7 +172,6 @@ export default function ProductDetailsSummary({
                 {fCurrency(priceSale)}
               </Box>
             )} */}
-
             {fCurrency(price)}
           </Typography>
         </Stack>
@@ -204,37 +199,7 @@ export default function ProductDetailsSummary({
             )}
           />
         </Stack> */}
-
-       {/*  <Stack direction="row" justifyContent="space-between">
-          <Typography variant="subtitle2" sx={{ height: 40, lineHeight: '40px', flexGrow: 1 }}>
-            Size
-          </Typography>
-
-          <RHFSelect
-            name="size"
-            size="small"
-            helperText={
-              <Link underline="always" color="inherit">
-                Size Chart
-              </Link>
-            }
-            sx={{
-              maxWidth: 96,
-              '& .MuiFormHelperText-root': {
-                mx: 0,
-                mt: 1,
-                textAlign: 'right',
-              },
-            }}
-          >
-            {sizes.map((size) => (
-              <MenuItem key={size} value={size}>
-                {size}
-              </MenuItem>
-            ))}
-          </RHFSelect>
-        </Stack> */}
-
+      
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="subtitle2" sx={{ height: 36, lineHeight: '36px' }}>
             Quantity
@@ -270,7 +235,7 @@ export default function ProductDetailsSummary({
             color="warning"
             variant="contained"
             startIcon={<Iconify icon="ic:round-add-shopping-cart" />}
-            onClick={handleAddCart}
+            onClick={()=>{}}
             sx={{ whiteSpace: 'nowrap' }}
           >
             Add to Cart
@@ -280,14 +245,6 @@ export default function ProductDetailsSummary({
             Buy Now
           </Button>
         </Stack>
-
-        {/* <Stack direction="row" alignItems="center" justifyContent="center">
-          {_socials.map((social) => (
-            <IconButton key={social.name}>
-              <Iconify icon={social.icon} />
-            </IconButton>
-          ))}
-        </Stack> */}
       </Stack>
     </FormProvider>
   );

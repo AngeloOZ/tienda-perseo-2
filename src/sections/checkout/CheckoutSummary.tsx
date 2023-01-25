@@ -21,6 +21,7 @@ import Iconify from '../../components/iconify';
 type Props = {
   total: number;
   discount?: number;
+  iva?: number;
   subtotal: number;
   shipping?: number;
   onEdit?: VoidFunction;
@@ -33,18 +34,19 @@ export default function CheckoutSummary({
   total,
   onEdit,
   discount,
+  iva,
   subtotal,
   shipping,
   onApplyDiscount,
   enableEdit = false,
   enableDiscount = false,
 }: Props) {
-  const displayShipping = shipping !== null ? 'Free' : '-';
+  const displayShipping = shipping !== null ? 'Gratis' : '-';
 
   return (
     <Card sx={{ mb: 3 }}>
       <CardHeader
-        title="Order Summary"
+        title="Resumen del pedido"
         action={
           enableEdit && (
             <Button size="small" onClick={onEdit} startIcon={<Iconify icon="eva:edit-fill" />}>
@@ -65,17 +67,26 @@ export default function CheckoutSummary({
 
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Discount
+              Descuento
             </Typography>
             <Typography variant="subtitle2">{discount ? fCurrency(-discount) : '-'}</Typography>
           </Stack>
 
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Shipping
+              Envío
             </Typography>
             <Typography variant="subtitle2">
               {shipping ? fCurrency(shipping) : displayShipping}
+            </Typography>
+          </Stack>
+          
+          <Stack direction="row" justifyContent="space-between">
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              IVA
+            </Typography>
+            <Typography variant="subtitle2">
+              {iva ? fCurrency(iva) : '-'}
             </Typography>
           </Stack>
 
@@ -88,7 +99,6 @@ export default function CheckoutSummary({
                 {fCurrency(total)}
               </Typography>
               <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
-                (VAT included if applicable)
               </Typography>
             </Box>
           </Stack>
@@ -102,7 +112,7 @@ export default function CheckoutSummary({
                 endAdornment: (
                   <InputAdornment position="end">
                     <Button onClick={() => onApplyDiscount(5)} sx={{ mr: -0.5 }}>
-                      Apply
+                      Aplicar
                     </Button>
                   </InputAdornment>
                 ),

@@ -68,21 +68,19 @@ import { GetServerSideProps } from 'next';
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const product: IProduct = {
     id: '1',
-    name: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
-    cover:
-      'https://i.pinimg.com/564x/26/8b/e4/268be487927664b39974baa500d199ef--red-blazer-blazer-outfits.jpg',
+    name: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',    
     available: 5,
     price: 109.95,
-    // colors: [],
+    priceSale: 100.9,    
     description: '',
     images: [
-      'https://i.pinimg.com/564x/26/8b/e4/268be487927664b39974baa500d199ef--red-blazer-blazer-outfits.jpg',
-      'https://paylessec.vtexassets.com/arquivos/ids/351896-800-800?v=637914449574030000&width=800&height=800&aspect=true',
+      'https://i.dell.com/is/image/DellContent/content/dam/ss2/page-specific/category-pages/prod-2354-printer-epson-wf-c4810-lf-800x620.png?fmt=png-alpha&wid=800&hei=620',
+      'https://imageio.forbes.com/blogs-images/davidhochman/files/2018/01/6042206_rd-1200x938.jpg?format=jpg&width=960',
     ],
-    inventoryType: 'ropa',
+    category: 'Impresoras',
     status: '',
     totalRating: 0,
-    totalReview: 0,
+    totalReview: 10,
   };
 
   return {
