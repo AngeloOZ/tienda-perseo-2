@@ -16,17 +16,25 @@ import Image from '../../components/image';
 import { useRouter } from 'next/router';
 
 import { CartContext } from 'src/context';
-import { ICheckoutCartItem } from 'src/@types/product';
+import { IProduct, ICheckoutCartItem } from 'src/@types/product';
 import { fCurrency } from 'src/utils/formatNumber';
 
 // --------------------------------------s--------------------------------
 
 type Props = {
-  product: ICheckoutCartItem;
+  product: IProduct;
 };
 
 export default function ShopProductCard({ product }: Props) {
-  const { name, cover, price } = product;
+  
+  const { id, name, cover, price, available } = product;
+  
+  //Product used only for the cart.
+  const productForCart: ICheckoutCartItem = {
+    id, name, cover, available, price, 
+    quantity: 1,
+    subtotal: 0
+  }
   
   const router = useRouter();
 
@@ -37,7 +45,7 @@ export default function ShopProductCard({ product }: Props) {
   const { handleAddCart } = ctx;
 
   const onAddCart = () => {
-    handleAddCart(product);
+    handleAddCart(productForCart);
   };
 
   const redirectToProducto = () => {

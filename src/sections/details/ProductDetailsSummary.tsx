@@ -41,6 +41,8 @@ type Props = {
   cart: ICheckoutCartItem[];
   onAddCart: (cartItem: ICheckoutCartItem) => void;
   onGotoStep: (step: number) => void;
+  onIncreaseQuantity: (productId: string) => void;
+  onDecreaseQuantity: (productId: string) => void;
 };
 
 export default function ProductDetailsSummary({
@@ -48,33 +50,28 @@ export default function ProductDetailsSummary({
   product,
   onAddCart,
   onGotoStep,
+  onIncreaseQuantity,
+  onDecreaseQuantity,
   ...other
 }: Props) {
   const { push } = useRouter();
 
-  const {
-    id,
-    name,    
-    price,    
-    status,    
-    available,
-    priceSale,
-    totalRating,
-    totalReview,
-    category,
-  } = product;
+  const { id, name, price, cover, status, available, priceSale, totalRating, category } = product;
 
   const alreadyProduct = cart.map((item) => item.id).includes(id);
 
+  //Disable the "Agregar Al Carrito" buttom
   const isMaxQuantity =
     cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
 
-  const defaultValues = {
+  const defaultValues: ICheckoutCartItem = {
     id,
-    name,    
+    name,
+    cover,
     available,
     price,
     quantity: available < 1 ? 0 : 1,
+    subtotal: 0,
   };
 
   const methods = useForm<FormValuesProps>({
@@ -91,10 +88,45 @@ export default function ProductDetailsSummary({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
-  
 
+  useEffect(() => {
 
-/*   const onSubmit = async (data: FormValuesProps) => {
+    //console.log(cart.length);
+    
+
+    if (cart.length !== 0) {
+      const cartRef = cart.filter((item) => item.id === id);
+      setValue('quantity', cartRef[0].quantity);
+    }
+    console.log('actualizacion carrito');
+    
+  }, [cart]);
+
+  const funAddCart = async () => {
+    try {
+      // onAddCart({
+      //   ...values,
+      //   // colors: [values.colors],
+      //   subtotal: values.price * values.quantity,
+      // });
+      onAddCart({
+        ...defaultValues,
+        quantity: values.quantity,
+      });
+    } catch (error) { 
+      console.error(error);
+    }
+  };
+
+  const funIncreaseQuantity = () => {
+    onIncreaseQuantity(id);
+  }
+
+  const funDecreaseQuantity = () => {
+    onDecreaseQuantity(id);
+  }
+
+  /*   const onSubmit = async (data: FormValuesProps) => {
     try {
       if (!alreadyProduct) {
         onAddCart({
@@ -123,7 +155,7 @@ export default function ProductDetailsSummary({
   }; */
   // onSubmit={handleSubmit(onSubmit)}
   return (
-    <FormProvider methods={methods} onSubmit={()=>{}}>
+    <FormProvider methods={methods} onSubmit={() => {}}>
       <Stack
         spacing={3}
         sx={{
@@ -134,33 +166,28 @@ export default function ProductDetailsSummary({
         {...other}
       >
         <Stack spacing={2}>
+          <Typography
+            variant="overline"
+            component="div"
+            sx={{
+              color: status ? 'success.main' : 'warning.main',
+            }}
+          >
+            {status ? 'Disponible' : 'Agotado'}
+          </Typography>
+
           <Label
             variant="soft"
-            color={category === 'in_stock' ? 'success' : 'error'}
+            color={category ? 'primary' : 'warning'}
             sx={{ textTransform: 'uppercase', mr: 'auto' }}
           >
             {sentenceCase(category || '')}
           </Label>
 
-          <Typography
-            variant="overline"
-            component="div"
-            sx={{
-              color: status === 'sale' ? 'error.main' : 'info.main',
-            }}
-          >
-            {status}
-          </Typography>
-
           <Typography variant="h5">{name}</Typography>
 
           <Stack direction="row" alignItems="center" spacing={1}>
             <Rating value={totalRating} precision={0.1} readOnly />
-
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              ({fShortenNumber(totalReview)}
-              reviews)
-            </Typography>
           </Stack>
 
           <Typography variant="h4">
@@ -173,12 +200,15 @@ export default function ProductDetailsSummary({
               </Box>
             )} */}
             {fCurrency(price)}
+            <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
+              + IVA
+            </Typography>
           </Typography>
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-{/*         <Stack direction="row" alignItems="center" justifyContent="space-between">
+        {/*         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="subtitle2">Color</Typography>
 
           <Controller
@@ -199,10 +229,10 @@ export default function ProductDetailsSummary({
             )}
           />
         </Stack> */}
-      
+
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="subtitle2" sx={{ height: 36, lineHeight: '36px' }}>
-            Quantity
+            Cantidad
           </Typography>
 
           <Stack spacing={1}>
@@ -211,8 +241,10 @@ export default function ProductDetailsSummary({
               quantity={values.quantity}
               disabledDecrease={values.quantity <= 1}
               disabledIncrease={values.quantity >= available}
-              onIncrease={() => setValue('quantity', values.quantity + 1)}
-              onDecrease={() => setValue('quantity', values.quantity - 1)}
+             // onIncrease={() => setValue('quantity', values.quantity + 1)}
+             // onDecrease={() => setValue('quantity', values.quantity - 1)}
+             onIncrease={funIncreaseQuantity}
+             onDecrease={funDecreaseQuantity}
             />
 
             <Typography
@@ -220,7 +252,7 @@ export default function ProductDetailsSummary({
               component="div"
               sx={{ textAlign: 'right', color: 'text.secondary' }}
             >
-              Available: {available}
+              Disponible: {available}
             </Typography>
           </Stack>
         </Stack>
@@ -235,14 +267,14 @@ export default function ProductDetailsSummary({
             color="warning"
             variant="contained"
             startIcon={<Iconify icon="ic:round-add-shopping-cart" />}
-            onClick={()=>{}}
+            onClick={funAddCart}
             sx={{ whiteSpace: 'nowrap' }}
           >
-            Add to Cart
+            Agregar al Carrito
           </Button>
 
           <Button fullWidth size="large" type="submit" variant="contained">
-            Buy Now
+            Comprar Ahora
           </Button>
         </Stack>
       </Stack>
