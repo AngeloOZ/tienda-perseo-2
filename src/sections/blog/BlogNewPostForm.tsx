@@ -19,7 +19,7 @@ import FormProvider, {
   RHFSelect,
 } from '../../components/hook-form';
 //
-import BlogNewPostPreview from './BlogNewPostPreview';
+// import BlogNewPostPreview from './BlogNewPostPreview';
 
 interface IProduct {
   name: string;
@@ -37,7 +37,7 @@ export default function BlogNewPostForm() {
   const { push } = useRouter();
 
   const { enqueueSnackbar } = useSnackbar();
-  const [openPreview, setOpenPreview] = useState(false);
+  // const [openPreview, setOpenPreview] = useState(false);
 
   const NewBlogSchema = Yup.object().shape({
     name: Yup.string().required('El titulo es requerido'),
@@ -73,13 +73,13 @@ export default function BlogNewPostForm() {
 
   const values = watch();
 
-  const handleOpenPreview = () => {
-    setOpenPreview(true);
-  };
+  // const handleOpenPreview = () => {
+  //   setOpenPreview(true);
+  // };
 
-  const handleClosePreview = () => {
-    setOpenPreview(false);
-  };
+  // const handleClosePreview = () => {
+  //   setOpenPreview(false);
+  // };
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
@@ -151,7 +151,7 @@ export default function BlogNewPostForm() {
                 sx={{ mb: 1, mx: 0, width: 1, }}
               />
 
-              <RHFTextField name="name" label="Titulo" />
+              <RHFTextField name="name" label="Titulo" size='small' />
               <RHFTextField name="price" label="Precio" type='number' />
 
               <RHFSelect name='category' placeholder='Categoria' label='Categoria'>
@@ -201,7 +201,7 @@ export default function BlogNewPostForm() {
             </Stack>
 
             <Stack direction="row" spacing={1.5} sx={{ mt: 5 }}>
-              <Button
+              {/* <Button
                 fullWidth
                 color="inherit"
                 variant="outlined"
@@ -209,7 +209,7 @@ export default function BlogNewPostForm() {
                 onClick={handleOpenPreview}
               >
                 Vista previa
-              </Button>
+              </Button> */}
 
               <LoadingButton
                 fullWidth
@@ -226,14 +226,14 @@ export default function BlogNewPostForm() {
         </Grid>
       </Grid>
 
-      <BlogNewPostPreview
+      {/* <BlogNewPostPreview
         values={values}
         open={openPreview}
         isValid={isValid}
         isSubmitting={isSubmitting}
         onClose={handleClosePreview}
         onSubmit={handleSubmit(onSubmit)}
-      />
+      /> */}
     </FormProvider>
   );
 }

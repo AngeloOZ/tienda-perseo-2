@@ -4,8 +4,8 @@ import Head from 'next/head'
 
 import { useSettingsContext } from 'src/components/settings'
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
-import { BlogNewPostForm } from 'src/sections/blog'
-// import BlogNewPostForm from 'src/sections/blog/Nuevo'
+import { AgregarProducto } from 'custom/components'
+
 
 
 PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>
@@ -16,12 +16,9 @@ export default function PageAdmin() {
     return (
         <>
             <Head>
-                <title> Blog: New Post | Minimal UI</title>
+                <title>Agregar nuevo producto</title>
             </Head>
-
-            <Container maxWidth={themeStretch ? false : 'lg'}>
-                <BlogNewPostForm />
-            </Container>
+            <AgregarProducto />
         </>
     )
 } 1

@@ -32,3 +32,8 @@ model Usuario {
   rol            String
   fechacreado    DateTime? @default(now())
 }
+
+model Categoria{
+  id          Int     @id @default(autoincrement())
+  nombre        String  @db.VarChar(100)
+}
