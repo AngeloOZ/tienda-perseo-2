@@ -16,11 +16,11 @@ export type IProduct = {
   name: string;
   price: number;      
   priceSale: number | null;
-  totalRating: number;
+  totalRating: number;   //no va
   totalReview: number;
-  status: string;
-  inventoryType: string;  
-  available: number;
+  status: string;  //in bool data
+  inventoryType: string;  //no va
+  available: number; //stock
   description: string;      
 };
 
