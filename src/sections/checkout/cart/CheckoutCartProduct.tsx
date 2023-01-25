@@ -25,7 +25,7 @@ export default function CheckoutCartProduct({
   onDecrease,
   onIncrease,
 }: CheckoutProductListRowProps) {
-  const { name, size, price, colors, cover, quantity, available } = row;
+  const { name, price, cover, quantity, available } = row;
 
   return (
     <TableRow>
@@ -40,16 +40,7 @@ export default function CheckoutCartProduct({
           <Typography noWrap variant="subtitle2" sx={{ maxWidth: 240 }}>
             {name}
           </Typography>
-
-          <Stack
-            direction="row"
-            alignItems="center"
-            sx={{ typography: 'body2', color: 'text.secondary' }}
-          >
-            size: <Label sx={{ ml: 0.5 }}> {size} </Label>
-            <Divider orientation="vertical" sx={{ mx: 1, height: 16 }} />
-            <ColorPreview colors={colors} />
-          </Stack>
+          
         </Stack>
       </TableCell>
 
@@ -66,7 +57,7 @@ export default function CheckoutCartProduct({
           />
 
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            available: {available}
+            Disponible: {available}
           </Typography>
         </Box>
       </TableCell>

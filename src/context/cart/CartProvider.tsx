@@ -11,6 +11,7 @@ const CART_INITIAL_STATE: IProductCheckoutState = {
   activeStep: 0,
   cart: [],
   subtotal: 0,
+  iva: 0,
   total: 0,
   discount: 0,
   shipping: 0,
