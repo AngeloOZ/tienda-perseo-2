@@ -22,9 +22,22 @@ const CART_INITIAL_STATE: IProductCheckoutState = {
 export const CartProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
+/*   useEffect(() => {
+     
+      
+    try{
+      let cart = localStorage.getItem('CART')
+      console.log("ESTEE" + cart);    
+      dispatch({ type: '[Cart] - Load Cart', payload: cart })
+    }catch(e){
+      dispatch({ type: '[Cart] - Load Cart', payload: [] })
+    }
+      
+  }, []); */
+
   useEffect(() => {
     // if(state.cart.length)
-      sessionStorage.setItem('CART', JSON.stringify(state.cart));
+      localStorage.setItem('CART', JSON.stringify(state.cart));
   }, [state.cart]);
 
   useEffect(() => {

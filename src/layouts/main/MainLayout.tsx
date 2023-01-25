@@ -64,8 +64,8 @@ export default function MainLayout({ children }: Props) {
               width: {
                 xs: '100%',
                 md: '100%',
-                xl: '75%',
-                lg: '75%',
+                xl: '85%',
+                lg: '85%',
               },
             },
           }}

@@ -6,6 +6,7 @@ interface ContextProps {
     activeStep: number;
     cart: ICheckoutCartItem[];
     subtotal: number;
+    iva: number;
     total: number;
     discount: number;
     shipping: number;

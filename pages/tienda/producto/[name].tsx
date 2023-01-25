@@ -26,7 +26,7 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
   const { themeStretch } = useSettingsContext();
 
   const ctx = useContext(CartContext);
-  const { totalItems, cart, handleAddCart } = ctx;
+  const { cart, handleAddCart, handleIncreaseQuantity, handleDecreaseQuantity } = ctx;
 
   return (
     <>
@@ -50,6 +50,8 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
                     cart={cart}
                     onAddCart={handleAddCart}
                     onGotoStep={() => {}}
+                    onIncreaseQuantity={handleIncreaseQuantity}
+                    onDecreaseQuantity={handleDecreaseQuantity}
                   />
                 </Grid>
               </Grid>
@@ -68,7 +70,7 @@ import { GetServerSideProps } from 'next';
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const product: IProduct = {
     id: '1',
-    name: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',    
+    name: 'Epson® Workforce® Pro WF-3820 Wireless Color Inkjet All-in-One Printer, Black',    
     available: 5,
     price: 109.95,
     priceSale: 100.9,    
@@ -77,10 +79,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       'https://i.dell.com/is/image/DellContent/content/dam/ss2/page-specific/category-pages/prod-2354-printer-epson-wf-c4810-lf-800x620.png?fmt=png-alpha&wid=800&hei=620',
       'https://imageio.forbes.com/blogs-images/davidhochman/files/2018/01/6042206_rd-1200x938.jpg?format=jpg&width=960',
     ],
-    inventoryType: 'Impresoras',
-    status: '',
-    totalRating: 0,
-    totalReview: 0,
+    cover: 'https://i.dell.com/is/image/DellContent/content/dam/ss2/page-specific/category-pages/prod-2354-printer-epson-wf-c4810-lf-800x620.png?fmt=png-alpha&wid=800&hei=620',
+    category: 'Impresoras',
+    status: true,
+    totalRating: 3,    
   };
 
   return {
