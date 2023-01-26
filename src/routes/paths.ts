@@ -13,6 +13,8 @@ export const PATH_AUTH = {
 };
 
 export const PATH_DASHBOARD = {
+  productos: '/admin',
+  categorias: '/admin/categorias',
   root: ROOTS_DASHBOARD,
   one: path(ROOTS_DASHBOARD, '/one'),
   two: path(ROOTS_DASHBOARD, '/two'),
