@@ -8,6 +8,7 @@ interface Props{
 }
 
 export const ShopProducts:FC<Props> = ({ products }) => {
+
   return (
     <>
         <Box
