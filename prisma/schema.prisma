@@ -13,7 +13,7 @@ datasource db {
 
 model Producto {
   id          Int     @id @default(autoincrement())
-  name        String  @db.LongText
+  name        String  @db.VarChar(255)
   description String  @db.LongText
   stock       Int     @default(0)
   price       Float   @default(0.0)
@@ -37,4 +37,5 @@ model Usuario {
 model Categoria{
   id          Int     @id @default(autoincrement())
   nombre        String  @db.VarChar(100)
+  icono       String  @db.VarChar(250)
 }
