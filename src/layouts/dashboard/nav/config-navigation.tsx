@@ -13,8 +13,12 @@ const navConfig = [
     items: [
       {
         title: 'productos',
-        path: PATH_DASHBOARD.productos,
+        path: PATH_DASHBOARD.productos.root,
         icon: <Inventory />,
+        children: [
+          { title: 'Listar', path: PATH_DASHBOARD.productos.root },
+          { title: 'Agregar', path: PATH_DASHBOARD.productos.agregar },
+        ]
       },
       {
         title: 'categorias',
@@ -50,3 +54,4 @@ const navConfig = [
 ];
 
 export default navConfig;
+1

@@ -29,11 +29,13 @@ export default function (req: NextApiRequest, res: NextApiResponse) {
 
 const obtenerProductos = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const productos = await prisma.producto.findMany();
-
+        const productos = await obtenerProductosLocal();
+        await prisma.$disconnect();
         return res.status(200).json(productos)
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message, data: error })
+    } finally{
+        await prisma.$disconnect();
     }
 }
 
@@ -45,10 +47,12 @@ const obtenerProducto = async (req: NextApiRequest, res: NextApiResponse) => {
                 id: Number.parseInt(id)
             }
         });
-
+        await prisma.$disconnect();
         return res.status(200).json(producto)
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message, data: error })
+    } finally{
+        await prisma.$disconnect();
     }
 }
 
@@ -69,9 +73,24 @@ const registrarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
                 categoriaId: Number.parseInt(category)
             }
         })
-
+        await prisma.$disconnect();
         return res.status(200).json({ status: 200, message: 'Producto registrado', data: producto })
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message, data: error })
+    } finally{
+        await prisma.$disconnect();
+    }
+}
+
+
+export async function obtenerProductosLocal () {
+    try {
+        const productos = await prisma.producto.findMany();
+        await prisma.$disconnect();
+        return productos;
+    } catch (error) {
+        return [];
+    } finally{
+        await prisma.$disconnect();
     }
 }
