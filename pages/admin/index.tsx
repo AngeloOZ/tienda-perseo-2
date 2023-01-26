@@ -1,24 +1,18 @@
-import { Container } from '@mui/material'
-import Head from 'next/head'
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { PATH_ADMIN, PATH_DASHBOARD } from 'src/routes/paths';
+import LoadingScreen from 'src/components/loading-screen/LoadingScreen';
 
+// ----------------------------------------------------------------------
 
-import { useSettingsContext } from 'src/components/settings'
-import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
-import { AgregarProducto } from 'custom/components'
+export default function Index() {
+  const router = useRouter();
 
+  useEffect(() => {
+    if (router.pathname ===  PATH_ADMIN) {
+      router.push(PATH_DASHBOARD.productos.root);
+    }
+  });
 
-
-PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>
-
-export default function PageAdmin() {
-    const { themeStretch } = useSettingsContext();
-
-    return (
-        <>
-            <Head>
-                <title>Agregar nuevo producto</title>
-            </Head>
-            <AgregarProducto />
-        </>
-    )
-} 1
+  return <LoadingScreen />;
+}

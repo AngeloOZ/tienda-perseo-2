@@ -179,6 +179,7 @@ export function AgregarProducto() {
                                 </Typography>
                                 <RHFUpload
                                     name="images_list"
+                                    thumbnail
                                     multiple
                                     maxSize={3145728}
                                     onDrop={handleDrop2}

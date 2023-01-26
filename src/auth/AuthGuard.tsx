@@ -23,8 +23,10 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     if (isLoggedIn) {
       setRequestedLocation(null);
     }
+    
   }, [isLoggedIn, pathname, push, requestedLocation]);
 
+  console.log('isInitialized', isInitialized);
   if (!isInitialized) {
     return <LoadingScreen />;
   }
