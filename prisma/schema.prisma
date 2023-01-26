@@ -6,22 +6,30 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+model Categoria {
+  id     Int    @id @default(autoincrement())
+  nombre String @db.VarChar(100)
+  icono  String @db.VarChar(250)
+  producto Producto[]
+}
+
 model Producto {
-  id          Int     @id @default(autoincrement())
-  name        String  @db.VarChar(255)
-  description String  @db.LongText
-  stock       Int     @default(0)
-  price       Float   @default(0.0)
-  category    String
-  images      String  @db.LongText
-  cover       String  @db.LongText
+  id          Int        @id @default(autoincrement())
+  name        String     @db.VarChar(255)
+  description String     @db.LongText
+  stock       Int        @default(0)
+  price       Float      @default(0.0)  
+  images      String     @db.LongText
+  cover       String     @db.LongText
   status      Boolean
   rating      Int
+  categoriaId Int?
+  categoria    Categoria? @relation(fields: [categoriaId], references: [id])
 }
 
 model Usuario {
@@ -32,10 +40,4 @@ model Usuario {
   clave          String    @db.VarChar(100)
   rol            String
   fechacreado    DateTime? @default(now())
-}
-
-model Categoria{
-  id          Int     @id @default(autoincrement())
-  nombre        String  @db.VarChar(100)
-  icono       String  @db.VarChar(250)
 }
