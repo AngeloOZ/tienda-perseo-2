@@ -32,7 +32,7 @@ export default function ShopProductCard({ product }: Props) {
   //Product used only for the cart.
   const productForCart: ICheckoutCartItem = {
     id, name, cover, available, price, 
-    quantity: 1,
+    quantity: available < 1 ? 0 : 1,
     subtotal: 0
   }
   

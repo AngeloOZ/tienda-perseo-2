@@ -28,6 +28,7 @@ export const cartReducer = (state: IProductCheckoutState, action: CartActionType
         ...state,
         cart: [...action.payload],
       };
+      
     case '[Cart] - Add products in cart':
       const newProduct = action.payload;
       const isEmptyCart = !state.cart.length;

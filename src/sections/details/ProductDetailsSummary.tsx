@@ -64,6 +64,7 @@ export default function ProductDetailsSummary({
   const isMaxQuantity =
     cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
 
+  //productForCart
   const defaultValues: ICheckoutCartItem = {
     id,
     name,
@@ -89,6 +90,9 @@ export default function ProductDetailsSummary({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
+
+  
+  
   useEffect(() => {
 
     //console.log(cart.length);
