@@ -54,7 +54,7 @@ export default function ProductDetailsSummary({
   onDecreaseQuantity,
   ...other
 }: Props) {
-  const { push } = useRouter();
+  // const { push } = useRouter();
 
   const { id, name, price, cover, status, available, priceSale, totalRating, category } = product;
 
@@ -90,45 +90,40 @@ export default function ProductDetailsSummary({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
-
-  
-  
   useEffect(() => {
-
-    //console.log(cart.length);
-    
-
-    if (cart.length !== 0) {
+    if (cart.length !== 0) {          
       const cartRef = cart.filter((item) => item.id === id);
       setValue('quantity', cartRef[0].quantity);
+    }else if(cart.length === 0 && !alreadyProduct){
+      setValue('quantity', available < 1 ? 0 : 1);      
     }
-    console.log('actualizacion carrito');
-    
   }, [cart]);
 
   const funAddCart = async () => {
     try {
-      // onAddCart({
-      //   ...values,
-      //   // colors: [values.colors],
-      //   subtotal: values.price * values.quantity,
-      // });
-      onAddCart({
-        ...defaultValues,
-        quantity: values.quantity,
-      });
-    } catch (error) { 
+      if (cart.length === 0 && !alreadyProduct) {
+        onAddCart({
+          ...defaultValues,
+          quantity: values.quantity,
+          // subtotal: values.price * values.quantity
+        });
+      }
+    } catch (error) {
       console.error(error);
     }
   };
 
   const funIncreaseQuantity = () => {
-    onIncreaseQuantity(id);
-  }
+    cart.length !== 0 && alreadyProduct
+      ? onIncreaseQuantity(id)
+      : setValue('quantity', values.quantity + 1);
+  };
 
   const funDecreaseQuantity = () => {
-    onDecreaseQuantity(id);
-  }
+    cart.length !== 0 && alreadyProduct
+      ? onDecreaseQuantity(id)
+      : setValue('quantity', values.quantity - 1);
+  };
 
   /*   const onSubmit = async (data: FormValuesProps) => {
     try {
@@ -170,7 +165,7 @@ export default function ProductDetailsSummary({
         {...other}
       >
         <Stack spacing={2}>
-          <Typography
+          {/* <Typography
             variant="overline"
             component="div"
             sx={{
@@ -178,17 +173,18 @@ export default function ProductDetailsSummary({
             }}
           >
             {status ? 'Disponible' : 'Agotado'}
+          </Typography> */}
+
+          <Typography variant="h5">
+            {name}
+            <Label
+              variant="soft"
+              color={category ? 'primary' : 'warning'}
+              sx={{ textTransform: 'uppercase', mr: 'auto' }}
+            >
+              {sentenceCase(category || '')}
+            </Label>
           </Typography>
-
-          <Label
-            variant="soft"
-            color={category ? 'primary' : 'warning'}
-            sx={{ textTransform: 'uppercase', mr: 'auto' }}
-          >
-            {sentenceCase(category || '')}
-          </Label>
-
-          <Typography variant="h5">{name}</Typography>
 
           <Stack direction="row" alignItems="center" spacing={1}>
             <Rating value={totalRating} precision={0.1} readOnly />
@@ -245,10 +241,8 @@ export default function ProductDetailsSummary({
               quantity={values.quantity}
               disabledDecrease={values.quantity <= 1}
               disabledIncrease={values.quantity >= available}
-             // onIncrease={() => setValue('quantity', values.quantity + 1)}
-             // onDecrease={() => setValue('quantity', values.quantity - 1)}
-             onIncrease={funIncreaseQuantity}
-             onDecrease={funDecreaseQuantity}
+              onIncrease={funIncreaseQuantity}
+              onDecrease={funDecreaseQuantity}
             />
 
             <Typography

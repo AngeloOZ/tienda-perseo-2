@@ -8,10 +8,6 @@ import FormasPago from 'custom/components/principal/FormasPago';
 import Categoria from 'custom/components/principal/Categoria';
 
 const index: NextPage = () => {
-  const [stateViewCart, setStateViewCart] = useState(false);
-  const handleShowCart = () => {
-    setStateViewCart(!stateViewCart);
-  };
 
   const products: IProduct[] = [
     {
@@ -41,5 +37,22 @@ const index: NextPage = () => {
     </MainLayout>
   );
 };
+
+
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
+import { GetServerSideProps } from 'next'
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  
+  // const response = await axios.get('/user?ID=12345');
+
+  return {
+    props: {
+      
+    }
+  }
+}
+
 
 export default index;
