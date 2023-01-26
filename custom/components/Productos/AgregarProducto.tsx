@@ -21,6 +21,7 @@ import FormProvider, {
 
 import { useObtenerCategorias, useProducto } from '.';
 import { IProducto } from '../../../interfaces';
+import { PATH_DASHBOARD } from 'src/routes/paths';
 
 
 type FormValuesProps = IProducto;
@@ -73,9 +74,12 @@ export function AgregarProducto() {
         try {
             await agregarProducto(data);
             enqueueSnackbar('Producto agregado correctamente', { variant: 'success' });
+            push(PATH_DASHBOARD.productos.root);
         } catch (error) {
             console.error(error.message);
             enqueueSnackbar("No se pudo ingresar el producto: " + error.message, { variant: 'error' });
+        } finally {
+            reset();
         }
     };
 
@@ -124,27 +128,21 @@ export function AgregarProducto() {
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
-                <Grid item xs={12}>
+                <Grid item xs={8}>
                     <Card sx={{ p: 3 }}>
-
-                        <Stack spacing={3}>
-                            <RHFSwitch
-                                name="status"
-                                label={values.status ? 'Producto disponible' : 'Producto no disponible'}
-                                labelPlacement="start"
-                                sx={{ mb: 1, mx: 0, width: 1, }}
-                            />
-
+                        <Stack spacing={2}>
+                            <Typography variant='subtitle1' component='h1'>Agregar producto</Typography>
                             <RHFTextField name="name" label="Titulo" />
-
-                            <RHFTextField name="price" label="Precio" type='number' />
 
                             <RHFSelect name='category' placeholder='Categoria' label='Categoria'>
                                 <MenuItem value="" disabled>Seleccione una categoria</MenuItem>
-                                {categories.map((category) => <MenuItem value={category.id}>{category.nombre}</MenuItem>)}
+                                {categories.map((category) => <MenuItem key={category.id} value={category.id}>{category.nombre}</MenuItem>)}
                             </RHFSelect>
 
+                            <RHFTextField name="price" label="Precio" type='number' />
+
                             <RHFTextField name="stock" label="Stock" type='number' />
+
                             <RHFSelect name='rating' placeholder='Calificación' label='Calificación'>
                                 <MenuItem value="5">5 puntos</MenuItem>
                                 <MenuItem value="4">4 puntos</MenuItem>
@@ -153,6 +151,45 @@ export function AgregarProducto() {
                                 <MenuItem value="1">1 punto</MenuItem>
                             </RHFSelect>
 
+                            <Stack spacing={1}>
+                                <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                                    Descripcion
+                                </Typography>
+                                <RHFEditor simple style={{ height: 400 }} placeholder='Detalle del producto' name="description" />
+                            </Stack>
+
+                        </Stack>
+
+                        <Stack direction="row" spacing={1.5} sx={{ mt: 2 }}>
+                            <Button
+                                fullWidth
+                                color="inherit"
+                                variant="outlined"
+                                size="large"
+                            >
+                                Cancelar
+                            </Button>
+                            <LoadingButton
+                                fullWidth
+                                type="submit"
+                                variant="contained"
+                                size="large"
+                                loading={isSubmitting}
+                            >
+                                Guardar
+                            </LoadingButton>
+                        </Stack>
+                    </Card>
+                </Grid>
+                <Grid item xs={4}>
+                    <Card sx={{ p: 3 }}>
+                        <Stack spacing={1}>
+                            <RHFSwitch
+                                name="status"
+                                label={values.status ? 'Producto disponible' : 'Producto no disponible'}
+                                labelPlacement="start"
+                                sx={{ mb: 1, mx: 0, width: 1, }}
+                            />
                             <Stack spacing={1}>
                                 <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
                                     Imagen principal
@@ -164,13 +201,6 @@ export function AgregarProducto() {
                                     onDelete={handleRemoveFile}
                                     onRemove={handleRemoveFile}
                                 />
-                            </Stack>
-
-                            <Stack spacing={1}>
-                                <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                                    Descripcion
-                                </Typography>
-                                <RHFEditor simple style={{ height: 400 }} placeholder='Detalle del producto' name="description" />
                             </Stack>
 
                             <Stack>
@@ -191,27 +221,6 @@ export function AgregarProducto() {
                                     </Button>
                                 )}
                             </Stack>
-
-                        </Stack>
-
-                        <Stack direction="row" spacing={1.5} sx={{ mt: 5 }}>
-                            <Button
-                                fullWidth
-                                color="inherit"
-                                variant="outlined"
-                                size="large"
-                            >
-                                Cancelar
-                            </Button>
-                            <LoadingButton
-                                fullWidth
-                                type="submit"
-                                variant="contained"
-                                size="large"
-                                loading={isSubmitting}
-                            >
-                                Guardar
-                            </LoadingButton>
                         </Stack>
                     </Card>
                 </Grid>

@@ -12,32 +12,32 @@ datasource db {
 }
 
 model Categoria {
-  id     Int    @id @default(autoincrement())
-  nombre String @db.VarChar(100)
-  icono  String @db.VarChar(250)
+  id       Int        @id @default(autoincrement())
+  nombre   String     @db.VarChar(100)
+  icono    String     @db.VarChar(250)
   producto Producto[]
 }
 
 model Producto {
-  id          Int        @id @default(autoincrement())
-  name        String     @db.VarChar(255)
-  description String     @db.LongText
-  stock       Int        @default(0)
-  price       Float      @default(0.0)  
-  images      String     @db.LongText
-  cover       String     @db.LongText
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  description String    @db.LongText
+  stock       Int       @default(0)
+  price       Float     @default(0.0)
+  images      String    @db.LongText
+  cover       String    @db.LongText
   status      Boolean
   rating      Int
-  categoriaId Int?
-  categoria    Categoria? @relation(fields: [categoriaId], references: [id])
+  categoriaID Int
+  categoria   Categoria @relation(fields: [categoriaID], references: [id])
 }
 
 model Usuario {
-  id             Int       @id @default(autoincrement())
-  identificacion String    @unique @db.VarChar(10)
-  correo         String    @db.VarChar(100)
-  nombres        String    @db.VarChar(100)
-  clave          String    @db.VarChar(100)
+  id             Int      @id @default(autoincrement())
+  identificacion String   @unique @db.VarChar(10)
+  correo         String   @db.VarChar(100)
+  nombres        String   @db.VarChar(100)
+  clave          String   @db.VarChar(100)
   rol            String
-  fechacreado    DateTime? @default(now())
+  fechacreado    DateTime @default(now())
 }

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Categoria, PrismaClient } from '@prisma/client'
+import { Categoria, PrismaClient, Producto } from '@prisma/client'
 import { IProducto } from '../../../interfaces'
 const prisma = new PrismaClient()
 
@@ -10,7 +10,7 @@ type Data = {
 export default function (req: NextApiRequest, res: NextApiResponse) {
     switch (req.method) {
         case 'GET':
-            if(req.query?.id){
+            if (req.query?.id) {
                 return obtenerProducto(req, res);
             }
             return obtenerProductos(req, res);
@@ -34,7 +34,7 @@ const obtenerProductos = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json(productos)
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message, data: error })
-    } finally{
+    } finally {
         await prisma.$disconnect();
     }
 }
@@ -51,7 +51,7 @@ const obtenerProducto = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json(producto)
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message, data: error })
-    } finally{
+    } finally {
         await prisma.$disconnect();
     }
 }
@@ -70,27 +70,31 @@ const registrarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
                 cover: cover as string,
                 status,
                 rating: Number.parseInt(rating),
-                categoriaId: Number.parseInt(category)
+                categoriaID: Number.parseInt(category)
             }
-        })
+        });
         await prisma.$disconnect();
         return res.status(200).json({ status: 200, message: 'Producto registrado', data: producto })
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message, data: error })
-    } finally{
+    } finally {
         await prisma.$disconnect();
     }
 }
 
 
-export async function obtenerProductosLocal () {
+export async function obtenerProductosLocal() {
     try {
-        const productos = await prisma.producto.findMany();
+        const productos = await prisma.producto.findMany({
+            include: {
+                categoria: true
+            }
+        });
         await prisma.$disconnect();
         return productos;
     } catch (error) {
         return [];
-    } finally{
+    } finally {
         await prisma.$disconnect();
     }
 }

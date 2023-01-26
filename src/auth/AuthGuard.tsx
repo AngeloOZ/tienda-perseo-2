@@ -26,7 +26,6 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     
   }, [isLoggedIn, pathname, push, requestedLocation]);
 
-  console.log('isInitialized', isInitialized);
   if (!isInitialized) {
     return <LoadingScreen />;
   }

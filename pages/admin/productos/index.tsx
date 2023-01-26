@@ -5,6 +5,7 @@ import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
 import { ProductList } from 'custom/components'
 import { obtenerProductosLocal } from 'pages/api/products'
 import { Producto } from '@prisma/client'
+import LoadingScreen from 'src/components/loading-screen/LoadingScreen'
 
 type Props = {
     products: Producto[]
@@ -19,7 +20,9 @@ export default function PageAdmin({ products }: Props) {
             <Head>
                 <title>Listado de productos</title>
             </Head>
-            <ProductList products={products} />
+            
+            {/* <ProductList products={products} /> */}
+            {/* <LoadingScreen /> */}
         </>
     )
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 // @mui
-import { Card, Stack, Button, Divider, MenuItem, Checkbox, IconButton, CardContent, CardMedia, Typography, CardHeader } from '@mui/material';
+import { Card, Stack, Button, MenuItem, IconButton, CardContent, CardMedia, Typography, CardActions } from '@mui/material';
 
 // @prisma
 import { Producto } from '@prisma/client';
@@ -9,6 +9,7 @@ import { Producto } from '@prisma/client';
 import Iconify from '../../../src/components/iconify';
 import MenuPopover from '../../../src/components/menu-popover';
 import ConfirmDialog from '../../../src/components/confirm-dialog';
+import { Delete } from '@mui/icons-material';
 
 type Props = {
   product: Producto;
@@ -35,35 +36,36 @@ export const ProductoItem = ({ product }: Props) => {
     setOpenConfirm(false);
   };
 
-
-
   return (
     <>
       <Card
         sx={{
-          p: 2.5,
-          // width: 1,
-          // maxWidth: 222,
           bgcolor: 'background.default',
         }}
       >
-        <CardHeader>
-          <Stack direction="row" alignItems="center" sx={{ top: 8, right: 8, position: 'absolute' }}>
-            <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
-              <Iconify icon="eva:more-vertical-fill" />
-            </IconButton>
-          </Stack>
+        <Stack direction="row" alignItems="center" sx={{ top: 8, right: 8, position: 'absolute' }}>
+          <IconButton sx={{ backgroundColor: "rgba(0,0,0,0.25)" }} color='default' onClick={handleOpenPopover}>
+            <Iconify icon="eva:more-vertical-fill" />
+          </IconButton>
+        </Stack>
 
-        </CardHeader>
         <CardMedia
           component="img"
-          height="194"
+          height="200"
           image={product.cover}
           alt={product.name}
         />
-        <CardContent>
-          <Typography>{product.name}</Typography>
+        <CardContent sx={{ p: 0 }}>
+          <Typography component="p" mt={1} ml={2} variant='subtitle1'>{product.name}</Typography>
         </CardContent>
+        <CardActions sx={{ display: "flex", justifyContent: 'flex-end' }}>
+          <Button size='small' variant="outlined" color='error' startIcon={<Delete />}>
+            Eliminar
+          </Button>
+          <Button size='small' variant="contained" color='secondary' startIcon={<Delete />}>
+            Editar
+          </Button>
+        </CardActions>
       </Card>
 
       <MenuPopover
