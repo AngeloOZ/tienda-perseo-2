@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
 import { ShopProductCard } from "src/sections/shop"
-import { ICheckoutCartItem } from "src/@types/product"
+import { IProduct } from "src/@types/product"
 
 interface Props{
-    products: ICheckoutCartItem[];
+    products: IProduct[];
 }
 
 export const ShopProducts:FC<Props> = ({ products }) => {
@@ -21,7 +21,7 @@ export const ShopProducts:FC<Props> = ({ products }) => {
                     lg: 'repeat(4, 1fr)',
                 }}
             >
-                {products?.map((product: ICheckoutCartItem) => (
+                {products?.map((product: IProduct) => (
                     <ShopProductCard key={product.id} product={product} />
                 ))}            
             </Box>

@@ -18,14 +18,10 @@ export type IProduct = {
   price: number;      
   category: string
   images: string[];
-  //cover: string;
-  status: string;  //in bool data
-  totalReview: number; //no va
+  cover: string;
+  status: boolean;  //in bool data
   priceSale: number | null;
   totalRating: number;   
-  //inventoryType: string;  //no va
-  
-  
 };
 
 // ----------------------------------------------------------------------

@@ -18,15 +18,17 @@ type CartActionType =
         totalItems: number;
       };
     }
+  | { type: '[Cart] - Load Cart'; payload: ICheckoutCartItem[] }
   | { type: '[Cart] - Apply discount in cart'; payload: number };
 
 export const cartReducer = (state: IProductCheckoutState, action: CartActionType): any => {
   switch (action.type) {
-    /*     case '[Cart] - LoadCart from sessionStorage':
+    case '[Cart] - Load Cart':
       return {
         ...state,
         cart: [...action.payload],
-      }; */
+      };
+      
     case '[Cart] - Add products in cart':
       const newProduct = action.payload;
       const isEmptyCart = !state.cart.length;
@@ -36,17 +38,15 @@ export const cartReducer = (state: IProductCheckoutState, action: CartActionType
       }
 
       const productInCart = state.cart.some((p: ICheckoutCartItem) => p.id === newProduct.id);
-      console.log(productInCart);
 
       if (!productInCart) {
         return { ...state, cart: [...state.cart, newProduct] };
       }
-      
+
       return {
         ...state,
         cart: state.cart.map((product) => {
           if (product.id === newProduct.id) {
-            console.log('llego');      
             return {
               ...product,
               quantity: product.quantity + 1,
