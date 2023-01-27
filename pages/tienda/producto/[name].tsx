@@ -37,7 +37,7 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
         <Container maxWidth={themeStretch ? false : 'lg'}>
           {/* <CartWidget totalItems={totalItems} /> */}
 
-          {product && (
+        {/*   {product && (
             <>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6} lg={7}>
@@ -56,7 +56,7 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
                 </Grid>
               </Grid>
             </>
-          )}
+          )} */}
         </Container>
       </MainLayout>
     </>
@@ -66,9 +66,22 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
 // You should use getServerSideProps when:
 // - Only if you need to pre-render a page whose data must be fetched at request time
 import { GetServerSideProps } from 'next';
+import axios from 'axios';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const product: IProduct = {
+  // const name: string  = ctx.query.name;
+  // console.log(name.replace(/-/g, " "));
+
+
+
+  // const producto = await axios.get()
+  
+  
+  
+
+
+
+  /* const product: IProduct = {
     id: '1',
     name: 'Epson® Workforce® Pro WF-3820 Wireless Color Inkjet All-in-One Printer, Black',    
     available: 5,
@@ -83,11 +96,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     category: 'Impresoras',
     status: true,
     totalRating: 3,    
-  };
+  }; */
 
   return {
     props: {
-      product,
+      // product,
     },
   };
 };

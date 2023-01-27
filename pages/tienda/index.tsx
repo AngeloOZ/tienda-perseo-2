@@ -83,4 +83,30 @@ const index: NextPage<Props> = () => {
   );
 };
 
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
+import { GetServerSideProps } from 'next';
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const res = await axios.get('http://localhost:8084/api/products/');  
+
+  /* axios
+    .get('http://localhost:8084/api/products/')
+    .then(function (response) {
+      // manejar respuesta exitosa
+      console.log(JSON.parse(response.data[0].images).images[0
+      ]);
+    })
+    .catch(function (error) {
+      // manejar error
+      console.log(error);
+    }); */
+
+  return {
+    props: {
+      products: res.data
+    },
+  };
+};
+
 export default index;

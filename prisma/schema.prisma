@@ -23,13 +23,20 @@ model Producto {
   name        String     @db.VarChar(255)
   description String     @db.LongText
   stock       Int        @default(0)
-  price       Float      @default(0.0)  
+  price       Float      @default(0.0)
   images      String     @db.LongText
   cover       String     @db.LongText
   status      Boolean
   rating      Int
-  categoriaId Int?
-  categoria    Categoria? @relation(fields: [categoriaId], references: [id])
+  categoriaId Int
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+}
+
+model Categoria {
+  id       Int        @id @default(autoincrement())
+  nombre   String     @db.VarChar(100)
+  icono    String     @db.LongText
+  producto Producto[]
 }
 
 model Usuario {
