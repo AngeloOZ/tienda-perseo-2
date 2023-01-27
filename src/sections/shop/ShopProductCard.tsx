@@ -27,8 +27,7 @@ type Props = {
 };
 
 export default function ShopProductCard({ product }: Props) {
-  const { id, name, cover, price, available } = product;
-  console.log(product);
+  const { id, name, cover, price, available } = product;  
   
   //Product used only for the cart.
   const productForCart: ICheckoutCartItem = {

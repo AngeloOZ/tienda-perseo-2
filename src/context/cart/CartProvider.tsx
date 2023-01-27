@@ -28,7 +28,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
         const cart: ICheckoutCartItem[] = localStorage.getItem('CART')
           ? JSON.parse(localStorage.getItem('CART')!)
           : [];      
-          console.log(cart);
+          // console.log(cart);
             
         dispatch({ type: '[Cart] - Load Cart', payload: cart });
       } catch (e) {

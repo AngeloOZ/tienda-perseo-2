@@ -56,7 +56,12 @@ export default function ProductDetailsSummary({
 }: Props) {
   // const { push } = useRouter();
 
-  const { id, name, price, cover, status, available, priceSale, totalRating, category } = product;
+  const { id, name, price, cover, status, available, priceSale, rating, categoria } = product;
+
+  console.log(rating);
+  console.log(categoria);
+  
+  
 
   const alreadyProduct = cart.map((item) => item.id).includes(id);
 
@@ -177,17 +182,17 @@ export default function ProductDetailsSummary({
 
           <Typography variant="h5">
             {name}
-            <Label
+            {/* <Label
               variant="soft"
-              color={category ? 'primary' : 'warning'}
+              color={categoria ? 'primary' : 'warning'}
               sx={{ textTransform: 'uppercase', mr: 'auto' }}
             >
-              {sentenceCase(category || '')}
-            </Label>
+              {sentenceCase(categoria.nombre || '')}
+            </Label> */}
           </Typography>
 
           <Stack direction="row" alignItems="center" spacing={1}>
-            <Rating value={totalRating} precision={0.1} readOnly />
+            <Rating value={rating} precision={0.1} readOnly />
           </Stack>
 
           <Typography variant="h4">
