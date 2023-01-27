@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Categoria, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { IProducto } from '../../../interfaces'
+import { includes } from 'lodash';
 const prisma = new PrismaClient()
 
 type Data = {
@@ -84,8 +85,12 @@ const registrarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
 
 
 export async function obtenerProductosLocal () {
-    try {
-        const productos = await prisma.producto.findMany();
+    try {    
+        const productos =  await prisma.producto.findMany({
+            include:{
+                categoria: true
+            }
+        });        
         await prisma.$disconnect();
         return productos;
     } catch (error) {
