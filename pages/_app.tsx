@@ -29,6 +29,8 @@ import { ThemeSettings, SettingsProvider } from '../src/components/settings';
 import '../custom/styles/globals.css';
 import { AuthProvider } from 'src/auth/context';
 import { CartProvider } from 'src/context';
+import { SWRConfig } from 'swr';
+import { tiendaApi } from 'custom/api';
 
 // Check our docs
 // https://docs.minimals.cc/authentication/ts-version
@@ -59,22 +61,24 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <AuthProvider>
-        <SettingsProvider>
-          <MotionLazyContainer>
-            <ThemeProvider>
-              <ThemeSettings>
-                <ThemeLocalization>
-                  <CartProvider>
-                    <SnackbarProvider>
-                      <ProgressBar />
-                      {getLayout(<Component {...pageProps} />)}
-                    </SnackbarProvider>
-                  </CartProvider>
-                </ThemeLocalization>
-              </ThemeSettings>
-            </ThemeProvider>
-          </MotionLazyContainer>
-        </SettingsProvider>
+        <SWRConfig value={{ fetcher: (url: string) => tiendaApi.get(url).then(r => r.data) }}>
+          <SettingsProvider>
+            <MotionLazyContainer>
+              <ThemeProvider>
+                <ThemeSettings>
+                  <ThemeLocalization>
+                    <CartProvider>
+                      <SnackbarProvider>
+                        <ProgressBar />
+                        {getLayout(<Component {...pageProps} />)}
+                      </SnackbarProvider>
+                    </CartProvider>
+                  </ThemeLocalization>
+                </ThemeSettings>
+              </ThemeProvider>
+            </MotionLazyContainer>
+          </SettingsProvider>
+        </SWRConfig>
       </AuthProvider>
     </CacheProvider>
   );

@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 import { useSettingsContext } from 'src/components/settings'
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
-import { AgregarProducto } from 'custom/components'
+import { FormAgregarEditarProducto } from 'custom/components'
 
 
 
@@ -18,7 +18,7 @@ export default function PageAdmin() {
             <Head>
                 <title>Agregar nuevo producto</title>
             </Head>
-            <AgregarProducto />
+            <FormAgregarEditarProducto />
         </>
     )
 } 1

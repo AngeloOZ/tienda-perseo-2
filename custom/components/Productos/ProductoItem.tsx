@@ -6,18 +6,24 @@ import { Card, Stack, Button, MenuItem, IconButton, CardContent, CardMedia, Typo
 import { Producto } from '@prisma/client';
 
 // components
+import { useSnackbar } from '../../../src/components/snackbar';
 import Iconify from '../../../src/components/iconify';
 import MenuPopover from '../../../src/components/menu-popover';
 import ConfirmDialog from '../../../src/components/confirm-dialog';
-import { Delete } from '@mui/icons-material';
+import { useRouter } from 'next/router';
+import { PATH_DASHBOARD } from 'src/routes/paths';
+import { useProducto } from './Hooks';
 
 type Props = {
   product: Producto;
 }
 
 export const ProductoItem = ({ product }: Props) => {
+  const { eliminarProducto } = useProducto();
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
 
 
   const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
@@ -36,6 +42,22 @@ export const ProductoItem = ({ product }: Props) => {
     setOpenConfirm(false);
   };
 
+  const handleClickEdit = () => {
+    router.push(`${PATH_DASHBOARD.productos.editar}/${product.id}`);
+  }
+
+  const handleClickDelete = async () => {
+    try {
+      handleCloseConfirm();
+      await eliminarProducto(product.id);
+      enqueueSnackbar('Producto Eliminado', { variant: 'success' });
+    } catch (error) {
+      console.log(error);
+      
+      enqueueSnackbar('Error al eliminar el producto', { variant: 'error' });
+    }
+  }
+
   return (
     <>
       <Card
@@ -45,7 +67,7 @@ export const ProductoItem = ({ product }: Props) => {
       >
         <Stack direction="row" alignItems="center" sx={{ top: 8, right: 8, position: 'absolute' }}>
           <IconButton sx={{ backgroundColor: "rgba(0,0,0,0.25)" }} color='default' onClick={handleOpenPopover}>
-            <Iconify icon="eva:more-vertical-fill" />
+            <Iconify color="#ccc" icon="eva:more-vertical-fill" />
           </IconButton>
         </Stack>
 
@@ -58,14 +80,14 @@ export const ProductoItem = ({ product }: Props) => {
         <CardContent sx={{ p: 0 }}>
           <Typography component="p" mt={1} ml={2} variant='subtitle1'>{product.name}</Typography>
         </CardContent>
-        <CardActions sx={{ display: "flex", justifyContent: 'flex-end' }}>
+        {/* <CardActions sx={{ display: "flex", justifyContent: 'flex-end' }}>
           <Button size='small' variant="outlined" color='error' startIcon={<Delete />}>
             Eliminar
           </Button>
           <Button size='small' variant="contained" color='secondary' startIcon={<Delete />}>
             Editar
           </Button>
-        </CardActions>
+        </CardActions> */}
       </Card>
 
       <MenuPopover
@@ -74,7 +96,13 @@ export const ProductoItem = ({ product }: Props) => {
         arrow="right-top"
         sx={{ width: 160 }}
       >
-        <MenuItem sx={{ color: 'secondary.main' }}>
+        <MenuItem
+          sx={{ color: 'secondary.main' }}
+          onClick={() => {
+            handleClosePopover();
+            handleClickEdit();
+          }}
+        >
           <Iconify icon="eva:edit-fill" />
           Editar
         </MenuItem>
@@ -97,7 +125,7 @@ export const ProductoItem = ({ product }: Props) => {
         title="Eliminar producto"
         content="¿Estas seguro de eliminar este producto?"
         action={
-          <Button variant="contained" color="error" onClick={() => { }}>
+          <Button variant="contained" color="error" onClick={handleClickDelete}>
             Eliminar
           </Button>
         }

@@ -1,11 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Categoria, PrismaClient, Producto } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { IProducto } from '../../../interfaces'
 const prisma = new PrismaClient()
 
-type Data = {
-    name: string
-}
 
 export default function (req: NextApiRequest, res: NextApiResponse) {
     switch (req.method) {
@@ -17,11 +14,9 @@ export default function (req: NextApiRequest, res: NextApiResponse) {
         case 'POST':
             return registrarProducto(req, res);
         case 'PUT':
-            res.status(200).json({ name: 'PUT' })
-            break;
+            return actualizarProducto(req, res);
         case 'DELETE':
-            res.status(200).json({ name: 'DELETE' })
-            break;
+            return eliminarProducto(req, res);
         default:
             res.status(200).json({ status: 400, message: 'method not allowed' })
     }
@@ -58,7 +53,7 @@ const obtenerProducto = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const registrarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const { name, description, price, category, stock, cover, images_list, rating, status } = req.body as IProducto;
+        const { name, description, price, category, stock, cover, images, rating, status } = req.body as IProducto;
 
         const producto = await prisma.producto.create({
             data: {
@@ -66,7 +61,7 @@ const registrarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
                 description,
                 stock,
                 price,
-                images: JSON.stringify(images_list) as string,
+                images: JSON.stringify(images) as string,
                 cover: cover as string,
                 status,
                 rating: Number.parseInt(rating),
@@ -82,6 +77,52 @@ const registrarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
+const actualizarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
+    try{
+        const { id, name, description, price, category, stock, cover, images, rating, status } = req.body as IProducto;
+
+        const producto = await prisma.producto.update({
+            where: { id },
+            data: {
+                name,
+                description,
+                stock,
+                price,
+                images: JSON.stringify(images) as string,
+                cover: cover as string,
+                status,
+                rating: Number.parseInt(rating),
+                categoriaID: Number.parseInt(category)
+            }
+        });
+        await prisma.$disconnect();
+        return res.status(200).json({ status: 200, message: 'Producto actualizado', data: producto })
+    }
+    catch(error){
+        return res.status(500).json({ status: 500, message: error.message, data: error })
+    }
+    finally{
+        prisma.$disconnect();
+    }  
+}
+
+const eliminarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
+    try{
+        const { id } = req.query as { id: string };
+
+        const producto = await prisma.producto.delete({
+            where: { id: Number.parseInt(id) }
+        });
+        await prisma.$disconnect();
+        return res.status(200).json({ status: 200, message: 'Producto eliminado', data: producto })
+    }
+    catch(error){
+        return res.status(500).json({ status: 500, message: error.message, data: error })
+    }
+    finally{
+        prisma.$disconnect();
+    }
+}
 
 export async function obtenerProductosLocal() {
     try {

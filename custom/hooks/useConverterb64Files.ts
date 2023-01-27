@@ -16,9 +16,14 @@ export const useConverterb64Files = () => {
         });
     };
 
-    const getImageBase64 = async (file: File | null): Promise<string | null> => {
+    const getImageBase64 = async (file: File | string): Promise<string | null> => {
         try {
-            if (!file) return null;
+            if (typeof file == 'string'){
+                if (file.includes('data:image/')) {
+                    return file;
+                }
+                return null;
+            }
             const image = await convertBase64(file);
             return image as string;
         } catch (error) {

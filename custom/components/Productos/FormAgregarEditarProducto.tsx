@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 // next
 import { useRouter } from 'next/router';
 // form
@@ -22,15 +22,33 @@ import FormProvider, {
 import { useObtenerCategorias, useProducto } from '.';
 import { IProducto } from '../../../interfaces';
 import { PATH_DASHBOARD } from 'src/routes/paths';
+import { LinearProgressBar } from '../LinearProgressBar';
+import { Producto } from '@prisma/client';
 
 
 type FormValuesProps = IProducto;
+type Props = {
+    isEdit?: boolean;
+    currentProduct?: Producto;
+}
 
-export function AgregarProducto() {
+export function FormAgregarEditarProducto({ isEdit = false, currentProduct }: Props) {
     const { push } = useRouter();
     const { enqueueSnackbar } = useSnackbar();
-    const { categories } = useObtenerCategorias();
-    const { agregarProducto } = useProducto();
+    const { isLoading, categories } = useObtenerCategorias();
+    const { agregarProducto, editarProducto } = useProducto();
+
+    useEffect(() => {
+        if (isEdit && currentProduct) {
+            console.log(currentProduct);
+            reset(defaultValues);
+            setValue('id', currentProduct.id);
+        }
+        if (!isEdit) {
+            reset(defaultValues);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isEdit, currentProduct]);
 
     const NewProductSchema = Yup.object().shape({
         name: Yup.string().required('El titulo es requerido'),
@@ -38,22 +56,22 @@ export function AgregarProducto() {
         stock: Yup.number().required('El stock es requerido').min(1, 'El stock debe ser mayor a 0').positive('El stock no puede ser negativo'),
         price: Yup.number().required('El precio es requerido').min(1, 'El precio debe ser mayor a 0').positive('El precio no puede ser negativo'),
         category: Yup.string().required('La categoria es requerida'),
-        images_list: Yup.array().min(1, 'Debe tener al menos 1 imagen').required('Las imagenes son requeridas'),
+        images: Yup.array().min(1, 'Debe tener al menos 1 imagen').required('Las imagenes son requeridas'),
         cover: Yup.mixed().required('La foto principal es requerida'),
         rating: Yup.string().required('La categoria es requerida'),
     });
 
-    const defaultValues = {
-        name: '',
-        description: '',
-        stock: 0,
-        price: 0,
-        category: '',
-        images_list: [],
-        cover: null,
-        status: true,
-        rating: '5',
-    };
+    const defaultValues = useMemo<IProducto>(() => ({
+        name: currentProduct?.name || '',
+        description: currentProduct?.description || '',
+        stock: currentProduct?.stock || 0,
+        price: currentProduct?.price || 0,
+        category: currentProduct?.categoriaID?.toString() || '',
+        images: JSON.parse(currentProduct?.images || '[]') || [],
+        cover: currentProduct?.cover || null,
+        status: currentProduct?.status || true,
+        rating: currentProduct?.rating?.toString() || '5',
+    }), [currentProduct]);
 
     const methods = useForm<FormValuesProps>({
         resolver: yupResolver(NewProductSchema),
@@ -72,6 +90,12 @@ export function AgregarProducto() {
 
     const onSubmit = async (data: FormValuesProps) => {
         try {
+            if (isEdit) {
+                await editarProducto(data);
+                enqueueSnackbar('Producto actualizado correctamente', { variant: 'success' });
+                push(PATH_DASHBOARD.productos.root);
+                return;
+            }
             await agregarProducto(data);
             enqueueSnackbar('Producto agregado correctamente', { variant: 'success' });
             push(PATH_DASHBOARD.productos.root);
@@ -110,28 +134,62 @@ export function AgregarProducto() {
                 })
             );
 
-            const files = values.images_list;
-            setValue('images_list', [...files, ...newFiles], { shouldValidate: true });
+            const files = values.images;
+            setValue('images', [...files, ...newFiles], { shouldValidate: true });
         },
-        [values.images_list, setValue]
+        [values.images, setValue]
     );
 
     const handleRemoveAllFiles = () => {
-        setValue('images_list', []);
+        setValue('images', []);
     };
 
     const handleRemoveSpecificFile = (inputFile: File | string) => {
-        const filtered = values.images_list.filter((file: File | string) => file !== inputFile);
-        setValue('images_list', filtered);
+        const filtered = values.images.filter((file: File | string) => file !== inputFile);
+        setValue('images', filtered);
+    }
+
+    if (isLoading) return <LinearProgressBar />
+
+    const renderButtons = () => {
+        return <>
+            <Button
+                fullWidth
+                color="inherit"
+                variant="outlined"
+                size="large"
+                onClick={() => push(PATH_DASHBOARD.productos.root)}
+            >
+                Cancelar
+            </Button>
+
+            <LoadingButton
+                fullWidth
+                type="submit"
+                variant="contained"
+                size="large"
+                loading={isSubmitting}
+            >
+                Guardar
+            </LoadingButton>
+        </>
     }
 
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
-                <Grid item xs={8}>
+                <Grid item xs={12} md={6} lg={8}>
                     <Card sx={{ p: 3 }}>
                         <Stack spacing={2}>
-                            <Typography variant='subtitle1' component='h1'>Agregar producto</Typography>
+                            <Typography variant='subtitle1' component='h1'>{isEdit ? "Editar" : "Agregar"} producto</Typography>
+
+                            <RHFSwitch
+                                name="status"
+                                label={values.status ? 'Producto disponible' : 'Producto no disponible'}
+                                labelPlacement="start"
+                                sx={{ mb: 1, mx: 0, width: 1, }}
+                            />
+
                             <RHFTextField name="name" label="Titulo" />
 
                             <RHFSelect name='category' placeholder='Categoria' label='Categoria'>
@@ -160,36 +218,14 @@ export function AgregarProducto() {
 
                         </Stack>
 
-                        <Stack direction="row" spacing={1.5} sx={{ mt: 2 }}>
-                            <Button
-                                fullWidth
-                                color="inherit"
-                                variant="outlined"
-                                size="large"
-                            >
-                                Cancelar
-                            </Button>
-                            <LoadingButton
-                                fullWidth
-                                type="submit"
-                                variant="contained"
-                                size="large"
-                                loading={isSubmitting}
-                            >
-                                Guardar
-                            </LoadingButton>
+                        <Stack direction="row" spacing={1.5} sx={{ mt: 2, display: { xs: "none", md: "flex" } }}>
+                            {renderButtons()}
                         </Stack>
                     </Card>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={6} lg={4}>
                     <Card sx={{ p: 3 }}>
-                        <Stack spacing={1}>
-                            <RHFSwitch
-                                name="status"
-                                label={values.status ? 'Producto disponible' : 'Producto no disponible'}
-                                labelPlacement="start"
-                                sx={{ mb: 1, mx: 0, width: 1, }}
-                            />
+                        <Stack spacing={{ xs: 2, md: 1 }}>
                             <Stack spacing={1}>
                                 <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
                                     Imagen principal
@@ -208,18 +244,22 @@ export function AgregarProducto() {
                                     Imagenes
                                 </Typography>
                                 <RHFUpload
-                                    name="images_list"
+                                    name="images"
                                     thumbnail
                                     multiple
                                     maxSize={3145728}
                                     onDrop={handleDrop2}
                                     onRemove={handleRemoveSpecificFile}
                                 />
-                                {!!values.images_list.length && (
+                                {!!values.images.length && (
                                     <Button variant="outlined" color="error" onClick={handleRemoveAllFiles}>
                                         Remover todos los archivos
                                     </Button>
                                 )}
+                            </Stack>
+
+                            <Stack direction="row" spacing={1.5} sx={{ mt: 2, display: { xs: "flex", md: "none" } }}>
+                                {renderButtons()}
                             </Stack>
                         </Stack>
                     </Card>

@@ -5,7 +5,7 @@ export interface IProducto {
     stock: number;
     price: number;
     category: string;
-    images_list: [] | File[] | (File & { preview: string; })[];
+    images: [] | File[] | (File & { preview: string; })[];
     cover: string | File | null;
     status: boolean;
     rating: string;
