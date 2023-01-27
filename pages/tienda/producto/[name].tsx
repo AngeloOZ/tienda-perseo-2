@@ -22,7 +22,7 @@ interface Props {
   product: IProduct;
 }
 
-export default function EcommerceProductDetailsPage({ product }: Props) {
+export default function EcommerceProductDetailsPage() {
   const { themeStretch } = useSettingsContext();
 
   const ctx = useContext(CartContext);

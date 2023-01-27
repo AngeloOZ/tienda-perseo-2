@@ -10,6 +10,7 @@ import { IProduct } from '../../@types/product';
 import Image from '../../components/image';
 import Lightbox from '../../components/lightbox';
 import Carousel, { CarouselArrowIndex } from '../../components/carousel';
+import { position } from 'stylis';
 
 // ----------------------------------------------------------------------
 
@@ -143,7 +144,23 @@ export default function ProductDetailsCarousel({ product }: Props) {
   };
 
   const renderLargeImg = (
-    <Box sx={{ mb: 3, borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
+    <Box sx={{ mb: 3, borderRadius: 2, overflow: 'hidden', position: 'relative', paddingTop:3, 
+     /*   height: {
+      xs: 'auto',
+      sm: '70%',
+      md: '70%',
+      lg: '70%'
+    },
+    width:{
+      xs: 'auto',
+      sm: '100%',
+      md: 500,
+      lg: 500
+    }  */
+     
+    
+    
+    }}>
       <Carousel {...carouselSettings1} asNavFor={nav2} ref={carousel1}>
         {product.images.map((img) => (
           <Image
@@ -153,6 +170,8 @@ export default function ProductDetailsCarousel({ product }: Props) {
             // ratio="1/1"
             // onClick={() => handleOpenLightbox(img)}
             // sx={{ cursor: 'zoom-in' }}
+           // width={100}
+           style={{position:'absolute'}}
           />
         ))}
       </Carousel>
