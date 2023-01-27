@@ -100,7 +100,7 @@ export const BaseCart: FC<Props> = ({
               onClick={funShowCart}
               sx={{ mb:2 }}
               >
-              <CloseIcon />
+              Cerrar
             </Button>
 
           </Grid>

@@ -33,10 +33,7 @@ export default function FormasPago() {
       <Grid
         container
         spacing={1}
-        display="grid"
-        gridTemplateColumns={{
-          xs: 'repeat(2, 1fr)'
-        }}
+      
     
         sx={{
           '--Grid-borderWidth': '1px',

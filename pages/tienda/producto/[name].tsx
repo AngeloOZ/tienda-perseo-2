@@ -22,11 +22,30 @@ interface Props {
   product: IProduct;
 }
 
-export default function EcommerceProductDetailsPage({ product }: Props) {
+export default function EcommerceProductDetailsPage() {
   const { themeStretch } = useSettingsContext();
 
   const ctx = useContext(CartContext);
   const { cart, handleAddCart, handleIncreaseQuantity, handleDecreaseQuantity } = ctx;
+
+
+
+  const product: IProduct=
+    {
+      id: '1',
+      name: 'Epson Workforce Pro WF-3820 Wireless Colo',
+      description: '............',
+      available: 5,
+      price: 100,
+      category: 'impresora',
+      images: ['https://tiaecuador.vtexassets.com/arquivos/ids/204397/L1250-2.jpg?v=637995470597000000', 'https://quito.solutekla.com/photo/1/epson/impresoras/impresora_multifuncional_epson_l380/impresora_multifuncional_epson_l380_0001'],
+      cover: 'https://tiaecuador.vtexassets.com/arquivos/ids/204397/L1250-2.jpg?v=637995470597000000',
+      status: true,
+ 	    priceSale: 50,
+ 	    totalRating: 3,
+    }
+  
+
 
   return (
     <>
@@ -37,7 +56,7 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
         <Container maxWidth={themeStretch ? false : 'lg'}>
           {/* <CartWidget totalItems={totalItems} /> */}
 
-        {/*   {product && (
+           {product && (
             <>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6} lg={7}>
@@ -56,7 +75,7 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
                 </Grid>
               </Grid>
             </>
-          )} */}
+          )} 
         </Container>
       </MainLayout>
     </>
