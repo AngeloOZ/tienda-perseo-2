@@ -14,7 +14,7 @@ datasource db {
 model Categoria {
   id     Int    @id @default(autoincrement())
   nombre String @db.VarChar(100)
-  icono  String @db.VarChar(250)
+  icono  String @db.LongText
   producto Producto[]
 }
 
