@@ -56,3 +56,12 @@ export type IProductCheckoutState = {
   billing: ICheckoutBillingAddress | null;
   totalItems: number;
 };
+
+
+//----------------------------------------------------------------------
+
+export type ICategoria={
+  id: string;  
+  nombre: string;
+  icono: string;
+}

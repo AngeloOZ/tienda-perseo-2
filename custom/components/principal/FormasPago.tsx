@@ -18,25 +18,48 @@ export default function FormasPago() {
   const [value, setValue] = React.useState(0);
 
   return (
-    <Box
-      sx={{ flexGrow: 1, p: 2, width: 700, fontSize: 50, paddingTop: 3, margin: 'auto' }}
-    //  display="grid"
+    <Grid container spacing={2}
+     columns={2}
+      sx={{ flexGrow: 1, p: 2, 
+        width: {
+          xs:200,
+          sm:700,
+          md:700,
+          lg:700
+        }, 
+        paddingTop: 3, 
+        margin: 'auto' }}
     >
       <Grid
         container
         spacing={1}
+        display="grid"
+        gridTemplateColumns={{
+          xs: 'repeat(2, 1fr)'
+        }}
+    
         sx={{
           '--Grid-borderWidth': '1px',
           borderTop: 'var(--Grid-borderWidth) solid',
           borderLeft: 'var(--Grid-borderWidth) solid',
           borderColor: 'divider',
+          
           '& > div': {
             borderRight: 'var(--Grid-borderWidth) solid',
             borderBottom: 'var(--Grid-borderWidth) solid',
             borderColor: 'divider',
-            width: 700,
-            height:80
-            // paddingTop: 2
+            width: {
+              xs:200,
+              sm:700,
+              md:700,
+              lg:700
+            }, 
+            height: {
+              xs:150,
+              sm:80,
+              md:80,
+              lg:80
+            }, 
           },
         }}
       >
@@ -71,6 +94,6 @@ export default function FormasPago() {
           />
         </BottomNavigation>
       </Grid>
-    </Box>
+    </Grid>
   );
 }
