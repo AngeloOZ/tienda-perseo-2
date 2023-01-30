@@ -19,6 +19,7 @@ type Data =
         token: string
     }
 
+// eslint-disable-next-line
 export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
     switch (req.method) {
         case 'GET':
@@ -32,11 +33,11 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
 async function verifyJWT(req: NextApiRequest, res: NextApiResponse<Data>) {
     const { token = '' } = req.cookies;
     try {
-        if (token == '') {
+        if (token === '') {
             return res.status(403).json({ status: 403, message: "No se ha recibido ningún token" })
         }
 
-        let id = await jwt.isValidToken(token);
+        const id = await jwt.isValidToken(token);
 
         const user = await prisma.usuario.findUnique({ where: { id } });
 

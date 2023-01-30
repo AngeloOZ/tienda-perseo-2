@@ -1,8 +1,5 @@
 import Head from 'next/head'
 
-import { Container } from '@mui/material'
-
-import { useSettingsContext } from 'src/components/settings'
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
 import { FormAgregarEditarProducto, LinearProgressBar } from 'custom/components'
 import { useEffect, useState } from 'react'
@@ -16,7 +13,6 @@ import { Producto } from '@prisma/client'
 PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>
 
 export default function PageAdmin() {
-    const { themeStretch } = useSettingsContext();
     const { query } = useRouter();
     const [currentValue, setCurrentValue] = useState<Producto>();
     const [isLoading, setIsLoading] = useState(true);
