@@ -15,7 +15,7 @@ PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</Das
 
 export default function PageAdmin({ products: data }: Props) {
 
-    const { products, mutateProducts } = useObtenerProductos(data);
+    const { products } = useObtenerProductos(data);
 
     return (
         <>

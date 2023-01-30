@@ -1,9 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client'
-import { IProducto } from '../../../interfaces'
+
+import { PrismaClient } from '@prisma/client';
+
+import { IProducto } from '../../../interfaces';
+
 const prisma = new PrismaClient()
 
-
+// eslint-disable-next-line
 export default function (req: NextApiRequest, res: NextApiResponse) {
     switch (req.method) {
         case 'GET':
@@ -18,7 +21,7 @@ export default function (req: NextApiRequest, res: NextApiResponse) {
         case 'DELETE':
             return eliminarProducto(req, res);
         default:
-            res.status(200).json({ status: 400, message: 'method not allowed' })
+            return res.status(200).json({ status: 400, message: 'method not allowed' })
     }
 }
 
@@ -38,9 +41,7 @@ const obtenerProducto = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { id } = req.query as { id: string };
         const producto = await prisma.producto.findUnique({
-            where: {
-                id: Number.parseInt(id)
-            }
+            where: { id: Number.parseInt(id) }
         });
         await prisma.$disconnect();
         return res.status(200).json(producto)
@@ -78,7 +79,7 @@ const registrarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const actualizarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
-    try{
+    try {
         const { id, name, description, price, category, stock, cover, images, rating, status } = req.body as IProducto;
 
         const producto = await prisma.producto.update({
@@ -98,16 +99,16 @@ const actualizarProducto = async (req: NextApiRequest, res: NextApiResponse) => 
         await prisma.$disconnect();
         return res.status(200).json({ status: 200, message: 'Producto actualizado', data: producto })
     }
-    catch(error){
+    catch (error) {
         return res.status(500).json({ status: 500, message: error.message, data: error })
     }
-    finally{
+    finally {
         prisma.$disconnect();
-    }  
+    }
 }
 
 const eliminarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
-    try{
+    try {
         const { id } = req.query as { id: string };
 
         const producto = await prisma.producto.delete({
@@ -116,10 +117,10 @@ const eliminarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
         await prisma.$disconnect();
         return res.status(200).json({ status: 200, message: 'Producto eliminado', data: producto })
     }
-    catch(error){
+    catch (error) {
         return res.status(500).json({ status: 500, message: error.message, data: error })
     }
-    finally{
+    finally {
         prisma.$disconnect();
     }
 }

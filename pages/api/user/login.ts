@@ -20,6 +20,7 @@ type Data =
         token: string
     }
 
+// eslint-disable-next-line
 export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
     switch (req.method) {
         case 'POST':
@@ -39,7 +40,7 @@ async function loginUser(req: NextApiRequest, res: NextApiResponse<Data>) {
             return res.status(404).json({ status: 404, message: 'El usuario o la contraseña no son válidos - IDEN' })
         }
 
-        if (user.clave != clave) {
+        if (user.clave !== clave) {
             return res.status(404).json({ status: 404, message: 'El usuario o la contraseña no son válidos - CLAVE' })
         }
 
@@ -55,7 +56,7 @@ async function loginUser(req: NextApiRequest, res: NextApiResponse<Data>) {
         });
 
     } catch (error) {
-        res.status(500).json({ status: 500, message: error.message, data: error })
+        return res.status(500).json({ status: 500, message: error.message, data: error })
     } finally {
         await prisma.$disconnect();
     }
