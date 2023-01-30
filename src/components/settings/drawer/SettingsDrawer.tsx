@@ -16,10 +16,7 @@ import Block from './Block';
 import BadgeDot from './BadgeDot';
 import ToggleButton from './ToggleButton';
 import ModeOptions from './ModeOptions';
-import LayoutOptions from './LayoutOptions';
-import StretchOptions from './StretchOptions';
 import ContrastOptions from './ContrastOptions';
-import DirectionOptions from './DirectionOptions';
 import FullScreenOptions from './FullScreenOptions';
 import ColorPresetsOptions from './ColorPresetsOptions';
 
@@ -27,6 +24,7 @@ import ColorPresetsOptions from './ColorPresetsOptions';
 
 const SPACING = 2.5;
 
+// eslint-disable-next-line
 export default function SettingsDrawer({ visible = false}) {
   const {
     themeMode,

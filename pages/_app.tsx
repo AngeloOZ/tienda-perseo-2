@@ -10,11 +10,18 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // ----------------------------------------------------------------------
 
+// Context
+import { AuthProvider } from 'src/auth/context';
+import { CartProvider } from 'src/context';
+
 import { CacheProvider, EmotionCache } from '@emotion/react';
 // next
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
+import { SWRConfig } from 'swr';
+import { tiendaApi } from 'custom/api';
+
 // utils
 import createEmotionCache from '../src/utils/createEmotionCache';
 // theme
@@ -27,10 +34,6 @@ import SnackbarProvider from '../src/components/snackbar';
 import { MotionLazyContainer } from '../src/components/animate';
 import { ThemeSettings, SettingsProvider } from '../src/components/settings';
 import '../custom/styles/globals.css';
-import { AuthProvider } from 'src/auth/context';
-import { CartProvider } from 'src/context';
-import { SWRConfig } from 'swr';
-import { tiendaApi } from 'custom/api';
 
 // Check our docs
 // https://docs.minimals.cc/authentication/ts-version

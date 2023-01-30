@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
+
+import { AuthContext } from 'src/auth';
+
 // routes
 import { PATH_AUTH } from '../../../routes/paths';
 // auth
@@ -12,7 +15,6 @@ import { CustomAvatar } from '../../../components/custom-avatar';
 import { useSnackbar } from '../../../components/snackbar';
 import MenuPopover from '../../../components/menu-popover';
 import { IconButtonAnimate } from '../../../components/animate';
-import { AuthContext } from 'src/auth';
 
 // ----------------------------------------------------------------------
 
@@ -85,7 +87,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <CustomAvatar src={ 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg'} alt={user?.nombres} name={user?.nombres} />
+        <CustomAvatar src='http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg' alt={user?.nombres} name={user?.nombres} />
       </IconButtonAnimate>
 
       <MenuPopover open={openPopover} onClose={handleClosePopover} sx={{ width: 200, p: 0 }}>

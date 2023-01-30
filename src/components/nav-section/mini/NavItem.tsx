@@ -16,7 +16,7 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
   ({ item, depth, open, active, isExternalLink, ...other }, ref) => {
     const { translate } = useLocales();
 
-    const { title, path, icon, children, disabled, caption, roles } = item;
+    const { title, path, icon, children, disabled, caption } = item;
 
     const subItem = depth !== 1;
 
