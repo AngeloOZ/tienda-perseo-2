@@ -3,12 +3,10 @@ import { Box, Grid } from '@mui/material';
 import CategoriaCart from './CategoriaCart';
 import { ICategoria } from 'src/@types/product';
 import { AlignHorizontalCenter } from '@mui/icons-material';
+import FormasPagoCart from './FormasPagoCart';
 
-interface Props {
-  categoria: ICategoria[];
-}
 
-export const Categoria: FC<Props> = ({ categoria }) => {
+export const FormasPago = () => {
   return (
     <>
       <Grid
@@ -34,9 +32,8 @@ export const Categoria: FC<Props> = ({ categoria }) => {
          }
        }}
       >
-        {categoria?.map((cate: ICategoria) => (
-          <CategoriaCart key={cate.id} categoria={cate} />
-        ))}
+
+       <FormasPagoCart/>
       </Grid>
     </>
   );
