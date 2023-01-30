@@ -9,16 +9,16 @@ interface ContextProps {
     total: number;
     discount: number;
     shipping: number;
-    billing: null;  //TODO: revisar que hace
+    billing: null;  //  TODO: revisar que hace
     totalItems: number;   
 
-    //Metohds Handle
+    //  Metohds Handle
     handleAddCart: (product: ICheckoutCartItem) => void;
     handleDeleteCart: (productId: string) => void;
     handleIncreaseQuantity: (productId: string) => void;
     handleDecreaseQuantity: (productId: string) => void;
     handleApplyDiscount: (value: number) => void;
-    //TODO: crear un metodo reset del carrito 
+    //  TODO: crear un metodo reset del carrito 
     
 }
 
