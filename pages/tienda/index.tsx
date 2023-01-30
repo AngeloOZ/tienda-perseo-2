@@ -1,5 +1,5 @@
 import { NextPage, GetServerSideProps } from 'next';
-import axios from 'axios';
+import { tiendaApi } from 'custom/api';
 import { ICategoria, IProduct } from 'src/@types/product';
 import { ShopProducts } from 'src/components/e-commerce/shop';
 import MainLayout from 'src/layouts/main/MainLayout';
@@ -63,8 +63,7 @@ const index: NextPage<Props> = ({ products }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const res = await axios.get('http://localhost:8084/api/products/');  
-  
+  const res = await tiendaApi.get(`/products`);  
   return {
     props: {
       products: res.data
