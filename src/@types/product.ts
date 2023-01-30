@@ -16,12 +16,12 @@ export type IProduct = {
   description: string;      
   available: number; //stock
   price: number;      
-  category: string
+  categoria: ICategoria
   images: string[];
   cover: string;
   status: boolean;  //in bool data
   priceSale: number | null;
-  totalRating: number;   
+  rating: number;   
 };
 
 // ----------------------------------------------------------------------
@@ -78,3 +78,12 @@ export type ICheckoutCardOption = {
 //_-------------------------------------------------------------------//
 
 
+
+
+//----------------------------------------------------------------------
+
+export type ICategoria={
+  id: string;  
+  nombre: string;
+  icono: string;
+}

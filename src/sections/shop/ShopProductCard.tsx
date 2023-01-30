@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import { CartContext } from 'src/context';
 import { IProduct, ICheckoutCartItem } from 'src/@types/product';
 import { fCurrency } from 'src/utils/formatNumber';
+import { lowerCase } from 'lodash';
 
 // --------------------------------------s--------------------------------
 
@@ -26,23 +27,31 @@ type Props = {
 };
 
 export default function ShopProductCard({ product }: Props) {
-  
-  const { id, name, cover, price, available } = product;
+  const { id, name, cover, price, available } = product;  
   
   //Product used only for the cart.
   const productForCart: ICheckoutCartItem = {
-    id, name, cover, available, price, 
+    id,
+    name,
+    cover,
+    available,
+    price,
     quantity: available < 1 ? 0 : 1,
-    subtotal: 0
-  }
-  
+    subtotal: 0,
+  };
+
   const router = useRouter();
 
-  const linkTo = `tienda/producto/${name}`;
+
+  const linkTo = `tienda/producto/${lowerCase(name).replace(/ /g, "-")}`;
   const status = '';
 
   const ctx = useContext(CartContext);
-  const { handleAddCart } = ctx;
+  const { cart, handleAddCart } = ctx;
+
+  //Disable the "Agregar Al Carrito" buttom
+  const isMaxQuantity =
+    cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
 
   const onAddCart = () => {
     handleAddCart(productForCart);
@@ -80,6 +89,7 @@ export default function ShopProductCard({ product }: Props) {
         )}
 
         <Fab
+          disabled={isMaxQuantity}        
           color="warning"
           size="medium"
           className="add-cart-btn"
@@ -119,7 +129,7 @@ export default function ShopProductCard({ product }: Props) {
           <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
             {true && (
               <Box component="span" sx={{ color: 'inherit' }}>
-                {fCurrency(price) + " "}
+                {fCurrency(price) + ' '}
                 <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
                   + IVA
                 </Typography>
