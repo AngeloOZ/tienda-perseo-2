@@ -8,6 +8,8 @@ interface Props {
   categoria: ICategoria[];
 }
 
+
+
 export const Categoria: FC<Props> = ({ categoria }) => {
   return (
     <>
@@ -33,6 +35,7 @@ export const Categoria: FC<Props> = ({ categoria }) => {
           lg:'50%'
          }
        }}
+       paddingTop={4}
       >
         {categoria?.map((cate: ICategoria) => (
           <CategoriaCart key={cate.id} categoria={cate} />

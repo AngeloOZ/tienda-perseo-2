@@ -1,8 +1,10 @@
 import { useEffect, useReducer } from 'react';
 import Cookies from 'js-cookie';
-import { AuthContext, authReducer } from './';
+
 import { Usuario } from 'interfaces';
 import { tiendaApi } from 'custom/api';
+// eslint-disable-next-line
+import { AuthContext, authReducer } from '.';
 
 type Props = {
     children: React.ReactNode
@@ -60,7 +62,26 @@ export const AuthProvider = ({ children }: Props) => {
 
     }
 
+    // TODO: implementar logout
+    
+    // const memoizedValue = useMemo(
+    //     () => ({
+    //         isInitialized: state.isInitialized,
+    //         isAuthenticated: state.isAuthenticated,
+    //         user: state.user,
+    //         method: 'jwt',
+    //         login,
+    //         loginWithGoogle: () => { },
+    //         loginWithGithub: () => { },
+    //         loginWithTwitter: () => { },
+    //         register,
+    //         logout,
+    //     }),
+    //     [state.isAuthenticated, state.isInitialized, state.user, login, logout, register]
+    // );
+    // TODO: implementar useMeno
     return (
+        // eslint-disable-next-line
         <AuthContext.Provider value={{
             ...state,
             // Methods

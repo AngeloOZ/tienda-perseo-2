@@ -8,7 +8,7 @@ import Icon from 'src/components/color-utils/Icon';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import Image from 'src/components/image/Image';
 import { ICategoria } from 'src/@types/product';
-import { margin } from '@mui/system';
+import { border, margin } from '@mui/system';
 
 interface Props{
   categoria: ICategoria;
@@ -17,7 +17,7 @@ interface Props{
 export default function CategoriaCart({categoria}:Props) {
   return (
 
-    <Card sx={{ width:170, height:170}}>
+    <Card sx={{ width:170, height:170, border:1, marginX: 1, marginY:0.7}}>
        <CardActionArea sx={{width:170, height:170, }}>         
               <Image
                 alt={'icono'}

@@ -1,11 +1,11 @@
+import { useContext } from 'react';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Typography } from '@mui/material';
 
 // components
-import { CustomAvatar } from '../../../components/custom-avatar';
-import { useContext } from 'react';
 import { AuthContext } from 'src/auth';
+import { CustomAvatar } from '../../../components/custom-avatar';
 
 // ----------------------------------------------------------------------
 
