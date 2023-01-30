@@ -1,15 +1,14 @@
 import { FC } from 'react';
-import sum from 'lodash/sum';
 import { Grid, Card, Button, CardHeader, Typography } from '@mui/material';
 import { Box, Container } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 import EmptyContent from 'src/components/empty-content';
 
+import { IProductCheckoutState } from 'src/@types/product';
 import {
   CheckoutCartProductList,
   CheckoutSummary,
 } from '../../../sections/checkout';
-import { IProductCheckoutState } from 'src/@types/product';
 
 interface Props {
   checkout: IProductCheckoutState;
@@ -73,7 +72,7 @@ export const BaseCart: FC<Props> = ({
 
           <Grid item xs={12} md={4}>
             <CheckoutSummary
-              enableDiscount={true}
+              enableDiscount
               iva={iva}
               total={total}
               discount={discount}

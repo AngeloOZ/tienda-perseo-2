@@ -14,12 +14,12 @@ export type IProduct = {
   id: string;  
   name: string;
   description: string;      
-  stock: number; //stock
+  stock: number; 
   price: number;      
   categoria: ICategoria
   images: string[];
   cover: string;
-  status: boolean;  //in bool data
+  status: boolean;
   priceSale: number | null;
   rating: number;   
 };
@@ -56,7 +56,7 @@ export type IProductCheckoutState = {
   billing: ICheckoutBillingAddress | null;
   totalItems: number;
 };
-//_-------------------------------------------------------------------//
+
 export type ICheckoutDeliveryOption = {
   value: number;
   title: string;

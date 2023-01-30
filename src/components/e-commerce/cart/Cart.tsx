@@ -1,7 +1,6 @@
 import { useContext, FC } from 'react';
 import { Box, Container } from '@mui/system';
 import { CartContext } from '../../../context';
-import { CheckoutCart } from '../../../sections/checkout';
 import { BaseCart } from './BaseCart';
 
 interface Props {
@@ -14,8 +13,7 @@ export const Cart:FC<Props> = ({onShowCart}) => {
 
   //----------------------------------------------------------------
 
-  return (
-    <>
+  return (    
       <Box sx={{ width: 'auto' }}>
         <Container>            
           <BaseCart
@@ -27,7 +25,6 @@ export const Cart:FC<Props> = ({onShowCart}) => {
             funShowCart={onShowCart}
           />       
         </Container>
-      </Box>
-    </>
+      </Box>    
   );
 };
