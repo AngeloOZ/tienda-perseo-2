@@ -56,3 +56,25 @@ export type IProductCheckoutState = {
   billing: ICheckoutBillingAddress | null;
   totalItems: number;
 };
+//_-------------------------------------------------------------------//
+export type ICheckoutDeliveryOption = {
+  value: number;
+  title: string;
+  description: string;
+};
+
+export type ICheckoutPaymentOption = {
+  value: string;
+  title: string;
+  description: string;
+  icons: string[];
+};
+
+export type ICheckoutCardOption = {
+  value: string;
+  label: string;
+};
+
+//_-------------------------------------------------------------------//
+
+
