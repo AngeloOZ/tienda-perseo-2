@@ -1,24 +1,16 @@
+import { GetServerSideProps } from 'next';
+import axios from 'axios';
 import { useContext } from 'react';
-// next
 import Head from 'next/head';
-// @mui
 import { Grid, Container } from '@mui/material';
-// @types
-// layouts
-// import DashboardLayout from '../../../../layouts/dashboard';
-// components
-import Iconify from '../../../src/components/iconify';
-import { useSettingsContext } from '../../../src/components/settings';
-// import { SkeletonProductDetails } from '../../../../components/skeleton';
-// sections
-import { ProductDetailsSummary, ProductDetailsCarousel } from '../../../src/sections/details';
-import CartWidget from '../../../src/sections/CartWidget';
+
 import { CartContext } from 'src/context';
 import { IProduct } from 'src/@types/product';
 import MainLayout from 'src/layouts/main/MainLayout';
 import { Descripcion } from 'custom/components/Descripcion';
 
-// ----------------------------------------------------------------------
+import { useSettingsContext } from '../../../src/components/settings';
+import { ProductDetailsSummary, ProductDetailsCarousel } from '../../../src/sections/details';
 
 interface Props {
   product: IProduct;
@@ -36,11 +28,8 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
         <title>{`Tienda Perseo: ${product?.name || ''} | Minimal UI`}</title>
       </Head>
       <MainLayout>
-        <Container maxWidth={themeStretch ? false : 'lg'}>
-          {/* <CartWidget totalItems={totalItems} /> */}
-
-          {product && (
-            <>
+        <Container maxWidth={themeStretch ? false : 'lg'}>          
+          {product && (            
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6} lg={7}>
                   <ProductDetailsCarousel product={product} />
@@ -56,8 +45,7 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
                     onDecreaseQuantity={handleDecreaseQuantity}
                   />
                 </Grid>
-              </Grid>
-            </>
+              </Grid>            
           )}
          <Descripcion product={product}/> 
         </Container>
@@ -68,15 +56,13 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
 
 // You should use getServerSideProps when:
 // - Only if you need to pre-render a page whose data must be fetched at request time
-import { GetServerSideProps } from 'next';
-import axios from 'axios';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { name } = ctx.query as { name: string};
   const productoName = name?.replace(/-/g, ' ');  
   const req = await axios.get(`http://localhost:8084/api/products/${productoName}`);
   
-  const images = JSON.parse(req.data.images).images;
+  const { images } = JSON.parse(req.data.images);
   const product = { ...req.data, images };    
   
   return {

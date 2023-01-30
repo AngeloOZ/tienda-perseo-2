@@ -1,5 +1,4 @@
-import { NextPage } from 'next';
-import React, { useState } from 'react';
+import { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 import { ICategoria, IProduct } from 'src/@types/product';
 import { ShopProducts } from 'src/components/e-commerce/shop';
@@ -8,7 +7,6 @@ import ImagenPricipal from 'custom/components/principal/ImagenPrincipal';
 import FormasPago from 'custom/components/principal/FormasPagoCart';
 import { Categoria } from 'custom/components/principal/Categoria';
 import { Grid } from '@mui/material';
-import { Box } from '@mui/system';
 
 interface Props {
   products: IProduct[];
@@ -63,10 +61,6 @@ const index: NextPage<Props> = ({ products }) => {
     </MainLayout>
   );
 };
-
-// You should use getServerSideProps when:
-// - Only if you need to pre-render a page whose data must be fetched at request time
-import { GetServerSideProps } from 'next';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await axios.get('http://localhost:8084/api/products/');  

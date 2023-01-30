@@ -1,15 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
 
+const prisma = new PrismaClient();
 type Data = {
   name: string;
 };
 
-export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
+export default function productForName(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'GET' && req.query?.name) {
     return obtenerProductoForName(req, res);
   }
+  return res.status(405);
 }
 
 const obtenerProductoForName = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -17,7 +18,7 @@ const obtenerProductoForName = async (req: NextApiRequest, res: NextApiResponse)
     const { name } = req.query as { name: string };
     const producto = await prisma.producto.findFirst({
       where: {
-        name: name,
+        name,
       },
       include: {
         categoria: true

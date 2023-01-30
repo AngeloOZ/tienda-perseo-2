@@ -1,7 +1,7 @@
 import React from 'react'
 import PaymenDelivery from 'src/components/e-commerce/checkout/paymenDelivery'
 import { Grid } from '@mui/material'
-import { IProductCheckoutState, ICheckoutDeliveryOption, ICheckoutCardOption, ICheckoutPaymentOption } from 'src/@types/product';
+import { ICheckoutDeliveryOption, ICheckoutCardOption, ICheckoutPaymentOption } from 'src/@types/product';
 
 import MainLayout from 'src/layouts/main/MainLayout';
 import { LoadingButton } from '@mui/lab';
@@ -11,8 +11,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { PaymenCard } from 'src/components/e-commerce/checkout/paymenCard';
 import FormProvider from 'src/components/hook-form/FormProvider';
-
-//_----------------------------------------------------------------------//
 
 const DELIVERY_OPTIONS: ICheckoutDeliveryOption[] = [
     {
@@ -26,8 +24,6 @@ const DELIVERY_OPTIONS: ICheckoutDeliveryOption[] = [
         description: 'Entregado el Domingo, 5 de febrero',
     },
 ];
-
-//_----------------------------------------------------------------------//
 
 const PAYMENT_OPTIONS: ICheckoutPaymentOption[] = [
     {
@@ -56,14 +52,12 @@ const CARDS_OPTIONS: ICheckoutCardOption[] = [
     { value: 'MasterCard', label: '**** **** **** 4545 - Cole Armstrong' },
 ];
 
-//_----------------------------------------------------------------------//
-
 type Props = {
-    checkout: IProductCheckoutState;
+    // checkout: IProductCheckoutState;
     onNextStep: VoidFunction;
-    onBackStep: VoidFunction;
+    // onBackStep: VoidFunction;
     onReset: VoidFunction;
-    onGotoStep: (step: number) => void;
+    // onGotoStep: (step: number) => void;
     onApplyShipping: (value: number) => void;
 };
 type FormValuesProps = {
@@ -71,9 +65,7 @@ type FormValuesProps = {
     payment: string;
 };
 
-//_----------------------------------------------------------------------//
-
-export function index({
+function Index({
     onReset,
     onNextStep,
     onApplyShipping,
@@ -83,8 +75,7 @@ export function index({
         payment: Yup.string().required('!Se requiere metodo de pago!'),
     });
 
-    const defaultValues = {
-        //delivery: shipping,
+    const defaultValues = {    
         payment: '',
     };
 
@@ -127,10 +118,8 @@ export function index({
                             sx={{ mb: 5 }}
                             size="large"
                             type="submit"
-                            variant="contained"
-                            /* disabled={!cart.length} */
-                            loading={isSubmitting}
-                        /* onClick={onNextStep} */
+                            variant="contained"                            
+                            loading={isSubmitting}                        
                         >
                             Check Out
                         </LoadingButton>
@@ -140,4 +129,4 @@ export function index({
         </>
     )
 }
-export default index    
+export default Index    
