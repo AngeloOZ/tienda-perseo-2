@@ -35,6 +35,12 @@ export const AuthProvider = ({ children }: Props) => {
     const checkToken = async () => {
         try {
             dispatch({ type: 'AUTH_INITIAL' });
+            const tokenCookies = Cookies.get('token');
+            if (!tokenCookies) {
+                dispatch({ type: 'AUTH_LOGOUT' });
+                return;
+            }
+
             const { data } = await tiendaApi.get('/user/validate-token');
             const { token, user } = data;
             Cookies.set('token', token);
@@ -63,7 +69,7 @@ export const AuthProvider = ({ children }: Props) => {
     }
 
     // TODO: implementar logout
-    
+
     // const memoizedValue = useMemo(
     //     () => ({
     //         isInitialized: state.isInitialized,

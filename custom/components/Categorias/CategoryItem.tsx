@@ -1,9 +1,9 @@
 import { useState } from 'react';
 // @mui
-import { Card, Stack, Button, MenuItem, IconButton, CardContent, CardMedia, Typography, CardActions } from '@mui/material';
+import { Card, Stack, Button, MenuItem, IconButton, CardContent, CardMedia, Typography } from '@mui/material';
 
 // @prisma
-import { Producto } from '@prisma/client';
+import { Categoria } from '@prisma/client';
 
 // components
 import { useSnackbar } from '../../../src/components/snackbar';
@@ -12,14 +12,13 @@ import MenuPopover from '../../../src/components/menu-popover';
 import ConfirmDialog from '../../../src/components/confirm-dialog';
 import { useRouter } from 'next/router';
 import { PATH_DASHBOARD } from 'src/routes/paths';
-import { useProducto } from './Hooks';
 
 type Props = {
-  product: Producto;
+  category: Categoria;
 }
 
-export const ProductoItem = ({ product }: Props) => {
-  const { eliminarProducto } = useProducto();
+export const CategoryItem = ({ category }: Props) => {
+//   const { eliminarProducto } = useProducto();
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
   const [openConfirm, setOpenConfirm] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -43,13 +42,13 @@ export const ProductoItem = ({ product }: Props) => {
   };
 
   const handleClickEdit = () => {
-    router.push(`${PATH_DASHBOARD.productos.editar}/${product.id}`);
+    // router.push(`${PATH_DASHBOARD.productos.editar}/${category.id}`);
   }
 
   const handleClickDelete = async () => {
     try {
       handleCloseConfirm();
-      await eliminarProducto(product.id);
+    //   await eliminarProducto(category.id);
       enqueueSnackbar('Producto Eliminado', { variant: 'success' });
     } catch (error) {
       console.log(error);
@@ -73,12 +72,12 @@ export const ProductoItem = ({ product }: Props) => {
 
         <CardMedia
           component="img"
-          height="200"
-          image={product.cover}
-          alt={product.name}
+          height="150"
+          image={category.icono}
+          alt={category.nombre}
         />
         <CardContent sx={{ p: 0 }}>
-          <Typography component="p" mt={1} ml={2} variant='subtitle1'>{product.name}</Typography>
+          <Typography component="p" mt={1} ml={2} variant='subtitle1'>{category.nombre}</Typography>
         </CardContent>
       </Card>
 

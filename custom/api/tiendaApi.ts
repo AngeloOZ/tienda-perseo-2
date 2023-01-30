@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const tiendaApi = axios.create({
-    baseURL: process.env.PATH_API
+    baseURL: '/api'
 });
 
 export default tiendaApi;

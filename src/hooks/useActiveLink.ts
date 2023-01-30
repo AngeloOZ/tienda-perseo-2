@@ -14,16 +14,16 @@ export default function useActiveLink(path: string, deep = true): ReturnType {
 
   const currentPath = path === '/' ? '/' : `${path}/`;
 
-  // console.log("asPath: "+asPath);
-  // console.log("pathname: "+pathname);
-  // console.log("currentPath: "+currentPath);
+  console.log(asPath+ " == "+pathname);
+  console.log(pathname+" == "+currentPath);
   
 
   const normalActive =
     (!checkPath && pathname === currentPath) || (!checkPath && asPath === currentPath);
 
-  const deepActive =
-    (!checkPath && pathname.includes(currentPath)) || (!checkPath && asPath.includes(currentPath));
+  const deepActive = (!checkPath && pathname === currentPath) || (!checkPath && asPath === currentPath);
+  // Default
+  // const deepActive = (!checkPath && pathname.includes(currentPath)) || (!checkPath && asPath.includes(currentPath));
   
   return {
     active: deep ? deepActive : normalActive,

@@ -63,7 +63,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const req = await tiendaApi.get(`/products/${productoName}`);  
   const images = JSON.parse(req.data.images);
-  const product = { ...req.data, images };    
+  const product = { ...req.data, images }; 
+  
   
   return {
     props: {
