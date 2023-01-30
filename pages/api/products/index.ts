@@ -4,7 +4,17 @@ import { PrismaClient } from '@prisma/client';
 
 import { IProducto } from '../../../interfaces';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
+
+export const config = {
+    api: {
+        responseLimit: "8mb",
+        bodyParser: {
+            sizeLimit: '10mb',
+        },
+    }
+}
+
 
 // eslint-disable-next-line
 export default function (req: NextApiRequest, res: NextApiResponse) {
