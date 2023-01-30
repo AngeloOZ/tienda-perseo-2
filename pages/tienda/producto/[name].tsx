@@ -16,13 +16,15 @@ import CartWidget from '../../../src/sections/CartWidget';
 import { CartContext } from 'src/context';
 import { IProduct } from 'src/@types/product';
 import MainLayout from 'src/layouts/main/MainLayout';
+import { Descripcion } from 'custom/components/Descripcion';
+
 // ----------------------------------------------------------------------
 
 interface Props {
   product: IProduct;
 }
 
-export default function EcommerceProductDetailsPage({ product}: Props) {
+export default function EcommerceProductDetailsPage({ product }: Props) {
   const { themeStretch } = useSettingsContext();
 
   const ctx = useContext(CartContext);
@@ -57,6 +59,7 @@ export default function EcommerceProductDetailsPage({ product}: Props) {
               </Grid>
             </>
           )}
+         <Descripcion product={product}/> 
         </Container>
       </MainLayout>
     </>

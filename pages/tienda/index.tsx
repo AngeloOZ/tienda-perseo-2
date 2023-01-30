@@ -5,7 +5,7 @@ import { ICategoria, IProduct } from 'src/@types/product';
 import { ShopProducts } from 'src/components/e-commerce/shop';
 import MainLayout from 'src/layouts/main/MainLayout';
 import ImagenPricipal from 'custom/components/principal/ImagenPrincipal';
-import FormasPago from 'custom/components/principal/FormasPago';
+import FormasPago from 'custom/components/principal/FormasPagoCart';
 import { Categoria } from 'custom/components/principal/Categoria';
 import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
@@ -54,8 +54,9 @@ const index: NextPage<Props> = ({ products }) => {
   return (
     <MainLayout>
       <ImagenPricipal />
-         <FormasPago />      
        <Grid container justifyContent="center" p={2}>
+       <FormasPago />      
+
           <Categoria categoria={categoria} />
       </Grid>
       <ShopProducts products={products} />
