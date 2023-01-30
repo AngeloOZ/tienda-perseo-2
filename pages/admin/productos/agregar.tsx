@@ -21,4 +21,4 @@ export default function PageAdmin() {
             <FormAgregarEditarProducto />
         </>
     )
-} 1
+}

@@ -1,14 +1,13 @@
 // @mui
 import { Box, List } from '@mui/material';
 // @types
-import { IBlogPostComment } from '../../../../@types/blog';
 //
 import BlogPostCommentItem from './BlogPostCommentItem';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  comments: IBlogPostComment[];
+  comments: any[];
 };
 
 export default function BlogPostCommentList({ comments }: Props) {
@@ -28,8 +27,8 @@ export default function BlogPostCommentList({ comments }: Props) {
               avatarUrl={avatarUrl}
             />
             {hasReply &&
-              replyComment.map((reply) => {
-                const userReply = users.find((user) => user.id === reply.userId);
+              replyComment.map((reply: any) => {
+                const userReply = users.find((user: any) => user.id === reply.userId);
 
                 return (
                   <BlogPostCommentItem

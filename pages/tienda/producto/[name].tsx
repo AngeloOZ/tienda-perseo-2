@@ -72,8 +72,8 @@ import { GetServerSideProps } from 'next';
 import axios from 'axios';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { name } = ctx.query;
-  const productoName = name?.replace(/-/g, ' '); //OJO  
+  const { name } = ctx.query as { name: string};
+  const productoName = name?.replace(/-/g, ' ');  
   const req = await axios.get(`http://localhost:8084/api/products/${productoName}`);
   
   const images = JSON.parse(req.data.images).images;

@@ -25,6 +25,7 @@ export default function PageAdmin() {
         if (query.id) {
             obtenerProducto();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
 
     const obtenerProducto = async () => {
@@ -33,7 +34,7 @@ export default function PageAdmin() {
             setCurrentValue(data);
             setIsLoading(false);
         } catch (error) {
-            console.log(error); 1
+            console.log(error);
         }
 
     }
@@ -49,4 +50,4 @@ export default function PageAdmin() {
             <FormAgregarEditarProducto isEdit currentProduct={currentValue} />
         </>
     )
-} 1
+}

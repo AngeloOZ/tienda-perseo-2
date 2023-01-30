@@ -28,8 +28,8 @@ model Producto {
   cover       String     @db.LongText
   status      Boolean
   rating      Int
-  categoriaId Int
-  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  categoriaID Int
+  categoria   Categoria @relation(fields: [categoriaID], references: [id])
 }
 
 model Usuario {

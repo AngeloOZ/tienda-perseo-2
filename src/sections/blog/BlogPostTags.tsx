@@ -20,7 +20,7 @@ export default function BlogPostTags({ post }: Props) {
   return (
     <>
       <Stack direction="row" flexWrap="wrap">
-        {tags.map((tag) => (
+        {tags.map((tag: any) => (
           <Chip key={tag} label={tag} sx={{ m: 0.5 }} />
         ))}
       </Stack>
@@ -40,7 +40,7 @@ export default function BlogPostTags({ post }: Props) {
         />
 
         <CustomAvatarGroup>
-          {favoritePerson.map((person) => (
+          {favoritePerson.map((person: any) => (
             <Avatar key={person.name} alt={person.name} src={person.avatarUrl} />
           ))}
         </CustomAvatarGroup>
