@@ -11,6 +11,7 @@ type CartActionType =
       payload: {
         activeStep: number;
         subtotal: number;
+        iva: number;
         total: number;
         discount: number;
         shipping: number;
@@ -99,6 +100,7 @@ export const cartReducer = (state: IProductCheckoutState, action: CartActionType
         //...action.payload
         activeStep: action.payload.activeStep,
         subtotal: action.payload.subtotal,
+        iva: action.payload.iva,
         total: action.payload.total,
         discount: action.payload.discount,
         shipping: action.payload.shipping,

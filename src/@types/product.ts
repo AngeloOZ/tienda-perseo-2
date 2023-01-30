@@ -14,14 +14,14 @@ export type IProduct = {
   id: string;  
   name: string;
   description: string;      
-  available: number; //stock
+  stock: number; //stock
   price: number;      
-  category: string
+  categoria: ICategoria
   images: string[];
   cover: string;
   status: boolean;  //in bool data
   priceSale: number | null;
-  totalRating: number;   
+  rating: number;   
 };
 
 // ----------------------------------------------------------------------
@@ -30,7 +30,7 @@ export type ICheckoutCartItem = {
   id: string;
   name: string;
   cover: string;
-  available: number;  
+  stock: number;  
   price: number;  
   quantity: number;
   subtotal: number;
@@ -75,6 +75,10 @@ export type ICheckoutCardOption = {
   label: string;
 };
 
-//_-------------------------------------------------------------------//
+//----------------------------------------------------------------------
 
-
+export type ICategoria={
+  id: string;  
+  nombre: string;
+  icono: string;
+}

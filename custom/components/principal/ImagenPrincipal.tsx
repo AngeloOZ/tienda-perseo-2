@@ -10,6 +10,10 @@ export default function ImagenPricipal() {
             <Image
             //src='https://http2.mlstatic.com/storage/homes-korriban/assets/images/exhibitors/fallbacks/es-desktop.jpg'
             src='https://img.freepik.com/vector-premium/paisaje-urbano-verano-larga-noche-horizontal-panorama-ciudad-ilustracion-plana_318844-225.jpg?w=2000'
+            sx={{
+                height:340,
+                width: '100%'
+            }}
             />
         </Box>
 
