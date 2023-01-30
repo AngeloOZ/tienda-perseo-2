@@ -22,7 +22,7 @@ interface Props {
   product: IProduct;
 }
 
-export default function EcommerceProductDetailsPage({ product}: Props) {
+export default function EcommerceProductDetailsPage({ product }: Props) {
   const { themeStretch } = useSettingsContext();
 
   const ctx = useContext(CartContext);
@@ -70,12 +70,12 @@ import axios from 'axios';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { name } = ctx.query;
-  const productoName = name?.replace(/-/g, ' ');
-
+  const productoName = name?.replace(/-/g, ' '); //OJO  
   const req = await axios.get(`http://localhost:8084/api/products/${productoName}`);
+  
   const images = JSON.parse(req.data.images).images;
-  const product = { ...req.data, images };  
-
+  const product = { ...req.data, images };    
+  
   return {
     props: {
       product,

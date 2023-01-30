@@ -14,7 +14,7 @@ export type IProduct = {
   id: string;  
   name: string;
   description: string;      
-  available: number; //stock
+  stock: number; //stock
   price: number;      
   categoria: ICategoria
   images: string[];
@@ -30,7 +30,7 @@ export type ICheckoutCartItem = {
   id: string;
   name: string;
   cover: string;
-  available: number;  
+  stock: number;  
   price: number;  
   quantity: number;
   subtotal: number;

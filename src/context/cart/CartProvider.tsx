@@ -27,9 +27,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
       try {
         const cart: ICheckoutCartItem[] = localStorage.getItem('CART')
           ? JSON.parse(localStorage.getItem('CART')!)
-          : [];      
-          // console.log(cart);
-            
+          : [];                            
         dispatch({ type: '[Cart] - Load Cart', payload: cart });
       } catch (e) {
         dispatch({ type: '[Cart] - Load Cart', payload: [] });
@@ -37,12 +35,12 @@ export const CartProvider: FC<Props> = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
-    // if (state.cart.length !== 0) {
-    localStorage.setItem('CART', JSON.stringify(state.cart));
-    // }
+  //Actualiza el localStorage
+  useEffect(() => {    
+    localStorage.setItem('CART', JSON.stringify(state.cart));    
   }, [state.cart]);
-
+  
+  //Recalcular todos los valores a pagar
   useEffect(() => {    
       const totalItems: number = state.cart.reduce(
         (acumulator: number, currentValue: ICheckoutCartItem) => currentValue.quantity + acumulator,
@@ -53,11 +51,13 @@ export const CartProvider: FC<Props> = ({ children }) => {
           currentValue.quantity * currentValue.price + acumulator,
         0
       );
-      const total: number = subtotal;
+      const iva: number = subtotal * 0.12;
+      const total: number = subtotal + iva;
 
       const payload = {
         activeStep: 0,
         subtotal,
+        iva,
         total,
         discount: 0,
         shipping: 0,

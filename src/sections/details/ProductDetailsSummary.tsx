@@ -15,6 +15,7 @@ import {
   MenuItem,
   Typography,
   IconButton,
+  Chip,
 } from '@mui/material';
 // routes
 // utils
@@ -56,10 +57,10 @@ export default function ProductDetailsSummary({
 }: Props) {
   // const { push } = useRouter();
 
-  const { id, name, price, cover, status, available, priceSale, rating, categoria } = product;
+  const { id, name, price, cover, status, stock, priceSale, rating, categoria } = product;
 
-  console.log(rating);
-  console.log(categoria);
+  // console.log(rating);
+  // console.log(categoria);
   
   
 
@@ -67,16 +68,16 @@ export default function ProductDetailsSummary({
 
   //Disable the "Agregar Al Carrito" buttom
   const isMaxQuantity =
-    cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
+    cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= stock;
 
   //productForCart
   const defaultValues: ICheckoutCartItem = {
     id,
     name,
     cover,
-    available,
+    stock,
     price,
-    quantity: available < 1 ? 0 : 1,
+    quantity: stock < 1 ? 0 : 1,
     subtotal: 0,
   };
 
@@ -100,7 +101,7 @@ export default function ProductDetailsSummary({
       const cartRef = cart.filter((item) => item.id === id);
       setValue('quantity', cartRef[0].quantity);
     }else if(cart.length === 0 && !alreadyProduct){
-      setValue('quantity', available < 1 ? 0 : 1);      
+      setValue('quantity', stock < 1 ? 0 : 1);      
     }
   }, [cart]);
 
@@ -245,7 +246,7 @@ export default function ProductDetailsSummary({
               name="quantity"
               quantity={values.quantity}
               disabledDecrease={values.quantity <= 1}
-              disabledIncrease={values.quantity >= available}
+              disabledIncrease={values.quantity >= stock}
               onIncrease={funIncreaseQuantity}
               onDecrease={funDecreaseQuantity}
             />
@@ -255,7 +256,7 @@ export default function ProductDetailsSummary({
               component="div"
               sx={{ textAlign: 'right', color: 'text.secondary' }}
             >
-              Disponible: {available}
+              Disponible: {stock}
             </Typography>
           </Stack>
         </Stack>
@@ -263,7 +264,8 @@ export default function ProductDetailsSummary({
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Stack direction="row" spacing={2}>
-          <Button
+
+        {(status)? (<Button
             fullWidth
             disabled={isMaxQuantity}
             size="large"
@@ -274,7 +276,9 @@ export default function ProductDetailsSummary({
             sx={{ whiteSpace: 'nowrap' }}
           >
             Agregar al Carrito
-          </Button>
+          </Button> ):  <Chip label="Agotado" variant="outlined" /> }
+
+          
 
           <Button fullWidth size="large" type="submit" variant="contained">
             Comprar Ahora

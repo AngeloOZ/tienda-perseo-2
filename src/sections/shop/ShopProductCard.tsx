@@ -27,16 +27,16 @@ type Props = {
 };
 
 export default function ShopProductCard({ product }: Props) {
-  const { id, name, cover, price, available } = product;  
+  const { id, name, cover, price, stock } = product;  
   
   //Product used only for the cart.
   const productForCart: ICheckoutCartItem = {
     id,
     name,
     cover,
-    available,
+    stock,
     price,
-    quantity: available < 1 ? 0 : 1,
+    quantity: stock < 1 ? 0 : 1,
     subtotal: 0,
   };
 
@@ -51,7 +51,7 @@ export default function ShopProductCard({ product }: Props) {
 
   //Disable the "Agregar Al Carrito" buttom
   const isMaxQuantity =
-    cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
+    cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= stock;
 
   const onAddCart = () => {
     handleAddCart(productForCart);

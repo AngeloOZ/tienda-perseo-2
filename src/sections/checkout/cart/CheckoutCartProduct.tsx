@@ -25,7 +25,7 @@ export default function CheckoutCartProduct({
   onDecrease,
   onIncrease,
 }: CheckoutProductListRowProps) {
-  const { name, price, cover, quantity, available } = row;
+  const { name, price, cover, quantity, stock } = row;
 
   return (
     <TableRow>
@@ -53,11 +53,11 @@ export default function CheckoutCartProduct({
             onDecrease={onDecrease}
             onIncrease={onIncrease}
             disabledDecrease={quantity <= 1}
-            disabledIncrease={quantity >= available}
+            disabledIncrease={quantity >= stock}
           />
 
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            Disponible: {available}
+            Disponible: {stock}
           </Typography>
         </Box>
       </TableCell>
