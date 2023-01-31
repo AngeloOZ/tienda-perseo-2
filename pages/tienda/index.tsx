@@ -62,11 +62,16 @@ const index: NextPage<Props> = ({ products }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+const productsGet = async () => {
   const res = await tiendaApi.get(`/products`);  
+  return res.data;
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const products = await productsGet();
   return {
     props: {
-      products: res.data
+      products
     },
   };
 };
