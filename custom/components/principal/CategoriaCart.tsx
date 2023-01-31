@@ -17,7 +17,7 @@ interface Props{
 export default function CategoriaCart({categoria}:Props) {
   return (
 
-    <Card sx={{ width:170, height:170, border:1, marginX: 1, marginY:0.7}}>
+    <Card sx={{ width:170, height:170, boxShadow: 5, marginX: 1, marginY:0.7}}>
        <CardActionArea sx={{width:170, height:170, }}>         
               <Image
                 alt={'icono'}

@@ -36,12 +36,13 @@ export default function MainLayout({ children }: Props) {
 
   return (
     <Box
-    /* sx={{
+    sx={{
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'column', 
         height: 1,
-        position: 'fixed',
-      }} */
+        fillOpacity: 10
+        /* position: '', */
+      }}
     >
       <Header totalItems={totalItems} onShowCart={handleShowCart} />
       <Box

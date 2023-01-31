@@ -12,51 +12,22 @@ interface Props {
   products: IProduct[];
 }
 
-const index: NextPage<Props> = ({ products }) => {
+interface Props{
+  categoria: ICategoria[];
+} 
 
-  const categoria: ICategoria[] = [
-    {
-      id: '1',
-      nombre: 'Categoria1',
-      icono: 'https://cdn-icons-png.flaticon.com/512/2432/2432596.png',
-    },
+const index: NextPage<Props> = ({ products, categoria }) => {
 
-    {
-      id: '2',
-      nombre: 'Categoria2',
-      icono: 'https://cdn-icons-png.flaticon.com/512/2432/2432596.png',
-    },
-
-    {
-      id: '3',
-      nombre: 'Categoria3',
-      icono: 'https://cdn-icons-png.flaticon.com/512/2432/2432596.png',
-    },
-
-    {
-      id: '4',
-      nombre: 'Categoria4',
-      icono: 'https://cdn-icons-png.flaticon.com/512/2432/2432596.png',
-    },
-
-    {
-      id: '5',
-      nombre: 'Categoria5',
-      icono: 'https://cdn-icons-png.flaticon.com/512/2432/2432596.png',
-    },
-
-    
-    
-  ];
+ /* 
+  */
 
   return (
     <MainLayout>
       <ImagenPricipal />
        <Grid container justifyContent="center" p={2}>
         <FormaPago />      
- 
-          <Categoria categoria={categoria} />
-      </Grid>
+           <Categoria categoria={categoria} />
+       </Grid>
       <ShopProducts products={products} />
     </MainLayout>
   );
@@ -64,12 +35,16 @@ const index: NextPage<Props> = ({ products }) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await axios.get('http://localhost:8084/api/products/');  
-  
+  //const rescate = await axios.get('http://localhost:8084/api/categoria/');  
+
   return {
     props: {
-      products: res.data
+      products: res.data,
+     // categoria: rescate.data
     },
   };
 };
+
+
 
 export default index;

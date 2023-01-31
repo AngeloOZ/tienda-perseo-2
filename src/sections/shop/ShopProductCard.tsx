@@ -68,8 +68,10 @@ export default function ShopProductCard({ product }: Props) {
         margin: 0,
         ' .add-cart-btn': {
           opacity: 1,
+          
         },
       }}
+      
     >
       <Box sx={{ position: 'relative', p: 1 }}>
         {status && (
