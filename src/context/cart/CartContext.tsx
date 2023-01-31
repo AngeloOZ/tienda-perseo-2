@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { ICheckoutCartItem } from "src/@types/product";
+import { ICheckoutCartItem, IProductCheckoutState } from "src/@types/product";
 
 interface ContextProps {        
     activeStep: number;
@@ -18,8 +18,7 @@ interface ContextProps {
     handleIncreaseQuantity: (productId: string) => void;
     handleDecreaseQuantity: (productId: string) => void;
     handleApplyDiscount: (value: number) => void;
-    //  TODO: crear un metodo reset del carrito 
-    
+    handleResetCart: () => void;    
 }
 
 export const CartContext = createContext({} as ContextProps)

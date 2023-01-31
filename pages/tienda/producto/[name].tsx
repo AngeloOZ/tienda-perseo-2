@@ -28,26 +28,26 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
         <title>{`Tienda Perseo: ${product?.name || ''} | Minimal UI`}</title>
       </Head>
       <MainLayout>
-        <Container maxWidth={themeStretch ? false : 'lg'}>          
-          {product && (            
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6} lg={7}>
-                  <ProductDetailsCarousel product={product} />
-                </Grid>
+        <Container maxWidth={themeStretch ? false : 'lg'}>
+          {product && (
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6} lg={7}>
+                <ProductDetailsCarousel product={product} />
+              </Grid>
 
-                <Grid item xs={12} md={6} lg={5}>
-                  <ProductDetailsSummary
-                    product={product}
-                    cart={cart}
-                    onAddCart={handleAddCart}
-                    onGotoStep={() => {}}
-                    onIncreaseQuantity={handleIncreaseQuantity}
-                    onDecreaseQuantity={handleDecreaseQuantity}
-                  />
-                </Grid>
-              </Grid>            
+              <Grid item xs={12} md={6} lg={5}>
+                <ProductDetailsSummary
+                  product={product}
+                  cart={cart}
+                  onAddCart={handleAddCart}
+                  onGotoStep={() => {}}
+                  onIncreaseQuantity={handleIncreaseQuantity}
+                  onDecreaseQuantity={handleDecreaseQuantity}
+                />
+              </Grid>
+            </Grid>
           )}
-         <Descripcion product={product}/> 
+          <Descripcion product={product} />
         </Container>
       </MainLayout>
     </>
@@ -58,13 +58,13 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
 // - Only if you need to pre-render a page whose data must be fetched at request time
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { name } = ctx.query as { name: string};
-  const productoName = name?.replace(/-/g, ' ');  
+  const { name } = ctx.query as { name: string };
+  const productoName = name?.replace(/-/g, ' ');
 
-  const req = await tiendaApi.get(`/products/${productoName}`);  
+  const req = await tiendaApi.get(`/products/${productoName}`);
   const images = JSON.parse(req.data.images);
-  const product = { ...req.data, images };    
-  
+  const product = { ...req.data, images };
+
   return {
     props: {
       product,
