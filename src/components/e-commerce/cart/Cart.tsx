@@ -9,7 +9,7 @@ interface Props {
 
 export const Cart:FC<Props> = ({onShowCart}) => {
   const ctx = useContext(CartContext);
-  const { handleDeleteCart, handleIncreaseQuantity, handleDecreaseQuantity, handleApplyDiscount } = ctx;
+  const { handleDeleteCart, handleIncreaseQuantity, handleDecreaseQuantity, handleApplyDiscount, handleResetCart } = ctx;
 
   return (    
       <Box sx={{ width: 'auto' }}>
@@ -20,6 +20,7 @@ export const Cart:FC<Props> = ({onShowCart}) => {
             funApplyDiscount={handleApplyDiscount}
             funIncreaseQuantity={handleIncreaseQuantity}
             funDecreaseQuantity={handleDecreaseQuantity}
+            funResetCart={handleResetCart}          
             funShowCart={onShowCart}
           />       
         </Container>

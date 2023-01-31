@@ -18,7 +18,6 @@ import { useRouter } from 'next/router';
 import { CartContext } from 'src/context';
 import { IProduct, ICheckoutCartItem } from 'src/@types/product';
 import { fCurrency } from 'src/utils/formatNumber';
-import { lowerCase } from 'lodash';
 
 // --------------------------------------s--------------------------------
 
@@ -43,7 +42,7 @@ export default function ShopProductCard({ product }: Props) {
   const router = useRouter();
 
 
-  const linkTo = `tienda/producto/${lowerCase(name).replace(/ /g, "-")}`;
+  const linkTo = `tienda/producto/${name.replace(/ /g, '-').toLocaleLowerCase()}`;
   const status = '';
 
   const ctx = useContext(CartContext);

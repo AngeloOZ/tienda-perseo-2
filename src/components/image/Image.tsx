@@ -16,7 +16,7 @@ const Image = forwardRef<HTMLSpanElement, ImageProps>(
         wrapperClassName="wrapper"
         effect={disabledEffect ? undefined : effect}
         placeholderSrc={disabledEffect ? '/assets/transparent.png' : '/assets/placeholder.svg'}
-        sx={{ width: 1, height: 1, objectFit: 'cover' }}
+        sx={{ width: 1, height: 1, objectFit: 'cover', cursor: 'pointer'}}
         {...other}
       />
     );

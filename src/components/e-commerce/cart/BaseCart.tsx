@@ -16,6 +16,7 @@ interface Props {
   funApplyDiscount: (value: number) => void;
   funIncreaseQuantity: (productId: string) => void;
   funDecreaseQuantity: (productID: string) => void;
+  funResetCart: VoidFunction;
   funShowCart: VoidFunction;
 }
 
@@ -25,6 +26,7 @@ export const BaseCart: FC<Props> = ({
   funApplyDiscount,
   funIncreaseQuantity,
   funDecreaseQuantity,
+  funResetCart,
   funShowCart,
 }) => {
   const { cart, total, discount, iva, subtotal, totalItems } = checkout;
@@ -84,11 +86,23 @@ export const BaseCart: FC<Props> = ({
               size="large"
               type="submit"
               variant="contained"
-              disabled={!cart.length}
-              // onClick={handleNextStep}
+              disabled={!cart.length}              
               sx={{ mb:2 }}
             >
               Siguiente
+            </Button>
+
+            <Button 
+              fullWidth
+              size="large"
+              type="submit"
+              variant="outlined" 
+              onClick={funResetCart}
+              sx={{ mb:2 }}
+              disabled={!cart.length}              
+              color="error"
+              >
+              Vaciar Carrito
             </Button>
 
             <Button 
@@ -100,7 +114,7 @@ export const BaseCart: FC<Props> = ({
               sx={{ mb:2 }}
               >
               Cerrar
-            </Button>
+            </Button>            
 
           </Grid>
         </Grid>

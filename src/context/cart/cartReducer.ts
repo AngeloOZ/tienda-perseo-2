@@ -1,7 +1,6 @@
 import { ICheckoutCartItem, IProductCheckoutState } from 'src/@types/product';
 
-type CartActionType =
-  // | { type: '[Cart] - LoadCart from sessionStorage'; payload: ICheckoutCartItem[] }
+type CartActionType =  
   | { type: '[Cart] - Add products in cart'; payload: ICheckoutCartItem }
   | { type: '[Cart] - Increase cart quantity'; payload: string }
   | { type: '[Cart] - Decrease cart quantity'; payload: string }
@@ -20,7 +19,8 @@ type CartActionType =
       };
     }
   | { type: '[Cart] - Load Cart'; payload: ICheckoutCartItem[] }
-  | { type: '[Cart] - Apply discount in cart'; payload: number };
+  | { type: '[Cart] - Apply discount in cart'; payload: number }
+  | { type: '[Cart] - Reset cart'; payload: IProductCheckoutState};
 
 export const cartReducer = (state: IProductCheckoutState, action: CartActionType): any => {
   switch (action.type) {
@@ -29,33 +29,9 @@ export const cartReducer = (state: IProductCheckoutState, action: CartActionType
         ...state,
         cart: [...action.payload],
       };
-      
-    case '[Cart] - Add products in cart':
-      const newProduct = action.payload;
-      const isEmptyCart = !state.cart.length;
 
-      if (isEmptyCart) {
-        return { ...state, cart: [...state.cart, newProduct] };
-      }
-
-      const productInCart = state.cart.some((p: ICheckoutCartItem) => p.id === newProduct.id);
-
-      if (!productInCart) {
-        return { ...state, cart: [...state.cart, newProduct] };
-      }
-
-      return {
-        ...state,
-        cart: state.cart.map((product) => {
-          if (product.id === newProduct.id) {
-            return {
-              ...product,
-              quantity: product.quantity + 1,
-            };
-          }
-          return product;
-        }),
-      };
+    case '[Cart] - Add products in cart':      
+      return { ...state, cart: [...state.cart, action.payload] };
 
     case '[Cart] - Increase cart quantity':
       const productId_I = action.payload;
@@ -116,6 +92,9 @@ export const cartReducer = (state: IProductCheckoutState, action: CartActionType
         total: state.subtotal - discount,
       };
 
+    case '[Cart] - Reset cart':
+      return action.payload;
+      
     default:
       return state;
   }
