@@ -12,13 +12,14 @@ import MenuPopover from '../../../src/components/menu-popover';
 import ConfirmDialog from '../../../src/components/confirm-dialog';
 import { useRouter } from 'next/router';
 import { PATH_DASHBOARD } from 'src/routes/paths';
+import { useCategories } from '.';
 
 type Props = {
   category: Categoria;
 }
 
 export const CategoryItem = ({ category }: Props) => {
-//   const { eliminarProducto } = useProducto();
+  const { eliminarCategoria } = useCategories();
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
   const [openConfirm, setOpenConfirm] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -42,13 +43,13 @@ export const CategoryItem = ({ category }: Props) => {
   };
 
   const handleClickEdit = () => {
-    // router.push(`${PATH_DASHBOARD.productos.editar}/${category.id}`);
+    router.push(`${PATH_DASHBOARD.categorias.editar}/${category.id}`);
   }
 
   const handleClickDelete = async () => {
     try {
       handleCloseConfirm();
-    //   await eliminarProducto(category.id);
+      await eliminarCategoria(category.id);
       enqueueSnackbar('Producto Eliminado', { variant: 'success' });
     } catch (error) {
       console.log(error);
@@ -113,8 +114,8 @@ export const CategoryItem = ({ category }: Props) => {
       <ConfirmDialog
         open={openConfirm}
         onClose={handleCloseConfirm}
-        title="Eliminar producto"
-        content="¿Estas seguro de eliminar este producto?"
+        title="Eliminar categoria"
+        content="¿Estas seguro de eliminar la categoria? Esta acción borrará los productos asociados a esta categoria"
         action={
           <Button variant="contained" color="error" onClick={handleClickDelete}>
             Eliminar

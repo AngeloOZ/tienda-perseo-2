@@ -19,11 +19,12 @@ import FormProvider, {
     RHFSelect,
 } from '../../../src/components/hook-form';
 
-import { useObtenerCategorias, useProducto } from '.';
+import { useProducto } from '.';
 import { IProducto } from '../../../interfaces';
 import { PATH_DASHBOARD } from 'src/routes/paths';
 import { LinearProgressBar } from '../LinearProgressBar';
 import { Producto } from '@prisma/client';
+import { useObtenerCategories } from '../Categorias';
 
 
 type FormValuesProps = IProducto;
@@ -35,7 +36,7 @@ type Props = {
 export function FormAgregarEditarProducto({ isEdit = false, currentProduct }: Props) {
     const { push } = useRouter();
     const { enqueueSnackbar } = useSnackbar();
-    const { isLoading, categories } = useObtenerCategorias();
+    const { isLoading, categories } = useObtenerCategories();
     const { agregarProducto, editarProducto } = useProducto();
 
     useEffect(() => {

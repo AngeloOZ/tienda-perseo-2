@@ -17,50 +17,45 @@ import FormProvider, {
 } from '../../../src/components/hook-form';
 
 
-import { IProducto } from '../../../interfaces';
+import { ICategoria } from '../../../interfaces';
 import { PATH_DASHBOARD } from 'src/routes/paths';
-import { Producto } from '@prisma/client';
+import { Categoria } from '@prisma/client';
+import { useCategories } from '.';
 
 
-type FormValuesProps = IProducto;
+type FormValuesProps = ICategoria;
+
 type Props = {
     isEdit?: boolean;
-    currentProduct?: Producto;
+    currentCategory?: Categoria;
 }
 
-export function FormAgregarEditarCategoria({ isEdit = false, currentProduct }: Props) {
+export function FormAgregarEditarCategoria({ isEdit = false, currentCategory }: Props) {
     const { push } = useRouter();
     const { enqueueSnackbar } = useSnackbar();
-    // const { agregarProducto, editarProducto } = useProducto();
+    const { agregarCategoria, editarCategoria } = useCategories();
+
 
     useEffect(() => {
-        if (isEdit && currentProduct) {
-            console.log(currentProduct);
+        if (isEdit && currentCategory) {
             reset(defaultValues);
-            setValue('id', currentProduct.id);
+            setValue('id', currentCategory.id);
         }
         if (!isEdit) {
             reset(defaultValues);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isEdit, currentProduct]);
+    }, [isEdit, currentCategory]);
 
     const newCategorySchema = Yup.object().shape({
-        name: Yup.string().required('El titulo es requerido'),
-        cover: Yup.mixed().required('La foto principal es requerida'),
+        nombre: Yup.string().required('El nombre de la categoria es requerido'),
+        icono: Yup.mixed().required('El icono de la categoria requerida'),
     });
 
-    const defaultValues = useMemo<IProducto>(() => ({
-        name: currentProduct?.name || '',
-        description: currentProduct?.description || '',
-        stock: currentProduct?.stock || 0,
-        price: currentProduct?.price || 0,
-        category: currentProduct?.categoriaID?.toString() || '',
-        images: JSON.parse(currentProduct?.images || '[]') || [],
-        cover: currentProduct?.cover || null,
-        status: currentProduct?.status || true,
-        rating: currentProduct?.rating?.toString() || '5',
-    }), [currentProduct]);
+    const defaultValues = useMemo<ICategoria>(() => ({
+        nombre: currentCategory?.nombre || '',
+        icono: currentCategory?.icono || null,
+    }), [currentCategory]);
 
     const methods = useForm<FormValuesProps>({
         resolver: yupResolver(newCategorySchema),
@@ -80,18 +75,19 @@ export function FormAgregarEditarCategoria({ isEdit = false, currentProduct }: P
     const onSubmit = async (data: FormValuesProps) => {
         try {
             if (isEdit) {
-                // await editarProducto(data);
-                // enqueueSnackbar('Producto actualizado correctamente', { variant: 'success' });
-                // push(PATH_DASHBOARD.productos.root);
-                // return;
+                await editarCategoria(data);
+                enqueueSnackbar('Categoria actualizada correctamente', { variant: 'success' });
+                push(PATH_DASHBOARD.categorias.root);
+                return;
             }
-            // await agregarProducto(data);
-            // enqueueSnackbar('Producto agregado correctamente', { variant: 'success' });
-            // push(PATH_DASHBOARD.productos.root);
-            // reset();
+
+            await agregarCategoria(data);
+            enqueueSnackbar('Categoria agregada correctamente', { variant: 'success' });
+            push(PATH_DASHBOARD.categorias.root);
+            reset();
         } catch (error) {
-            // console.error(error.message);
-            enqueueSnackbar("No se pudo ingresar el producto: " + error.message, { variant: 'error' });
+            console.error(error.message);
+            enqueueSnackbar("No se pudo la categoria: " + error.message, { variant: 'error' });
         }
     };
 
@@ -104,14 +100,14 @@ export function FormAgregarEditarCategoria({ isEdit = false, currentProduct }: P
             });
 
             if (file) {
-                setValue('cover', newFile, { shouldValidate: true });
+                setValue('icono', newFile, { shouldValidate: true });
             }
         },
         [setValue]
     );
 
     const handleRemoveFile = () => {
-        setValue('cover', null);
+        setValue('icono', null);
     };
 
     const renderButtons = () => {
@@ -146,15 +142,15 @@ export function FormAgregarEditarCategoria({ isEdit = false, currentProduct }: P
                         <Stack spacing={3}>
                             <Typography variant='subtitle1' component='h1'>{isEdit ? "Editar" : "Agregar"} categoria</Typography>
 
-                            <RHFTextField name="name" label="Descripción" />
+                            <RHFTextField name="nombre" label="Descripción" />
 
                             <Stack spacing={1}>
                                 <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
                                     Icono
                                 </Typography>
-                                
+
                                 <RHFUpload
-                                    name="cover"
+                                    name="icono"
                                     maxSize={1048576}
                                     onDrop={handleDrop}
                                     onDelete={handleRemoveFile}
@@ -164,7 +160,7 @@ export function FormAgregarEditarCategoria({ isEdit = false, currentProduct }: P
 
                         </Stack>
 
-                        <Stack direction="row" spacing={1.5} sx={{ mt: 2, display: { xs: "none", md: "flex" } }}>
+                        <Stack direction="row" spacing={1.5} sx={{ mt: 2 }}>
                             {renderButtons()}
                         </Stack>
                     </Card>

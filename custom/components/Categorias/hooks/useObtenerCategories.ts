@@ -9,7 +9,7 @@ type Data = {
     categories: Categoria[];
     isLoading: boolean;
     error: any;
-    mutateProducts: () => void;
+    mutateCategories: () => void;
 }
 
 export const useObtenerCategories = (initalData = {}): Data => {
@@ -19,6 +19,6 @@ export const useObtenerCategories = (initalData = {}): Data => {
         categories: data,
         isLoading,
         error,
-        mutateProducts: mutate
+        mutateCategories: mutate
     }
 }
