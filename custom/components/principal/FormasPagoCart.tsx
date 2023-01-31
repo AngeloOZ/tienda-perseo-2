@@ -31,7 +31,7 @@ export default function FormasPagoCart({ FormPago }: Props) {
 
   return (
     <Grid>
-      <Card sx={{ width: 300, height: 100, marginX: 1, marginY:0.7, boxShadow: 3 }}>
+      <Card sx={{ width: 300, height: 100, marginX: 1, marginY:0.7, boxShadow: 5,}}>
         <Image
           alt={'icono'}
           src={FormPago.icono}
