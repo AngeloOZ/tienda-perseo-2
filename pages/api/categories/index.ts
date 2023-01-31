@@ -43,7 +43,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse<Data>) 
 }
 
 
-export async function obtenerCategorias() {
+export async function obtenerCategorias(): Promise<Categoria[]> {
     try {
         const categories = await prisma.categoria.findMany();
         return categories;
@@ -70,11 +70,12 @@ async function obtenerCategoria(req: NextApiRequest, res: NextApiResponse) {
 
 async function registrarCategoria(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const { nombre, icono } = req.body;
+        const { nombre, icono } = req.body as { nombre: string, icono: string };
         const categoria = await prisma.categoria.create({
             data: {
                 nombre,
-                icono
+                icono,
+                ruta: nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-'),
             }
         });
         return res.status(200).json(categoria);

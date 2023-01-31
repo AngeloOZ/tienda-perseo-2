@@ -11,6 +11,7 @@ import { Descripcion } from 'custom/components/Descripcion';
 
 import { useSettingsContext } from '../../../src/components/settings';
 import { ProductDetailsSummary, ProductDetailsCarousel } from '../../../src/sections/details';
+import { obtenerProductoSlug } from 'pages/api/products/[name]';
 
 interface Props {
   product: IProduct;
@@ -27,6 +28,7 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
       <Head>
         <title>{`Tienda Perseo: ${product?.name || ''} | Minimal UI`}</title>
       </Head>
+      {console.log(product)}
       <MainLayout>
         <Container maxWidth={themeStretch ? false : 'lg'}>
           {product && (
@@ -54,18 +56,15 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
   );
 }
 
-// You should use getServerSideProps when:
-// - Only if you need to pre-render a page whose data must be fetched at request time
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { name } = ctx.query as { name: string };
-  const productoName = name?.replace(/-/g, ' ');
 
-  const req = await tiendaApi.get(`/products/${productoName}`);
-  const images = JSON.parse(req.data.images);
-  const product = { ...req.data, images }; 
-  
-  
+  const producto = await obtenerProductoSlug(name);
+  const images = JSON.parse(producto?.images!);
+
+  const product = { ...producto, images }; 
+
   return {
     props: {
       product,

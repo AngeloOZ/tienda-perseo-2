@@ -68,6 +68,7 @@ const registrarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
         const producto = await prisma.producto.create({
             data: {
                 name,
+                slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-'),
                 description,
                 stock,
                 price,
@@ -134,8 +135,20 @@ const eliminarProducto = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
-export async function obtenerProductosLocal() {
+export async function obtenerProductosLocal(idCategoria?: number) {
     try {
+        if (idCategoria) {
+            const productos = await prisma.producto.findMany({
+                where: {
+                    categoriaID: idCategoria
+                },
+                include: {
+                    categoria: true
+                }
+            });
+            await prisma.$disconnect();
+            return productos;
+        }
         const productos = await prisma.producto.findMany({
             include: {
                 categoria: true

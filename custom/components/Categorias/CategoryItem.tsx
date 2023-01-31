@@ -53,8 +53,7 @@ export const CategoryItem = ({ category }: Props) => {
       enqueueSnackbar('Producto Eliminado', { variant: 'success' });
     } catch (error) {
       console.log(error);
-      
-      enqueueSnackbar('Error al eliminar el producto', { variant: 'error' });
+      enqueueSnackbar('Error al eliminar la categoria: '+error.message, { variant: 'error' });
     }
   }
 

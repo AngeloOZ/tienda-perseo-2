@@ -12,20 +12,22 @@ datasource db {
 }
 
 model Categoria {
-  id     Int    @id @default(autoincrement())
-  nombre String @db.VarChar(100)
-  icono  String @db.LongText
+  id       Int        @id @default(autoincrement())
+  nombre   String     @unique @db.VarChar(100)
+  ruta     String     @unique @db.VarChar(100)
+  icono    String     @db.LongText
   producto Producto[]
 }
 
 model Producto {
-  id          Int        @id @default(autoincrement())
-  name        String     @db.VarChar(255)
-  description String     @db.LongText
-  stock       Int        @default(0)
-  price       Float      @default(0.0)
-  images      String     @db.LongText
-  cover       String     @db.LongText
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  slug        String    @unique @db.VarChar(255)
+  description String    @db.LongText
+  stock       Int       @default(0)
+  price       Float     @default(0.0)
+  images      String    @db.LongText
+  cover       String    @db.LongText
   status      Boolean
   rating      Int
   categoriaID Int

@@ -13,6 +13,7 @@ export type IProductReview = {
 export type IProduct = {
   id: string;  
   name: string;
+  slug: string;
   description: string;      
   stock: number; 
   price: number;      

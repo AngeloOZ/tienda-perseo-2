@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Producto } from '@prisma/client';
 
 const prisma = new PrismaClient();
 type Data = {
@@ -16,9 +16,9 @@ export default function productForName(req: NextApiRequest, res: NextApiResponse
 const obtenerProductoForName = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { name } = req.query as { name: string };
-    const producto = await prisma.producto.findFirst({
+    const producto = await prisma.producto.findUnique({
       where: {
-        name,
+        slug: name,
       },
       include: {
         categoria: true
@@ -32,3 +32,17 @@ const obtenerProductoForName = async (req: NextApiRequest, res: NextApiResponse)
     await prisma.$disconnect();
   }
 };
+
+export const obtenerProductoSlug = async (slug: string): Promise<Producto | null> => {
+  try {
+    const producto = await prisma.producto.findUnique({
+      where: {
+        slug
+      },
+    });
+    await prisma.$disconnect();
+    return producto;
+  } catch (error) {
+    return null;
+  }
+}

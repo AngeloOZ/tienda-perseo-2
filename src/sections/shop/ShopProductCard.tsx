@@ -42,7 +42,7 @@ export default function ShopProductCard({ product }: Props) {
   const router = useRouter();
 
 
-  const linkTo = `tienda/producto/${name.replace(/ /g, '-').toLocaleLowerCase()}`;
+  const linkTo = `tienda/producto/${product.slug}`;
   const status = '';
 
   const ctx = useContext(CartContext);

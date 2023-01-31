@@ -1,11 +1,10 @@
 import { FC } from 'react';
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import CategoriaCart from './CategoriaCart';
-import { ICategoria } from 'src/@types/product';
-import { AlignHorizontalCenter } from '@mui/icons-material';
+import { Categoria as CategoriaI } from '@prisma/client';
 
 interface Props {
-  categoria: ICategoria[];
+  categoria: CategoriaI[];
 }
 
 
@@ -37,7 +36,7 @@ export const Categoria: FC<Props> = ({ categoria }) => {
        }}
        paddingTop={4}
       >
-        {categoria?.map((cate: ICategoria) => (
+        {categoria?.map((cate: CategoriaI) => (
           <CategoriaCart key={cate.id} categoria={cate} />
         ))}
       </Grid>
