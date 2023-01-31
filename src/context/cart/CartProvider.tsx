@@ -1,7 +1,8 @@
-import React, { FC, useEffect, useReducer, useState } from 'react';
-import { CartContext, cartReducer } from './';
-
+import React, { FC, useEffect, useReducer } from 'react';
 import { IProductCheckoutState, ICheckoutCartItem } from 'src/@types/product';
+// eslint-disable-next-line arrow-body-style
+import { CartContext, cartReducer } from '.';
+
 
 interface Props {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ const CART_INITIAL_STATE: IProductCheckoutState = {
 export const CartProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
+
   useEffect(() => {
     if (state.cart.length === 0) {
       try {
@@ -32,15 +34,16 @@ export const CartProvider: FC<Props> = ({ children }) => {
       } catch (e) {
         dispatch({ type: '[Cart] - Load Cart', payload: [] });
       }
-    }
+    }  
+    // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, []);
 
-  //Actualiza el localStorage
+  //  Actualiza el localStorage
   useEffect(() => {    
     localStorage.setItem('CART', JSON.stringify(state.cart));    
   }, [state.cart]);
   
-  //Recalcular todos los valores a pagar
+  //  Recalcular todos los valores a pagar
   useEffect(() => {    
       const totalItems: number = state.cart.reduce(
         (acumulator: number, currentValue: ICheckoutCartItem) => currentValue.quantity + acumulator,
@@ -90,6 +93,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
   };
 
   return (
+    // eslint-disable-next-line
     <CartContext.Provider
       value={{
         ...state,

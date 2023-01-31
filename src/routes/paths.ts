@@ -21,16 +21,9 @@ export const PATH_DASHBOARD = {
     agregar: path(PATH_ADMIN, '/productos/agregar'),
     editar: path(PATH_ADMIN, '/productos/editar'),
   },
-  categorias: path(PATH_ADMIN, '/categorias'),
-
-  // root: ROOTS_DASHBOARD,
-  // one: path(ROOTS_DASHBOARD, '/one'),
-  // two: path(ROOTS_DASHBOARD, '/two'),
-  // three: path(ROOTS_DASHBOARD, '/three'),
-  // user: {
-  //   root: path(ROOTS_DASHBOARD, '/user'),
-  //   four: path(ROOTS_DASHBOARD, '/user/four'),
-  //   five: path(ROOTS_DASHBOARD, '/user/five'),
-  //   six: path(ROOTS_DASHBOARD, '/user/six'),
-  // },
+  categorias: {
+    root: path(PATH_ADMIN, '/categorias'),
+    agregar: path(PATH_ADMIN, '/categorias/agregar'),
+    editar: path(PATH_ADMIN, '/categorias/editar'),
+  },
 };

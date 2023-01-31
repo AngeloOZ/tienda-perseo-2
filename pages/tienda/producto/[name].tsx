@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import axios from 'axios';
+import { tiendaApi } from 'custom/api';
 import { useContext } from 'react';
 import Head from 'next/head';
 import { Grid, Container } from '@mui/material';
@@ -60,10 +60,11 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { name } = ctx.query as { name: string};
   const productoName = name?.replace(/-/g, ' ');  
-  const req = await axios.get(`http://localhost:8084/api/products/${productoName}`);
+
+  const req = await tiendaApi.get(`/products/${productoName}`);  
+  const images = JSON.parse(req.data.images);
+  const product = { ...req.data, images }; 
   
-  const { images } = JSON.parse(req.data.images);
-  const product = { ...req.data, images };    
   
   return {
     props: {

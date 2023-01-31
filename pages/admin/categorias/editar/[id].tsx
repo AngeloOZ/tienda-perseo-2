@@ -1,11 +1,12 @@
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
-import { FormAgregarEditarProducto, LinearProgressBar } from 'custom/components'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+
+import { FormAgregarEditarCategoria, LinearProgressBar } from 'custom/components'
 import { tiendaApi } from 'custom/api'
-import { Producto } from '@prisma/client'
+import { Categoria } from '@prisma/client'
 
 
 
@@ -14,7 +15,7 @@ PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</Das
 
 export default function PageAdmin() {
     const { query } = useRouter();
-    const [currentValue, setCurrentValue] = useState<Producto>();
+    const [currentValue, setCurrentValue] = useState<Categoria>();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -26,13 +27,12 @@ export default function PageAdmin() {
 
     const obtenerProducto = async () => {
         try {
-            const { data } = await tiendaApi.get(`/products?id=${query.id}`);
+            const { data } = await tiendaApi.get(`/categories?id=${query.id}`);
             setCurrentValue(data);
             setIsLoading(false);
         } catch (error) {
             console.log(error);
         }
-
     }
 
     if (isLoading) return <LinearProgressBar />
@@ -41,9 +41,9 @@ export default function PageAdmin() {
     return (
         <>
             <Head>
-                <title>Editar producto</title>
+                <title>Editar categoria</title>
             </Head>
-            <FormAgregarEditarProducto isEdit currentProduct={currentValue} />
+            <FormAgregarEditarCategoria isEdit currentCategory={currentValue} />
         </>
     )
 }

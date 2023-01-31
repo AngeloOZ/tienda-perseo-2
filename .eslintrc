@@ -4,16 +4,8 @@
     "browser": true,
     "es2021": true
   },
-  "plugins": [
-    "@typescript-eslint",
-    "prettier"
-  ],
-  "extends": [
-    "airbnb",
-    "airbnb-typescript",
-    "airbnb/hooks",
-    "prettier"
-  ],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": ["airbnb", "airbnb-typescript", "airbnb/hooks", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -51,7 +43,14 @@
     "@typescript-eslint/naming-convention": 0,
     "jsx-a11y/control-has-associated-label": 0,
     "@typescript-eslint/no-use-before-define": 0,
-    "radix": 0,
+    "radix": true,
+    "import/no-cycle": [
+      "error",
+      {
+        "maxDepth": 10,
+        "ignoreExternal": true
+      }
+    ],
     "react/jsx-no-useless-fragment": [
       1,
       {

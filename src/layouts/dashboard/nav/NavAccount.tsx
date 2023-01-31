@@ -1,11 +1,11 @@
+import { useContext } from 'react';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Typography } from '@mui/material';
 
 // components
-import { CustomAvatar } from '../../../components/custom-avatar';
-import { useContext } from 'react';
 import { AuthContext } from 'src/auth';
+import { CustomAvatar } from '../../../components/custom-avatar';
 
 // ----------------------------------------------------------------------
 
@@ -25,14 +25,17 @@ const StyledRoot = styled('div')(({ theme }) => ({
 export default function NavAccount() {
   const { user } = useContext(AuthContext);
 
+  console.log(user);
+  
+
   return (
     <Link underline="none" color="inherit">
       <StyledRoot>
-        <CustomAvatar src={'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg'} alt={user?.nombres} name={user?.nombres} />
+        <CustomAvatar src={'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg'} alt={user?.nombre} name={user?.nombre} />
 
         <Box sx={{ ml: 2, minWidth: 0 }}>
           <Typography variant="subtitle2" noWrap>
-            {user?.nombres}
+            {user?.nombre}
           </Typography>
 
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>

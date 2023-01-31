@@ -6,11 +6,9 @@ import { IProduct } from 'src/@types/product';
 interface Props {
   products: IProduct[];
 }
-
-export const ShopProducts: FC<Props> = ({ products }) => {
-  
-  return (
-    <>
+// eslint-disable-next-line arrow-body-style
+export const ShopProducts: FC<Props> = ({ products }) => {  
+  return (    
       <Box
         gap={3}
         display="grid"
@@ -25,7 +23,6 @@ export const ShopProducts: FC<Props> = ({ products }) => {
         {products?.map((product: IProduct) => (
           <ShopProductCard key={product.id} product={product} />
         ))}
-      </Box>
-    </>
+      </Box>    
   );
 };

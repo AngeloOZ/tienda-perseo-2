@@ -22,34 +22,16 @@ const navConfig = [
       },
       {
         title: 'categorias',
-        path: PATH_DASHBOARD.categorias,
+        path: PATH_DASHBOARD.categorias.root,
         icon: <Category />,
-      },
-      {
-        title: 'archivos',
-        path: PATH_DASHBOARD.categorias,
-        icon: <FileCopy />,
+        children: [
+          { title: 'Listar', path: PATH_DASHBOARD.categorias.root },
+          { title: 'Agregar', path: PATH_DASHBOARD.categorias.agregar },
+        ]
       },
     ],
   },
 
-
-  // {
-  //   subheader: 'management',
-  //   items: [
-  //     {
-  //       title: 'user',
-  //       path: PATH_DASHBOARD.user.root,
-  //       // Iconos de plantilla
-  //       icon: <Home />,
-  //       children: [
-  //         { title: 'Four', path: PATH_DASHBOARD.user.four },
-  //         { title: 'Five', path: PATH_DASHBOARD.user.five },
-  //         { title: 'Six', path: PATH_DASHBOARD.user.six },
-  //       ],
-  //     },
-  //   ],
-  // },
 
 ];
 

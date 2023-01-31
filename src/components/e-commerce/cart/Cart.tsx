@@ -11,8 +11,6 @@ export const Cart:FC<Props> = ({onShowCart}) => {
   const ctx = useContext(CartContext);
   const { handleDeleteCart, handleIncreaseQuantity, handleDecreaseQuantity, handleApplyDiscount } = ctx;
 
-  //----------------------------------------------------------------
-
   return (    
       <Box sx={{ width: 'auto' }}>
         <Container>            

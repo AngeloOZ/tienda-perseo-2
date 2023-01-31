@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useState, useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 // next
 import { useRouter } from 'next/router';
 // form
@@ -19,11 +19,12 @@ import FormProvider, {
     RHFSelect,
 } from '../../../src/components/hook-form';
 
-import { useObtenerCategorias, useProducto } from '.';
+import { useProducto } from '.';
 import { IProducto } from '../../../interfaces';
 import { PATH_DASHBOARD } from 'src/routes/paths';
 import { LinearProgressBar } from '../LinearProgressBar';
 import { Producto } from '@prisma/client';
+import { useObtenerCategories } from '../Categorias';
 
 
 type FormValuesProps = IProducto;
@@ -35,7 +36,7 @@ type Props = {
 export function FormAgregarEditarProducto({ isEdit = false, currentProduct }: Props) {
     const { push } = useRouter();
     const { enqueueSnackbar } = useSnackbar();
-    const { isLoading, categories } = useObtenerCategorias();
+    const { isLoading, categories } = useObtenerCategories();
     const { agregarProducto, editarProducto } = useProducto();
 
     useEffect(() => {
@@ -99,11 +100,10 @@ export function FormAgregarEditarProducto({ isEdit = false, currentProduct }: Pr
             await agregarProducto(data);
             enqueueSnackbar('Producto agregado correctamente', { variant: 'success' });
             push(PATH_DASHBOARD.productos.root);
+            reset();
         } catch (error) {
             console.error(error.message);
             enqueueSnackbar("No se pudo ingresar el producto: " + error.message, { variant: 'error' });
-        } finally {
-            reset();
         }
     };
 

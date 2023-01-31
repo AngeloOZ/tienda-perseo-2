@@ -13,7 +13,7 @@ export default function ThemeSettings({ children }: Props) {
     <ThemeColorPresets>
       <ThemeContrast>
         {children}
-        <SettingsDrawer />
+        <SettingsDrawer visible />
       </ThemeContrast>
     </ThemeColorPresets>
   );

@@ -22,7 +22,7 @@ export default function NavItem({
 }: NavItemProps) {
   const { translate } = useLocales();
 
-  const { title, path, icon, info, children, disabled, caption, roles } = item;
+  const { title, path, icon, info, children, disabled, caption } = item;
 
   const subItem = depth !== 1;
 

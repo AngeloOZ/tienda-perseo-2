@@ -25,7 +25,7 @@ export const useProducto = () => {
             images,
             cover
         });
-
+        mutateProducts();
     }
 
     const editarProducto = async (producto: IProducto) => {
@@ -46,6 +46,7 @@ export const useProducto = () => {
             images,
             cover
         });
+        mutateProducts();
     }
 
     const eliminarProducto = async (id: number) => {
