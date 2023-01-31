@@ -12,7 +12,7 @@ type Data =
     {
         user: {
             id: number,
-            nombre: string,
+            nombres: string,
             identificacion: string,
             correo: string,
         }
@@ -48,7 +48,7 @@ async function verifyJWT(req: NextApiRequest, res: NextApiResponse<Data>) {
         return res.status(200).json({
             user: {
                 id: user.id,
-                nombre: user.nombres,
+                nombres: user.nombres,
                 identificacion: user.identificacion,
                 correo: user.correo,
             },

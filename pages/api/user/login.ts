@@ -13,7 +13,7 @@ type Data =
     {
         user: {
             id: number,
-            nombre: string,
+            nombres: string,
             identificacion: string,
             correo: string,
         }
@@ -36,6 +36,7 @@ async function loginUser(req: NextApiRequest, res: NextApiResponse<Data>) {
         const { identificacion = '', clave = '' } = req.body;
 
         const user = await prisma.usuario.findUnique({ where: { identificacion } });
+
         if (!user) {
             return res.status(404).json({ status: 404, message: 'El usuario o la contraseña no son válidos - IDEN' })
         }
@@ -48,7 +49,7 @@ async function loginUser(req: NextApiRequest, res: NextApiResponse<Data>) {
         return res.status(200).json({
             user: {
                 id: user.id,
-                nombre: user.nombres,
+                nombres: user.nombres,
                 identificacion: user.identificacion,
                 correo: user.correo,
             },

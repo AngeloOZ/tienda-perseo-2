@@ -1,4 +1,4 @@
-import { Usuario } from 'interfaces';
+import { Usuario } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 
 

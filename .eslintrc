@@ -43,7 +43,7 @@
     "@typescript-eslint/naming-convention": 0,
     "jsx-a11y/control-has-associated-label": 0,
     "@typescript-eslint/no-use-before-define": 0,
-    "radix": true,
+    "radix": 0,
     "import/no-cycle": [
       "error",
       {
