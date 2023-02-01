@@ -11,7 +11,6 @@ import { obtenerCategorias } from 'pages/api/categories';
 import { Categoria as CategoriaID } from '@prisma/client';
 import { Categoria } from 'custom/components/principal/Categoria';
 
-
 interface Props {
   products: IProduct[];
 }
@@ -20,23 +19,19 @@ interface Props {
   categories: CategoriaID[];
 }
 
-const index: NextPage<Props> = ({ products, categories }) => {
-
-  return (
-    <MainLayout>
-      <Head>
-        <title>Listado de productos</title>
-      </Head>
-      <ImagenPricipal />
-      <Grid container justifyContent="center" p={2}>
-        <FormaPago />
-        <Categoria categoria={categories} />
-      </Grid>
-      <ShopProducts products={products} />
-    </MainLayout>
-  );
-};
-
+const index: NextPage<Props> = ({ products, categories }) => (
+  <MainLayout>
+    <Head>
+      <title>Listado de productos</title>
+    </Head>
+    <ImagenPricipal />
+    <Grid container justifyContent="center" p={2}>
+      <FormaPago />
+      <Categoria categoria={categories} />
+    </Grid>
+    <ShopProducts products={products} />
+  </MainLayout>
+);
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const products = await obtenerProductosLocal();
@@ -44,11 +39,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       products,
-      categories
+      categories,
     },
   };
 };
-
-
 
 export default index;
