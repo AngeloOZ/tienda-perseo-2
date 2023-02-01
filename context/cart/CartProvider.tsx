@@ -40,10 +40,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
   //  Actualiza el localStorage y cargar el id y la cantidad en las cookies
   useEffect(() => {
     localStorage.setItem('CART', JSON.stringify(state.cart));
-    const cData = state.cart.map((c: ICheckoutCartItem) => ({id: c.id, quantity: c.quantity}));
-    
-    console.log(cData);
-    
+    const cData = state.cart.map((c: ICheckoutCartItem) => ({id: c.id, quantity: c.quantity}));            
     Cookie.set('CART', JSON.stringify(cData));
   }, [state.cart]);
 

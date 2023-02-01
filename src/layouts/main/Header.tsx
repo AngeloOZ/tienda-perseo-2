@@ -12,7 +12,6 @@ import { bgBlur } from '../../utils/cssStyles';
 // config
 import { HEADER } from '../../config-global';
 // routes
-// import { PATH_DOCS, PATH_MINIMAL_ON_STORE } from '../../routes/paths';
 // components
 import Logo from '../../components/logo';
 // import Label from '../../components/label';
@@ -27,7 +26,7 @@ import Logo from '../../components/logo';
 
 // ----------------------------------------------------------------------
 interface Props {
-  totalItems: number;  
+  totalItems: number;
   onShowCart: VoidFunction;
 }
 
@@ -62,16 +61,14 @@ export default function Header({ totalItems, onShowCart }: Props) {
         }}
       >
         <Container maxWidth="xl" sx={{ height: 1, display: 'flex', alignItems: 'center' }}>
-          <Logo />          
+          <Logo />
           <Box sx={{ flexGrow: 1 }} />
 
           {/* {isDesktop && <NavDesktop isOffset={isOffset} data={navConfig} />} */}
 
           {/* <Button variant="contained" target="_blank" rel="noopener" href={PATH_MINIMAL_ON_STORE}>
             Purchase Now
-          </Button> */}
-
-          {/* -------------------- CART ------------------------- */}          
+          </Button> */}          
 
           <Button variant="contained" style={{ margin: 10 }} size="large" onClick={onShowCart}>
             <Badge showZero badgeContent={totalItems} color="error" max={99}>
@@ -88,8 +85,6 @@ export default function Header({ totalItems, onShowCart }: Props) {
     </AppBar>
   );
 }
-
-// ----------------------------------------------------------------------
 
 function Shadow({ sx, ...other }: BoxProps) {
   return (

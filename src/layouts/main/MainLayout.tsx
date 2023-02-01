@@ -1,17 +1,24 @@
 // next
+<<<<<<< HEAD
 
+=======
+>>>>>>> 53d0814ed447da3bb8b771b5a0d96662b1a7f849
 import { useRouter } from 'next/router';
 // @mui
 import { Box, Divider, Drawer } from '@mui/material';
 //
+<<<<<<< HEAD
 
+=======
+import { Cart } from 'custom/components/cart';
+>>>>>>> 53d0814ed447da3bb8b771b5a0d96662b1a7f849
 // import Footer from './Footer';
-// const Header = dynamic(() => import('./Header'), { ssr: false });
-// const Footer = dynamic(() => import('./Footer'), { ssr: false });
-
 import { useContext, useState } from 'react';
 import { CartContext } from 'context';
+<<<<<<< HEAD
 import { Cart } from 'custom/components/cart';
+=======
+>>>>>>> 53d0814ed447da3bb8b771b5a0d96662b1a7f849
 import Header from './Header';
 
 
