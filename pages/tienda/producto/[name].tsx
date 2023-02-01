@@ -32,7 +32,6 @@ export default function EcommerceProductDetailsPage({ producto }: Props) {
       <Head>
         <title>{`Tienda Perseo: ${producto?.name || ''} | Minimal UI`}</title>
       </Head>
-      {console.log(producto)}
       <MainLayout>
         <Container maxWidth={themeStretch ? false : 'lg'}>
           {producto && (
@@ -61,29 +60,12 @@ export default function EcommerceProductDetailsPage({ producto }: Props) {
 }
 
 
-/* export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { name } = ctx.query as { name: string };
-
-  const producto = await obtenerProductoSlug(name);
-  const images = JSON.parse(producto?.images!);
-
-  const product = { ...producto, images }; 
-
-  return {
-    props: {
-      product,
-    },
-  };
-}; */
-
-
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
- // const { name } = ctx as { name: string };
   
   const products = await obtenerProductosLocal();
 
     return{
-      paths: products.map((prod) => ({params: {product: prod.slug}})),
+      paths: products.map((prod) => ({params: {name: prod.slug}})),
       fallback: false
     }
 }
