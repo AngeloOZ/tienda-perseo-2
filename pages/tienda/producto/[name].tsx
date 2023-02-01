@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import {  GetStaticProps, GetStaticPaths } from 'next';
-=======
-import { GetServerSideProps } from 'next';
->>>>>>> 53d0814ed447da3bb8b771b5a0d96662b1a7f849
 import { useContext } from 'react';
 import Head from 'next/head';
 import { Grid, Container } from '@mui/material';
@@ -12,12 +8,6 @@ import { IProduct } from 'src/@types/product';
 import MainLayout from 'src/layouts/main/MainLayout';
 import { Descripcion } from 'custom/components/Descripcion';
 
-<<<<<<< HEAD
-=======
-import { obtenerProductoSlug } from 'pages/api/products/[name]';
-import { useSettingsContext } from '../../../src/components/settings';
-import { ProductDetailsSummary, ProductDetailsCarousel } from '../../../src/sections/details';
->>>>>>> 53d0814ed447da3bb8b771b5a0d96662b1a7f849
 import { obtenerProductoSlug } from 'pages/api/products/[name]';
 import { obtenerProductosLocal } from 'pages/api/products';
 import { ProductDetailsSummary, ProductDetailsCarousel } from '../../../src/sections/details';
