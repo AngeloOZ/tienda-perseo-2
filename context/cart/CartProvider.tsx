@@ -1,5 +1,6 @@
-import React, { FC, useEffect, useReducer } from 'react';
+import React, { FC, useEffect, useReducer, useState } from 'react';
 import { IProductCheckoutState, ICheckoutCartItem } from 'src/@types/product';
+import Cookie from 'js-cookie';
 // eslint-disable-next-line arrow-body-style
 import { CartContext, cartReducer } from '.';
 
@@ -20,7 +21,7 @@ const CART_INITIAL_STATE: IProductCheckoutState = {
 };
 
 export const CartProvider: FC<Props> = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
+  const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);  
 
   useEffect(() => {
     if (state.cart.length === 0) {
@@ -36,9 +37,14 @@ export const CartProvider: FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //  Actualiza el localStorage
+  //  Actualiza el localStorage y cargar el id y la cantidad en las cookies
   useEffect(() => {
     localStorage.setItem('CART', JSON.stringify(state.cart));
+    const cData = state.cart.map((c: ICheckoutCartItem) => ({id: c.id, quantity: c.quantity}));
+    
+    console.log(cData);
+    
+    Cookie.set('CART', JSON.stringify(cData));
   }, [state.cart]);
 
   //  Recalcular todos los valores a pagar
@@ -70,30 +76,30 @@ export const CartProvider: FC<Props> = ({ children }) => {
 
   const handleAddCart = (newProduct: ICheckoutCartItem) => {
     const isEmptyCart = !state.cart.length;
-    
+
     if (isEmptyCart) {
-      dispatch({ type: '[Cart] - Add products in cart', payload: newProduct });    
-      return;  
+      dispatch({ type: '[Cart] - Add products in cart', payload: newProduct });
+      return;
     }
     const productInCart = state.cart.some((p: ICheckoutCartItem) => p.id === newProduct.id);
-    
+
     if (!productInCart) {
       dispatch({ type: '[Cart] - Add products in cart', payload: newProduct });
       return;
     } else {
       state.cart.map((product: ICheckoutCartItem) => {
-        if (product.id === newProduct.id) {          
+        if (product.id === newProduct.id) {
           dispatch({ type: '[Cart] - Increase cart quantity', payload: product.id });
         }
       });
     }
   };
 
-  const handleDeleteCart = (productId: string) => {        
-    dispatch({ type: '[Cart] - Remove product in cart', payload: productId });    
+  const handleDeleteCart = (productId: string) => {
+    dispatch({ type: '[Cart] - Remove product in cart', payload: productId });
   };
 
-  const handleIncreaseQuantity = (productId: string) => {    
+  const handleIncreaseQuantity = (productId: string) => {
     dispatch({ type: '[Cart] - Increase cart quantity', payload: productId });
   };
 
@@ -108,8 +114,8 @@ export const CartProvider: FC<Props> = ({ children }) => {
   };
 
   const handleResetCart = () => {
-    dispatch({ type: '[Cart] - Reset cart', payload: CART_INITIAL_STATE});
-  }
+    dispatch({ type: '[Cart] - Reset cart', payload: CART_INITIAL_STATE });
+  };
 
   return (
     // eslint-disable-next-line

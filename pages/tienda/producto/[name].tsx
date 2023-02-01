@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import Head from 'next/head';
 import { Grid, Container } from '@mui/material';
 
-import { CartContext } from 'src/context';
+import { CartContext } from 'context';
 import { IProduct } from 'src/@types/product';
 import MainLayout from 'src/layouts/main/MainLayout';
 import { Descripcion } from 'custom/components/Descripcion';

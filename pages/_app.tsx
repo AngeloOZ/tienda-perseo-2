@@ -18,7 +18,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // Context
 import { AuthProvider } from 'src/auth/context';
-import { CartProvider } from 'src/context';
+import { CartProvider } from 'context';
 
 import { CacheProvider, EmotionCache } from '@emotion/react';
 // next

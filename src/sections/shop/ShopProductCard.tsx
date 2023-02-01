@@ -15,7 +15,7 @@ import Image from '../../components/image';
 // import { fCurrency } from '../../utils/formatNumber';
 import { useRouter } from 'next/router';
 
-import { CartContext } from 'src/context';
+import { CartContext } from 'context';
 import { IProduct, ICheckoutCartItem } from 'src/@types/product';
 import { fCurrency } from 'src/utils/formatNumber';
 

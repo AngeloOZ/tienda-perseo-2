@@ -1,6 +1,6 @@
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import { IProduct } from 'src/@types/product';
-import { ShopProducts } from 'src/components/e-commerce/shop';
+import { ShopProducts } from 'custom/components/shop';
 import MainLayout from 'src/layouts/main/MainLayout';
 import ImagenPricipal from 'custom/components/principal/ImagenPrincipal';
 import FormaPago from 'custom/components/principal/FormaPago';
