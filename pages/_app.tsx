@@ -1,3 +1,9 @@
+//--------SWIPER
+import "swiper/css";
+import "swiper/css/navigation";
+import '../custom/styles/swiper.css'
+
+
 // i18n
 import '../src/locales/i18n';
 import 'react-quill/dist/quill.snow.css';
