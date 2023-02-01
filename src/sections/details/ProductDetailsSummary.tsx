@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-// import { sentenceCase } from 'change-case';
-// next
-// import { useRouter } from 'next/router';
-// form
+
 import { useForm } from 'react-hook-form';
+
 // @mui
 import {
   Stack,
@@ -13,20 +11,16 @@ import {
   Typography,
   Chip,
 } from '@mui/material';
-// routes
+
 // utils
+// import { sentenceCase } from 'change-case';
 import { fCurrency } from '../../utils/formatNumber';
 // @types
 import { IProduct, ICheckoutCartItem } from '../../@types/product';
-// _mock
-// import { _socials } from '../../_mock/arrays';
-// components
-// import Label from '../../components/label';
+
 import Iconify from '../../components/iconify';
 import { IncrementerButton } from '../../components/custom-input';
-// import { ColorSinglePicker } from '../../components/color-utils';
 import FormProvider from '../../components/hook-form';
-import { sentenceCase } from 'change-case';
 
 // ----------------------------------------------------------------------
 

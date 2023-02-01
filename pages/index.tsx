@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 // ----------------------------------------------------------------------
 
@@ -12,5 +13,5 @@ export default function Index() {
     }
   });
 
-  return null;
+  return <Head><title>Tienda Perseo</title></Head>;
 }
