@@ -91,10 +91,10 @@ export default function ProductDetailsCarousel({ product }: Props) {
 
   const imagesLightbox = product.images.map((img) => ({ src: img }));
 
-  const handleOpenLightbox = (imageUrl: string) => {
-    const imageIndex = imagesLightbox.findIndex((image) => image.src === imageUrl);
-    setSelectedImage(imageIndex);
-  };
+  // const handleOpenLightbox = (imageUrl: string) => {
+  //   const imageIndex = imagesLightbox.findIndex((image) => image.src === imageUrl);
+  //   setSelectedImage(imageIndex);
+  // };
 
   const handleCloseLightbox = () => {
     setSelectedImage(-1);

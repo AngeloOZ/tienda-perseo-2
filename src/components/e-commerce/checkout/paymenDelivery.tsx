@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Controller, useFormContext } from 'react-hook-form';
 import {
     Box,
@@ -17,14 +15,14 @@ import {
 import { ICheckoutDeliveryOption } from 'src/@types/product';
 import Iconify from 'src/components/iconify';
 
-//_----------------------------------------------------------------------//
+// ----------------------------------------------------------------------//
 
 interface Props extends CardProps {
     deliveryOptionss: ICheckoutDeliveryOption[];
     onApplyShipping: (shipping: number) => void;
 }
 
-//_----------------------------------------------------------------------//
+// ----------------------------------------------------------------------//
 
 export default function PaymenDelivery({ deliveryOptionss, onApplyShipping, ...other }: Props) {
     const { control } = useFormContext();
@@ -67,14 +65,14 @@ export default function PaymenDelivery({ deliveryOptionss, onApplyShipping, ...o
     )
 }
 
-//_----------------------------------------------------------------------//
+// ----------------------------------------------------------------------//
 
 type DeliveryOptionProps = {
     option: ICheckoutDeliveryOption;
     isSelected: boolean;
 };
 
-//_----------------------------------------------------------------------//
+// ----------------------------------------------------------------------//
 
 function DeliveryOptionn({ option, isSelected }: DeliveryOptionProps) {
     const { value, title, description } = option;

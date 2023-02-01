@@ -6,10 +6,6 @@ import NextLink from 'next/link';
 import { Box, Card, Link, Stack, Fab, Typography } from '@mui/material';
 // routes
 
-// components
-import Iconify from '../../components/iconify';
-import Label from '../../components/label';
-import Image from '../../components/image';
 // import { price } from 'src/_mock/assets';
 // import { ColorPreview } from '../../components/color-utils';
 // import { fCurrency } from '../../utils/formatNumber';
@@ -18,6 +14,11 @@ import { useRouter } from 'next/router';
 import { CartContext } from 'context';
 import { IProduct, ICheckoutCartItem } from 'src/@types/product';
 import { fCurrency } from 'src/utils/formatNumber';
+
+// components
+import Iconify from '../../components/iconify';
+import Label from '../../components/label';
+import Image from '../../components/image';
 
 // --------------------------------------s--------------------------------
 
@@ -28,7 +29,7 @@ type Props = {
 export default function ShopProductCard({ product }: Props) {
   const { id, name, cover, price, stock } = product;  
   
-  //Product used only for the cart.
+  // Product used only for the cart.
   const productForCart: ICheckoutCartItem = {
     id,
     name,
@@ -48,7 +49,7 @@ export default function ShopProductCard({ product }: Props) {
   const ctx = useContext(CartContext);
   const { cart, handleAddCart } = ctx;
 
-  //Disable the "Agregar Al Carrito" buttom
+  // Disable the "Agregar Al Carrito" buttom
   const isMaxQuantity =
     cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= stock;
 
@@ -111,7 +112,7 @@ export default function ShopProductCard({ product }: Props) {
           <Iconify icon="ic:round-add-shopping-cart" />
         </Fab>
         <Image
-          alt={'Imagen'}
+          alt='Imagen'
           src={cover}
           ratio="1/1"
           sx={{ borderRadius: 1.5 }}
@@ -130,7 +131,7 @@ export default function ShopProductCard({ product }: Props) {
           <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
             {true && (
               <Box component="span" sx={{ color: 'inherit' }}>
-                {fCurrency(price) + ' '}
+                {fCurrency(price)}
                 <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
                   + IVA
                 </Typography>

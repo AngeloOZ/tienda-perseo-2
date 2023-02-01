@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 
 import { PaymentNewCardDialog } from 'src/sections/payment';
@@ -25,14 +24,14 @@ import Image from 'src/components/image/Image';
 
 
 
-//_----------------------------------------------------------------------//
+// ----------------------------------------------------------------------//
 
 interface Props extends CardProps {
     paymentOptions: ICheckoutPaymentOption[];
     cardOptions: ICheckoutCardOption[];
 }
 
-//_----------------------------------------------------------------------//
+// ----------------------------------------------------------------------//
 
 export function PaymenCard({ paymentOptions, cardOptions, ...other }: Props) {
     const { control } = useFormContext();
@@ -89,7 +88,7 @@ export function PaymenCard({ paymentOptions, cardOptions, ...other }: Props) {
     )
 }
 
-//_----------------------------------------------------------------------//
+// ----------------------------------------------------------------------//
 
 type PaymentOptionProps = {
     option: ICheckoutPaymentOption;
@@ -100,7 +99,7 @@ type PaymentOptionProps = {
     onOpen: VoidFunction;
 }
 
-//_----------------------------------------------------------------------//
+// ----------------------------------------------------------------------//
 
 function PaymentOption({
     option,

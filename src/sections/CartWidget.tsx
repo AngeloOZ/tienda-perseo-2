@@ -2,11 +2,13 @@
 import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
+
 import { Badge, Link } from '@mui/material';
 // routes
 // import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import Iconify from '../../src/components/iconify';
+
+import Iconify from '../components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -39,7 +41,7 @@ type Props = {
 
 export default function CartWidget({ totalItems }: Props) {
   return (
-    <Link component={NextLink} href={'#'}>
+    <Link component={NextLink} href='#'>
       <StyledRoot>
         <Badge showZero badgeContent={totalItems} color="error" max={99}>
           <Iconify icon="eva:shopping-cart-fill" width={24} />

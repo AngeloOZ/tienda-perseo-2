@@ -98,8 +98,7 @@ export default function CheckoutSummary({
               <Typography variant="subtitle1" sx={{ color: 'error.main' }}>
                 {fCurrency(total)}
               </Typography>
-              <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
-              </Typography>
+              <Typography variant="caption" sx={{ fontStyle: 'italic' }} />
             </Box>
           </Stack>
 

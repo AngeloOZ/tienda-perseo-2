@@ -1,35 +1,31 @@
 import { useEffect } from 'react';
-import { sentenceCase } from 'change-case';
+// import { sentenceCase } from 'change-case';
 // next
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 // form
-import { Controller, useForm } from 'react-hook-form';
+import {  useForm } from 'react-hook-form';
 // @mui
 import {
-  Box,
-  Link,
   Stack,
   Button,
   Rating,
   Divider,
-  MenuItem,
   Typography,
-  IconButton,
   Chip,
 } from '@mui/material';
 // routes
 // utils
-import { fShortenNumber, fCurrency } from '../../../src/utils/formatNumber';
+import { fCurrency } from '../../utils/formatNumber';
 // @types
-import { IProduct, ICheckoutCartItem } from '../../../src/@types/product';
+import { IProduct, ICheckoutCartItem } from '../../@types/product';
 // _mock
-import { _socials } from '../../../src/_mock/arrays';
+// import { _socials } from '../../_mock/arrays';
 // components
-import Label from '../../../src/components/label';
-import Iconify from '../../../src/components/iconify';
-import { IncrementerButton } from '../../../src/components/custom-input';
-import { ColorSinglePicker } from '../../../src/components/color-utils';
-import FormProvider, { RHFSelect } from '../../../src/components/hook-form';
+// import Label from '../../components/label';
+import Iconify from '../../components/iconify';
+import { IncrementerButton } from '../../components/custom-input';
+// import { ColorSinglePicker } from '../../components/color-utils';
+import FormProvider from '../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -57,7 +53,7 @@ export default function ProductDetailsSummary({
 }: Props) {
   // const { push } = useRouter();
 
-  const { id, name, price, cover, status, stock, priceSale, rating, categoria } = product;
+  const { id, name, price, cover, status, stock, rating } = product;
 
   // console.log(rating);
   // console.log(categoria);
@@ -66,11 +62,11 @@ export default function ProductDetailsSummary({
 
   const alreadyProduct = cart.map((item) => item.id).includes(id);
 
-  //Disable the "Agregar Al Carrito" buttom
+  // Disable the "Agregar Al Carrito" buttom
   const isMaxQuantity =
     cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= stock;
 
-  //productForCart
+  // productForCart
   const defaultValues: ICheckoutCartItem = {
     id,
     name,
@@ -85,7 +81,7 @@ export default function ProductDetailsSummary({
     defaultValues,
   });
 
-  const { reset, watch, control, setValue, handleSubmit } = methods;
+  const { reset, watch, setValue } = methods;
 
   const values = watch();
 
@@ -103,6 +99,7 @@ export default function ProductDetailsSummary({
     }else if(cart.length === 0 && !alreadyProduct){
       setValue('quantity', stock < 1 ? 0 : 1);      
     }
+    // eslint-disable-next-line 
   }, [cart]);
 
   const funAddCart = async () => {
@@ -119,13 +116,17 @@ export default function ProductDetailsSummary({
     }
   };
 
+  // eslint-disable-next-line 
   const funIncreaseQuantity = () => {
+    // eslint-disable-next-line 
     cart.length !== 0 && alreadyProduct
       ? onIncreaseQuantity(id)
       : setValue('quantity', values.quantity + 1);
   };
 
+  // eslint-disable-next-line 
   const funDecreaseQuantity = () => {
+    // eslint-disable-next-line 
     cart.length !== 0 && alreadyProduct
       ? onDecreaseQuantity(id)
       : setValue('quantity', values.quantity - 1);
