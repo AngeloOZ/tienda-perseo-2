@@ -8,7 +8,7 @@ import { IProductCheckoutState } from 'src/@types/product';
 import {
   CheckoutCartProductList,
   CheckoutSummary,
-} from '../../../sections/checkout';
+} from '../../../src/sections/checkout';
 
 interface Props {
   checkout: IProductCheckoutState;

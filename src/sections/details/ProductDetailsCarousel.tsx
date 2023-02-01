@@ -10,7 +10,6 @@ import { IProduct } from '../../@types/product';
 import Image from '../../components/image';
 import Lightbox from '../../components/lightbox';
 import Carousel, { CarouselArrowIndex } from '../../components/carousel';
-import { position } from 'stylis';
 
 // ----------------------------------------------------------------------
 
@@ -119,7 +118,8 @@ export default function ProductDetailsCarousel({ product }: Props) {
     focusOnSelect: true,
     variableWidth: true,
     centerPadding: '0px',
-    slidesToShow: product.images.length > 3 ? 3 : product.images.length,
+    slidesToShow: product.images.length,
+    // slidesToShow: product.images.length > 3 ? 3 : product.images.length,
   };
 
   useEffect(() => {
@@ -178,15 +178,16 @@ export default function ProductDetailsCarousel({ product }: Props) {
 
       <CarouselArrowIndex
         index={currentIndex}
-        total={product.images.length}
+        total={product.images.length}      
         onNext={handleNext}
         onPrevious={handlePrev}
       />
     </Box>
   );
-
+  
+   
   const renderThumbnails = (
-    <StyledThumbnailsContainer length={product.images.length}>
+    <StyledThumbnailsContainer length={product.images.length + 1}>
       <Carousel {...carouselSettings2} asNavFor={nav1} ref={carousel2}>
         {product.images.map((img, index) => (
           <Image

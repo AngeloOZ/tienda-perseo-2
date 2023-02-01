@@ -11,9 +11,9 @@ import Header from './Header';
 // const Footer = dynamic(() => import('./Footer'), { ssr: false });
 
 import { useContext, useState } from 'react';
-import { CartContext } from 'src/context';
+import { CartContext } from 'context';
 
-import { Cart } from 'src/components/e-commerce/cart';
+import { Cart } from 'custom/components/cart';
 
 
 // ----------------------------------------------------------------------
