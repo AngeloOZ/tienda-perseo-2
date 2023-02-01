@@ -1,4 +1,4 @@
-//--------SWIPER
+// --------SWIPER
 import "swiper/css";
 import "swiper/css/navigation";
 import '../custom/styles/swiper.css'

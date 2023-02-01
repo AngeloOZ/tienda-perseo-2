@@ -1,5 +1,4 @@
-import { GetServerSideProps } from 'next';
-import { tiendaApi } from 'custom/api';
+import {  GetStaticProps, GetStaticPaths } from 'next';
 import { useContext } from 'react';
 import Head from 'next/head';
 import { Grid, Container } from '@mui/material';
@@ -9,13 +8,11 @@ import { IProduct } from 'src/@types/product';
 import MainLayout from 'src/layouts/main/MainLayout';
 import { Descripcion } from 'custom/components/Descripcion';
 
-import { useSettingsContext } from '../../../src/components/settings';
-import { ProductDetailsSummary, ProductDetailsCarousel } from '../../../src/sections/details';
 import { obtenerProductoSlug } from 'pages/api/products/[name]';
-import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import { obtenerProductosLocal } from 'pages/api/products';
+import { ProductDetailsSummary, ProductDetailsCarousel } from '../../../src/sections/details';
+import { useSettingsContext } from '../../../src/components/settings';
 
-import { ParsedUrlQuery } from 'querystring';
 
 interface Props {
   producto: IProduct;

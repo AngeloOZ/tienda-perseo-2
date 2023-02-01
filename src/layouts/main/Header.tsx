@@ -1,9 +1,12 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Box, Button, AppBar, Toolbar, Container, BoxProps, Badge } from '@mui/material';
+
+import Iconify from 'src/components/iconify';
+
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
-import useResponsive from '../../hooks/useResponsive';
+// import useResponsive from '../../hooks/useResponsive';
 // utils
 import { bgBlur } from '../../utils/cssStyles';
 // config
@@ -12,16 +15,15 @@ import { HEADER } from '../../config-global';
 // import { PATH_DOCS, PATH_MINIMAL_ON_STORE } from '../../routes/paths';
 // components
 import Logo from '../../components/logo';
-import Label from '../../components/label';
+// import Label from '../../components/label';
 //
 // import NavMobile from './nav/mobile';
 // import navConfig from './nav/config-navigation';
 // import NavDesktop from './nav/desktop';
 
-//-------------------- CART -------------------------
+// -------------------- CART -------------------------
 // import CartWidget from 'src/sections/@dashboard/e-commerce/CartWidget';
-import Iconify from 'src/components/iconify';
-import { StyledRoot } from '../login/styles';
+
 
 // ----------------------------------------------------------------------
 interface Props {
@@ -32,11 +34,11 @@ interface Props {
 export default function Header({ totalItems, onShowCart }: Props) {
   const theme = useTheme();
 
-  const isDesktop = useResponsive('up', 'md');
+  // const isDesktop = useResponsive('up', 'md');
 
   const isOffset = useOffSetTop(HEADER.H_MAIN_DESKTOP);
 
-  //-------------------- CART -------------------------
+  // -------------------- CART -------------------------
 
   return (
     <AppBar color="transparent" sx={{ boxShadow: 0 }}>

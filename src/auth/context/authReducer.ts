@@ -1,5 +1,6 @@
 import { Usuario } from 'interfaces'
-import { AuthState } from './'
+// eslint-disable-next-line
+import { AuthState } from '.'
 
 type AuthActionType =
     | { type: 'AUTH_LOGIN', payload: Usuario }

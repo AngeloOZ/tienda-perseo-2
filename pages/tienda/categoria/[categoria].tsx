@@ -11,14 +11,13 @@ import { obtenerCategorias } from 'pages/api/categories';
 import Head from 'next/head';
 import { Categoria as CategoriaID } from '@prisma/client';
 
-interface Props {
-    products: IProduct[];
-}
 
 interface Props {
     categories: CategoriaID[];
+    products: IProduct[];
 }
 
+// eslint-disable-next-line
 const PageCategoria: NextPage<Props> = ({ products, categories }) => {
 
     return (

@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import prisma from 'database/prismaClient';
+
 import { IProducto } from '../../../interfaces';
 
-import prisma from 'database/prismaClient';
 
 
 export const config = {

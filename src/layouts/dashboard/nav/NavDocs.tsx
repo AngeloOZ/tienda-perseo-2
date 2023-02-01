@@ -2,9 +2,9 @@
 import { Stack, Button, Typography, Box } from '@mui/material';
 // auth
 // locales
-import { useLocales } from '../../../locales';
 import { useContext } from 'react';
 import { AuthContext } from 'src/auth';
+import { useLocales } from '../../../locales';
 
 // ----------------------------------------------------------------------
 

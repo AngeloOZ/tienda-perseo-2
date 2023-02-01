@@ -31,7 +31,7 @@ export default function NavAccount() {
   return (
     <Link underline="none" color="inherit">
       <StyledRoot>
-        <CustomAvatar src={'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg'} alt={user?.nombres} name={user?.nombres} />
+        <CustomAvatar src='http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg' alt={user?.nombres} name={user?.nombres} />
 
         <Box sx={{ ml: 2, minWidth: 0 }}>
           <Typography variant="subtitle2" noWrap>

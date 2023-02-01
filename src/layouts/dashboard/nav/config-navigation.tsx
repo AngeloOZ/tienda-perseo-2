@@ -1,7 +1,6 @@
+import { Inventory, Category } from '@mui/icons-material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
-// 
-import { Dashboard, Inventory, Category, FileCopy } from '@mui/icons-material';
 
 
 // https://react-icons.github.io/react-icons
@@ -36,4 +35,3 @@ const navConfig = [
 ];
 
 export default navConfig;
-1

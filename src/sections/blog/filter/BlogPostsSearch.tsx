@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { paramCase } from 'change-case';
+// import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 // next
@@ -9,7 +9,7 @@ import { Link, Typography, Autocomplete, InputAdornment } from '@mui/material';
 // utils
 import axios from '../../../utils/axios';
 // routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+// import { PATH_DASHBOARD } from '../../../routes/paths';
 
 // components
 import Image from '../../../components/image';

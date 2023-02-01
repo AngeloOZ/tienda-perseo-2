@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 // next
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 // form
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -34,7 +34,7 @@ interface IProduct {
 export type FormValuesProps = IProduct;
 
 export default function BlogNewPostForm() {
-  const { push } = useRouter();
+  // const { push } = useRouter();
 
   const { enqueueSnackbar } = useSnackbar();
   // const [openPreview, setOpenPreview] = useState(false);
@@ -64,11 +64,10 @@ export default function BlogNewPostForm() {
   });
 
   const {
-    reset,
     watch,
     setValue,
     handleSubmit,
-    formState: { isSubmitting, isValid },
+    formState: { isSubmitting },
   } = methods;
 
   const values = watch();

@@ -18,7 +18,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse<Data>) 
         case 'GET': {
             try {
                 if (req.query?.id) {
-                    return obtenerCategoria(req, res);
+                    return await obtenerCategoria(req, res);
                 }
 
                 const categories = await obtenerCategorias();
@@ -48,7 +48,7 @@ export async function obtenerCategorias(): Promise<Categoria[]> {
         const categories = await prisma.categoria.findMany();
         return categories;
     } catch (error) {
-        throw error;
+        return [];
     } finally {
         await prisma.$disconnect();
     }

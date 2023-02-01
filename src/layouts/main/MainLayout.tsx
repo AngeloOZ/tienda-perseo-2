@@ -1,19 +1,19 @@
 // next
-import dynamic from 'next/dynamic';
+
 import { useRouter } from 'next/router';
 // @mui
 import { Box, Divider, Drawer } from '@mui/material';
 //
 
-import Header from './Header';
 // import Footer from './Footer';
 // const Header = dynamic(() => import('./Header'), { ssr: false });
 // const Footer = dynamic(() => import('./Footer'), { ssr: false });
 
 import { useContext, useState } from 'react';
 import { CartContext } from 'context';
-
 import { Cart } from 'custom/components/cart';
+import Header from './Header';
+
 
 
 // ----------------------------------------------------------------------

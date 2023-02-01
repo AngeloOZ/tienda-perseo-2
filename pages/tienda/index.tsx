@@ -20,7 +20,8 @@ interface Props {
   categories: CategoriaID[];
 }
 
-const index: NextPage<Props> = ({ products, categories }) => {
+// eslint-disable-next-line
+const PageTienda: NextPage<Props> = ({ products, categories }) => {
 
   return (
     <MainLayout>
@@ -51,4 +52,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 
 
-export default index;
+export default PageTienda;
