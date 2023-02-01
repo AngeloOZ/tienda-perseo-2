@@ -1,4 +1,4 @@
-import {  GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import { useContext } from 'react';
 import Head from 'next/head';
 import { Grid, Container } from '@mui/material';
@@ -27,57 +27,59 @@ export default function EcommerceProductDetailsPage({ producto }: Props) {
   return (
     <>
       <Head>
-        <title>{`Tienda Perseo: ${producto?.name || ''} | Minimal UI`}</title>
+        <title>{`Tienda Perseo: ${producto?.name || ''}`}</title>
       </Head>
       <MainLayout>
         <Container maxWidth={themeStretch ? false : 'lg'}>
           {producto && (
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6} lg={7}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} lg={6}>
                 <ProductDetailsCarousel product={producto} />
               </Grid>
 
-              <Grid item xs={12} md={6} lg={5}>
+              <Grid item xs={12} md={6} lg={6}>
                 <ProductDetailsSummary
                   product={producto}
                   cart={cart}
                   onAddCart={handleAddCart}
-                  onGotoStep={() => {}}
+                  onGotoStep={() => { }}
                   onIncreaseQuantity={handleIncreaseQuantity}
                   onDecreaseQuantity={handleDecreaseQuantity}
                 />
               </Grid>
+              <Grid item xs={12} >
+                <Descripcion product={producto} />
+              </Grid>
             </Grid>
           )}
-          <Descripcion product={producto} />
         </Container>
       </MainLayout>
     </>
   );
 }
 
-
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  
+
   const products = await obtenerProductosLocal();
 
-    return{
-      paths: products.map((prod) => ({params: {name: prod.slug}})),
-      fallback: false
-    }
+  return {
+    paths: products.map((prod) => ({ params: { name: prod.slug } })),
+    fallback: false
+  }
 }
 
 
-export const getStaticProps: GetStaticProps = async ({params})=>{
-  const { name } = params as { name: string };  
-  const products = await  obtenerProductoSlug(name);
-  
-  const images = JSON.parse(products?.images!);
-  const producto = { ...products, images }; 
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { name } = params as { name: string };
+  const products = await obtenerProductoSlug(name);
 
-  return{
+  const images = JSON.parse(products?.images!);
+  const producto = { ...products, images };
+
+  return {
     props: {
       producto
-    }
+    },
+    revalidate: (60 * 60 * 24),
   }
 }

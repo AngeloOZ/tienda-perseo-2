@@ -91,11 +91,6 @@ export default function ProductDetailsCarousel({ product }: Props) {
 
   const imagesLightbox = product.images.map((img) => ({ src: img }));
 
-  // const handleOpenLightbox = (imageUrl: string) => {
-  //   const imageIndex = imagesLightbox.findIndex((image) => image.src === imageUrl);
-  //   setSelectedImage(imageIndex);
-  // };
-
   const handleCloseLightbox = () => {
     setSelectedImage(-1);
   };
@@ -144,54 +139,55 @@ export default function ProductDetailsCarousel({ product }: Props) {
   };
 
   const renderLargeImg = (
-    <Box sx={{ mb: 3, borderRadius: 2, overflow: 'hidden', position: 'relative', paddingTop:3, 
-     /*   height: {
-      xs: 'auto',
-      sm: '70%',
-      md: '70%',
-      lg: '70%'
-    },
-    width:{
-      xs: 'auto',
-      sm: '100%',
-      md: 500,
-      lg: 500
-    }  */
-     
-    
-    
+    <Box sx={{
+      mb: 3, 
+      borderRadius: 2, 
+      overflow: 'hidden', 
+      position: 'relative', 
+      marginTop: 3,
+      height: {
+        xs: 'auto',
+        sm: '70%',
+        md: '70%',
+        lg: '70%'
+      },
+      width: {
+        xs: 'auto',
+        sm: '100%',
+        md: 500,
+        lg: 500
+      }
+
     }}>
       <Carousel {...carouselSettings1} asNavFor={nav2} ref={carousel1}>
-        {product.images.map((img) => (
+        {product.images.map((img, i) => (
           <Image
-            key={img}
+            key={i}
             alt="product"
             src={img}
-            // ratio="1/1"
-            // onClick={() => handleOpenLightbox(img)}
-            // sx={{ cursor: 'zoom-in' }}
-           // width={100}
-           style={{position:'absolute'}}
+            ratio="1/1"
+            width={100}
+            style={{ position: 'absolute' }}
           />
         ))}
       </Carousel>
 
       <CarouselArrowIndex
         index={currentIndex}
-        total={product.images.length}      
+        total={product.images.length}
         onNext={handleNext}
         onPrevious={handlePrev}
       />
     </Box>
   );
-  
-   
+
+
   const renderThumbnails = (
     <StyledThumbnailsContainer length={product.images.length + 1}>
       <Carousel {...carouselSettings2} asNavFor={nav1} ref={carousel2}>
         {product.images.map((img, index) => (
           <Image
-            key={img}
+            key={index}
             disabledEffect
             alt="thumbnail"
             src={img}

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 // next
 // import { useRouter } from 'next/router';
 // form
-import {  useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // @mui
 import {
   Stack,
@@ -26,6 +26,7 @@ import Iconify from '../../components/iconify';
 import { IncrementerButton } from '../../components/custom-input';
 // import { ColorSinglePicker } from '../../components/color-utils';
 import FormProvider from '../../components/hook-form';
+import { sentenceCase } from 'change-case';
 
 // ----------------------------------------------------------------------
 
@@ -51,14 +52,10 @@ export default function ProductDetailsSummary({
   onDecreaseQuantity,
   ...other
 }: Props) {
-  // const { push } = useRouter();
+
 
   const { id, name, price, cover, status, stock, rating } = product;
 
-  // console.log(rating);
-  // console.log(categoria);
-  
-  
 
   const alreadyProduct = cart.map((item) => item.id).includes(id);
 
@@ -93,11 +90,11 @@ export default function ProductDetailsSummary({
   }, [product]);
 
   useEffect(() => {
-    if (cart.length !== 0) {          
+    if (cart.length !== 0) {
       const cartRef = cart.filter((item) => item.id === id);
       setValue('quantity', cartRef[0].quantity);
-    }else if(cart.length === 0 && !alreadyProduct){
-      setValue('quantity', stock < 1 ? 0 : 1);      
+    } else if (cart.length === 0 && !alreadyProduct) {
+      setValue('quantity', stock < 1 ? 0 : 1);
     }
     // eslint-disable-next-line 
   }, [cart]);
@@ -161,7 +158,7 @@ export default function ProductDetailsSummary({
   }; */
   // onSubmit={handleSubmit(onSubmit)}
   return (
-    <FormProvider methods={methods} onSubmit={() => {}}>
+    <FormProvider methods={methods} onSubmit={() => { }}>
       <Stack
         spacing={3}
         sx={{
@@ -172,25 +169,9 @@ export default function ProductDetailsSummary({
         {...other}
       >
         <Stack spacing={2}>
-          {/* <Typography
-            variant="overline"
-            component="div"
-            sx={{
-              color: status ? 'success.main' : 'warning.main',
-            }}
-          >
-            {status ? 'Disponible' : 'Agotado'}
-          </Typography> */}
 
           <Typography variant="h5">
-            {name}
-            {/* <Label
-              variant="soft"
-              color={categoria ? 'primary' : 'warning'}
-              sx={{ textTransform: 'uppercase', mr: 'auto' }}
-            >
-              {sentenceCase(categoria.nombre || '')}
-            </Label> */}
+            {name.toUpperCase()}
           </Typography>
 
           <Stack direction="row" alignItems="center" spacing={1}>
@@ -198,44 +179,14 @@ export default function ProductDetailsSummary({
           </Stack>
 
           <Typography variant="h4">
-            {/* {priceSale && (
-              <Box
-                component="span"
-                sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 0.5 }}
-              >
-                {fCurrency(priceSale)}
-              </Box>
-            )} */}
             {fCurrency(price)}
-            <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
+            <Typography variant="caption" fontSize={13} sx={{ fontStyle: 'italic' }}>
               + IVA
             </Typography>
           </Typography>
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
-
-        {/*         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="subtitle2">Color</Typography>
-
-          <Controller
-            name="colors"
-            control={control}
-            render={({ field }) => (
-              <ColorSinglePicker
-                colors={colors}
-                value={field.value}
-                onChange={field.onChange}
-                sx={{
-                  ...(colors.length > 4 && {
-                    maxWidth: 144,
-                    justifyContent: 'flex-end',
-                  }),
-                }}
-              />
-            )}
-          />
-        </Stack> */}
 
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="subtitle2" sx={{ height: 36, lineHeight: '36px' }}>
@@ -265,22 +216,21 @@ export default function ProductDetailsSummary({
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Stack direction="row" spacing={2}>
-
-        {(status)? (<Button
-            fullWidth
-            disabled={isMaxQuantity}
-            size="large"
-            color="warning"
-            variant="contained"
-            startIcon={<Iconify icon="ic:round-add-shopping-cart" />}
-            onClick={funAddCart}
-            sx={{ whiteSpace: 'nowrap' }}
-          >
-            Agregar al Carrito
-          </Button> ):  <Chip label="Agotado" variant="outlined" /> }
-
-          
-
+          {(status) ?
+            (<Button
+              fullWidth
+              disabled={isMaxQuantity}
+              size="large"
+              color="warning"
+              variant="contained"
+              startIcon={<Iconify icon="ic:round-add-shopping-cart" />}
+              onClick={funAddCart}
+              sx={{ whiteSpace: 'nowrap' }}
+            >
+              Agregar al Carrito
+            </Button>) 
+            :
+          <Chip label="Agotado" color='error' variant="outlined" />}
           <Button fullWidth size="large" type="submit" variant="contained">
             Comprar Ahora
           </Button>

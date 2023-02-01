@@ -1,4 +1,4 @@
-import { NextPage, GetServerSideProps } from 'next';
+import { NextPage, GetStaticProps } from 'next';
 import { IProduct } from 'src/@types/product';
 import Head from 'next/head';
 import { ShopProducts } from 'custom/components/shop';
@@ -38,15 +38,17 @@ const PageTienda: NextPage<Props> = ({ products, categories }) => {
 };
 
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const products = await obtenerProductosLocal();
   const categories = await obtenerCategorias();
+
   return {
     props: {
       products,
       categories,
     },
+    revalidate: (60 * 60 * 24),
   };
-};
+}
 
 export default PageTienda;

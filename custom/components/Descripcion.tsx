@@ -1,21 +1,21 @@
-import { Grid } from '@mui/material';
-import React, { FC } from 'react';
+import { FC } from 'react';
+import { Box, BoxProps } from '@mui/material';
 import { IProduct } from 'src/@types/product';
 
 
-interface Props {
+interface Props extends BoxProps {
   product: IProduct;
+  other?: BoxProps
 }
 
-export const Descripcion: FC<Props> = ({ product }) => {
+export const Descripcion: FC<Props> = ({ product, other }) => {
   return (
-    /*   <Card>
-        <CardContent>
-    <div dangerouslySetInnerHTML={{__html: product.description}}/>                       
-    </CardContent>
-    </Card> */
-    <Grid container justifyContent="center" margin={7} alignItems="center">
-      <div dangerouslySetInnerHTML={{ __html: product.description }} />
-    </Grid>
+    <Box
+      component="div"
+      mb={5}
+      sx={{ overflow: 'hidden' }}
+      {...other}
+      dangerouslySetInnerHTML={{ __html: product.description }}
+    />
   );
 };
