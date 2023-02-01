@@ -11,12 +11,17 @@ import { Descripcion } from 'custom/components/Descripcion';
 import { obtenerProductoSlug } from 'pages/api/products/[name]';
 import { useSettingsContext } from '../../../src/components/settings';
 import { ProductDetailsSummary, ProductDetailsCarousel } from '../../../src/sections/details';
+import { obtenerProductoSlug } from 'pages/api/products/[name]';
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
+import { obtenerProductosLocal } from 'pages/api/products';
+
+import { ParsedUrlQuery } from 'querystring';
 
 interface Props {
-  product: IProduct;
+  producto: IProduct;
 }
 
-export default function EcommerceProductDetailsPage({ product }: Props) {
+export default function EcommerceProductDetailsPage({ producto }: Props) {
   const { themeStretch } = useSettingsContext();
 
   const ctx = useContext(CartContext);
@@ -25,20 +30,19 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
   return (
     <>
       <Head>
-        <title>{`Tienda Perseo: ${product?.name || ''} | Minimal UI`}</title>
+        <title>{`Tienda Perseo: ${producto?.name || ''} | Minimal UI`}</title>
       </Head>
-      {console.log(product)}
       <MainLayout>
         <Container maxWidth={themeStretch ? false : 'lg'}>
-          {product && (
+          {producto && (
             <Grid container spacing={3}>
               <Grid item xs={12} md={6} lg={7}>
-                <ProductDetailsCarousel product={product} />
+                <ProductDetailsCarousel product={producto} />
               </Grid>
 
               <Grid item xs={12} md={6} lg={5}>
                 <ProductDetailsSummary
-                  product={product}
+                  product={producto}
                   cart={cart}
                   onAddCart={handleAddCart}
                   onGotoStep={() => {}}
@@ -48,7 +52,7 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
               </Grid>
             </Grid>
           )}
-          <Descripcion product={product} />
+          <Descripcion product={producto} />
         </Container>
       </MainLayout>
     </>
@@ -56,17 +60,27 @@ export default function EcommerceProductDetailsPage({ product }: Props) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { name } = ctx.query as { name: string };
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+  
+  const products = await obtenerProductosLocal();
 
-  const producto = await obtenerProductoSlug(name);
-  const images = JSON.parse(producto?.images!);
+    return{
+      paths: products.map((prod) => ({params: {name: prod.slug}})),
+      fallback: false
+    }
+}
 
-  const product = { ...producto, images }; 
 
-  return {
+export const getStaticProps: GetStaticProps = async ({params})=>{
+  const { name } = params as { name: string };  
+  const products = await  obtenerProductoSlug(name);
+  
+  const images = JSON.parse(products?.images!);
+  const producto = { ...products, images }; 
+
+  return{
     props: {
-      product,
-    },
-  };
-};
+      producto
+    }
+  }
+}
