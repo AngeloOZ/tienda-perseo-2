@@ -1,6 +1,6 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Box, Button, AppBar, Toolbar, Container, BoxProps, Badge } from '@mui/material';
+import { Box, Button, AppBar, Toolbar, BoxProps, Badge } from '@mui/material';
 
 import Iconify from 'src/components/iconify';
 
@@ -15,25 +15,15 @@ import { HEADER } from '../../config-global';
 // components
 import Logo from '../../components/logo';
 // import Label from '../../components/label';
-//
-// import NavMobile from './nav/mobile';
-// import navConfig from './nav/config-navigation';
-// import NavDesktop from './nav/desktop';
 
-// -------------------- CART -------------------------
-// import CartWidget from 'src/sections/@dashboard/e-commerce/CartWidget';
-
-
-// ----------------------------------------------------------------------
 interface Props {
   totalItems: number;
   onShowCart: VoidFunction;
+  showButtonsCart?: boolean;
 }
 
-export default function Header({ totalItems, onShowCart }: Props) {
+export default function Header({ showButtonsCart = true, totalItems, onShowCart }: Props) {
   const theme = useTheme();
-
-  // const isDesktop = useResponsive('up', 'md');
 
   const isOffset = useOffSetTop(HEADER.H_MAIN_DESKTOP);
 
@@ -42,7 +32,6 @@ export default function Header({ totalItems, onShowCart }: Props) {
   return (
     <AppBar color="transparent" sx={{ boxShadow: 0 }}>
       <Toolbar
-        disableGutters
         sx={{
           height: {
             xs: HEADER.H_MOBILE,
@@ -58,29 +47,20 @@ export default function Header({ totalItems, onShowCart }: Props) {
               md: HEADER.H_MAIN_DESKTOP - 16,
             },
           }),
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center'
         }}
       >
-        <Container maxWidth="xl" sx={{ height: 1, display: 'flex', alignItems: 'center' }}>
-          <Logo />
-          <Box sx={{ flexGrow: 1 }} />
+        <Logo />
 
-          {/* {isDesktop && <NavDesktop isOffset={isOffset} data={navConfig} />} */}
-
-          {/* <Button variant="contained" target="_blank" rel="noopener" href={PATH_MINIMAL_ON_STORE}>
-            Purchase Now
-          </Button> */}          
-
+        {showButtonsCart && (
           <Button variant="contained" style={{ margin: 10 }} size="large" onClick={onShowCart}>
             <Badge showZero badgeContent={totalItems} color="error" max={99}>
               Carrito
               <Iconify icon="eva:shopping-cart-fill" width={25} />
             </Badge>
           </Button>
-
-          {/* {!isDesktop && <NavMobile isOffset={isOffset} data={navConfig} />} */}
-        </Container>
+        )}
       </Toolbar>
-
       {isOffset && <Shadow />}
     </AppBar>
   );

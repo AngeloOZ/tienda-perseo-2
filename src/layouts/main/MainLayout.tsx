@@ -15,9 +15,10 @@ import Header from './Header';
 
 type Props = {
   children?: React.ReactNode;
+  showCart?: boolean;
 };
 
-export default function MainLayout({ children }: Props) {
+export default function MainLayout({ showCart = true, children }: Props) {
   const { pathname } = useRouter();
   const isHome = pathname === '/';
 
@@ -38,7 +39,7 @@ export default function MainLayout({ children }: Props) {
         fillOpacity: 10
       }}
     >
-      <Header totalItems={totalItems} onShowCart={handleShowCart} />
+      <Header showButtonsCart={showCart} totalItems={totalItems} onShowCart={handleShowCart} />
       <Box
         component="main"
         sx={{
@@ -50,23 +51,25 @@ export default function MainLayout({ children }: Props) {
       >
         <Divider sx={{ color: 'inherit' }} />
 
-        <Drawer
-          anchor="right"
-          open={stateViewCart}
-          onClose={handleShowCart}
-          PaperProps={{
-            sx: {
-              width: {
-                xs: '100%',
-                md: '100%',
-                xl: '85%',
-                lg: '85%',
+        {
+          showCart && (<Drawer
+            anchor="right"
+            open={stateViewCart}
+            onClose={handleShowCart}
+            PaperProps={{
+              sx: {
+                width: {
+                  xs: '100%',
+                  md: '100%',
+                  xl: '85%',
+                  lg: '85%',
+                },
               },
-            },
-          }}
-        >
-          <Cart onShowCart={handleShowCart} />
-        </Drawer>
+            }}
+          >
+            <Cart onShowCart={handleShowCart} />
+          </Drawer>)
+        }
 
         {children}
       </Box>

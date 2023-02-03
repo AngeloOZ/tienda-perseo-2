@@ -21,7 +21,7 @@ const CART_INITIAL_STATE: IProductCheckoutState = {
 };
 
 export const CartProvider: FC<Props> = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);  
+  const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
   useEffect(() => {
     if (state.cart.length === 0) {
@@ -40,7 +40,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
   //  Actualiza el localStorage y cargar el id y la cantidad en las cookies
   useEffect(() => {
     localStorage.setItem('CART', JSON.stringify(state.cart));
-    const cData = state.cart.map((c: ICheckoutCartItem) => ({id: c.id, quantity: c.quantity}));            
+    const cData = state.cart.map((c: ICheckoutCartItem) => ({ id: c.id, quantity: c.quantity }));
     Cookie.set('CART', JSON.stringify(cData));
   }, [state.cart]);
 
@@ -75,7 +75,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
     const isEmptyCart = !state.cart.length;
 
     if (isEmptyCart) {
-      dispatch({ type: '[Cart] - Add products in cart', payload: newProduct });
+      dispatch({ type: '[Cart] - Add products in cart', payload: { ...newProduct, subtotal: newProduct.quantity * newProduct.price } });
       return;
     }
     const productInCart = state.cart.some((p: ICheckoutCartItem) => p.id === newProduct.id);

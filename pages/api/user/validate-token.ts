@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client';
+import prisma from 'database/prismaClient';
 import { jwt } from 'utils';
 
-const prisma = new PrismaClient();
 
 type Data =
     {

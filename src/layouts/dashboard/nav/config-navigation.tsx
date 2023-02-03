@@ -1,10 +1,14 @@
 import { Inventory, Category } from '@mui/icons-material';
+import { MdLoyalty } from 'react-icons/md';
+import { FaFileInvoiceDollar } from 'react-icons/fa';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
 
 // https://react-icons.github.io/react-icons
 // https://mui.com/material-ui/material-icons/
+
+
 
 const navConfig = [
   {
@@ -16,14 +20,16 @@ const navConfig = [
         icon: <Inventory />,
         children: [
           { title: 'Listar', path: PATH_DASHBOARD.productos.root },
-          { title: 'Agregar', path: PATH_DASHBOARD.productos.agregar },
+          {
+            title: 'Agregar', path: PATH_DASHBOARD.productos.agregar,
+          },
         ]
       },
       {
         title: 'categorias',
         path: PATH_DASHBOARD.categorias.root,
         icon: <Category />,
-        // roles: ['vendedorcd'],
+        roles: ['admin'],
         children: [
           { title: 'Listar', path: PATH_DASHBOARD.categorias.root, },
           { title: 'Agregar', path: PATH_DASHBOARD.categorias.agregar },
@@ -35,10 +41,14 @@ const navConfig = [
     subheader: 'Ventas',
     items: [
       {
-        title: 'productos',
+        title: 'Ventas',
         path: '#',
-        icon: <Inventory />,
-        caption: 'Solo vendedores',
+        icon: <MdLoyalty />,
+      },
+      {
+        title: 'Facturas',
+        path: '#',
+        icon: <FaFileInvoiceDollar />,
       },
     ],
   },

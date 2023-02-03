@@ -68,6 +68,7 @@ export default function MyApp(props: MyAppProps) {
     <CacheProvider value={emotionCache}>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <title>Tienda Perseo</title>
       </Head>
       <AuthProvider>
         <SWRConfig value={{ fetcher: (url: string) => tiendaApi.get(url).then(r => r.data) }}>

@@ -42,6 +42,7 @@ export const cartReducer = (state: IProductCheckoutState, action: CartActionType
             return {
               ...product,
               quantity: product.quantity + 1,
+              subtotal: product.price * (product.quantity + 1),
             };
           }
           return product;
@@ -57,6 +58,7 @@ export const cartReducer = (state: IProductCheckoutState, action: CartActionType
             return {
               ...product,
               quantity: product.quantity - 1,
+              subtotal: product.price * (product.quantity - 1),
             };
           }
           return product;
