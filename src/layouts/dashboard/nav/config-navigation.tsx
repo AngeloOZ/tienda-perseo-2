@@ -23,14 +23,25 @@ const navConfig = [
         title: 'categorias',
         path: PATH_DASHBOARD.categorias.root,
         icon: <Category />,
+        // roles: ['vendedorcd'],
         children: [
-          { title: 'Listar', path: PATH_DASHBOARD.categorias.root },
+          { title: 'Listar', path: PATH_DASHBOARD.categorias.root, },
           { title: 'Agregar', path: PATH_DASHBOARD.categorias.agregar },
         ]
       },
     ],
   },
-
+  {
+    subheader: 'Ventas',
+    items: [
+      {
+        title: 'productos',
+        path: '#',
+        icon: <Inventory />,
+        caption: 'Solo vendedores',
+      },
+    ],
+  },
 
 ];
 

@@ -1,8 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client';
+
+import prisma from 'database/prismaClient';
+
 import { jwt } from 'utils';
 
-const prisma = new PrismaClient();
+
 
 type Data =
     {
@@ -16,6 +18,7 @@ type Data =
             nombres: string,
             identificacion: string,
             correo: string,
+            rol: string[]
         }
         token: string
     }
@@ -44,7 +47,7 @@ async function loginUser(req: NextApiRequest, res: NextApiResponse<Data>) {
         if (user.clave !== clave) {
             return res.status(404).json({ status: 404, message: 'El usuario o la contraseña no son válidos - CLAVE' })
         }
-
+        
         const token = await jwt.signToken(user)
         return res.status(200).json({
             user: {
@@ -52,6 +55,7 @@ async function loginUser(req: NextApiRequest, res: NextApiResponse<Data>) {
                 nombres: user.nombres,
                 identificacion: user.identificacion,
                 correo: user.correo,
+                rol: JSON.parse(user.rol)
             },
             token
         });

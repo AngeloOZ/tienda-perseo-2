@@ -13,12 +13,14 @@ type Props = {
 export interface AuthState {
     isInitialized: boolean;
     isLoggedIn: boolean;
+    rol: string[];
     user?: Usuario
 }
 
 const AUTH_INITIAL_STATE = {
     isInitialized: false,
     isLoggedIn: false,
+    rol: [],
     user: undefined,
 };
 

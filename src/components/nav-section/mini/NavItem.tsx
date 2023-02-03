@@ -9,6 +9,7 @@ import { useLocales } from '../../../locales';
 import Iconify from '../../iconify';
 import { NavItemProps } from '../types';
 import { StyledItem, StyledIcon } from './styles';
+import RoleBasedGuard from 'src/auth/RoleBasedGuard';
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +17,7 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
   ({ item, depth, open, active, isExternalLink, ...other }, ref) => {
     const { translate } = useLocales();
 
-    const { title, path, icon, children, disabled, caption } = item;
+    const { title, path, icon, children, disabled, caption, roles } = item;
 
     const subItem = depth !== 1;
 
@@ -97,7 +98,7 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
       );
     };
 
-    return <> {renderItem()} </>;
+  return <RoleBasedGuard roles={roles}> {renderItem()} </RoleBasedGuard>;
   }
 );
 

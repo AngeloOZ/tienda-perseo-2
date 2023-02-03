@@ -20,6 +20,7 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
                 ...state,
                 isLoggedIn: true,
                 isInitialized: true,
+                rol: action.payload.rol,
                 user: action.payload
             }
         case 'AUTH_LOGOUT':
@@ -27,7 +28,8 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
                 ...state,
                 isLoggedIn: false,
                 isInitialized: true,
-                user: undefined
+                user: undefined,
+                rol: []
             }
         default:
             return state;

@@ -6,14 +6,16 @@ import LoadingScreen from '../components/loading-screen';
 
 // eslint-disable-next-line
 import { AuthContext } from '.';
+import RoleBasedGuard from './RoleBasedGuard';
 
 // ----------------------------------------------------------------------
 
 type AuthGuardProps = {
   children: React.ReactNode;
+  roles?: string[];
 };
 
-export default function AuthGuard({ children }: AuthGuardProps) {
+export default function AuthGuard({ roles, children }: AuthGuardProps) {
   const { isLoggedIn, isInitialized } = useContext(AuthContext);
 
   const { pathname, push } = useRouter();
@@ -42,5 +44,5 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     return <LoadingScreen />;
   }
 
-  return <> {children} </>;
+  return <RoleBasedGuard roles={roles} hasContent >{children}</RoleBasedGuard>;
 }

@@ -74,7 +74,7 @@ export const BaseCart: FC<Props> = ({
 
           <Grid item xs={12} md={4}>
             <CheckoutSummary
-              enableDiscount
+              // enableDiscount
               iva={iva}
               total={total}
               discount={discount}

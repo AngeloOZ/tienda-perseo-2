@@ -9,6 +9,7 @@ import Iconify from '../../iconify';
 //
 import { NavItemProps } from '../types';
 import { StyledItem, StyledIcon, StyledDotIcon } from './styles';
+import RoleBasedGuard from 'src/auth/RoleBasedGuard';
 
 // ----------------------------------------------------------------------
 
@@ -22,7 +23,7 @@ export default function NavItem({
 }: NavItemProps) {
   const { translate } = useLocales();
 
-  const { title, path, icon, info, children, disabled, caption } = item;
+  const { title, path, icon, info, children, disabled, caption, roles } = item;
 
   const subItem = depth !== 1;
 
@@ -94,5 +95,5 @@ export default function NavItem({
     );
   };
 
-  return <> {renderItem()} </>;
+  return <RoleBasedGuard roles={roles}> {renderItem()} </RoleBasedGuard>;
 }

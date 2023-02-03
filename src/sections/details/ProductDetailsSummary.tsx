@@ -12,7 +12,6 @@ import {
   Chip,
 } from '@mui/material';
 
-// utils
 // import { sentenceCase } from 'change-case';
 import { fCurrency } from '../../utils/formatNumber';
 // @types
@@ -137,20 +136,8 @@ export default function ProductDetailsSummary({
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleAddCart = async () => {
-    try {
-      onAddCart({
-        ...values,
-        // colors: [values.colors],
-        subtotal: values.price * values.quantity,
-      });
-    } catch (error) {
-      console.error(error);
-    }
   }; */
-  // onSubmit={handleSubmit(onSubmit)}
+
   return (
     <FormProvider methods={methods} onSubmit={() => { }}>
       <Stack

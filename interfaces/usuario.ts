@@ -4,6 +4,6 @@ export interface Usuario {
     correo : string
     nombres : string
     clave : string
-    rol: string
+    rol: string[]
     fechacreado? : string | Date | null
 }

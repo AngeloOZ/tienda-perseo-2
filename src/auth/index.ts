@@ -5,3 +5,5 @@ export * from './GuestGuard';
 export * from './context';
 // eslint-disable-next-line
 export * from './AuthGuard';
+// eslint-disable-next-line
+export * from './RoleBasedGuard'

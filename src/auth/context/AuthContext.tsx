@@ -5,6 +5,7 @@ import { createContext } from 'react'
 interface ContextProps {
     isInitialized: boolean;
     isLoggedIn: boolean;
+    rol: string[];
     user?: Usuario;
     loginUser: (identificacion: string, clave: string) => Promise<boolean>;
     logoutUser: () => void;

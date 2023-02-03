@@ -31,12 +31,11 @@ export default function MainLayout({ children }: Props) {
 
   return (
     <Box
-    sx={{
+      sx={{
         display: 'flex',
-        flexDirection: 'column', 
+        flexDirection: 'column',
         height: 1,
         fillOpacity: 10
-        /* position: '', */
       }}
     >
       <Header totalItems={totalItems} onShowCart={handleShowCart} />
@@ -50,7 +49,7 @@ export default function MainLayout({ children }: Props) {
         }}
       >
         <Divider sx={{ color: 'inherit' }} />
- 
+
         <Drawer
           anchor="right"
           open={stateViewCart}
@@ -71,8 +70,6 @@ export default function MainLayout({ children }: Props) {
 
         {children}
       </Box>
-
-      {/* <Footer /> */}
     </Box>
   );
 }

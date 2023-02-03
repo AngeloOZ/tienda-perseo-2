@@ -16,10 +16,11 @@ import NavVertical from './nav/NavVertical';
 // ----------------------------------------------------------------------
 
 type Props = {
+  roles?: string[];
   children?: React.ReactNode;
 };
 
-export default function DashboardLayout({ children }: Props) {
+export default function DashboardLayout({ roles, children }: Props) {
   const { themeLayout } = useSettingsContext();
 
   const isDesktop = useResponsive('up', 'lg');
@@ -76,6 +77,6 @@ export default function DashboardLayout({ children }: Props) {
         </Box>
       </>
     );
-  };  
-  return <AuthGuard> {renderContent()} </AuthGuard>;
+  };
+  return <AuthGuard roles={roles}> {renderContent()} </AuthGuard>;
 }

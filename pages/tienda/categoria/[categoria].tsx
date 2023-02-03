@@ -17,6 +17,11 @@ interface Props {
     products: IProduct[];
 }
 
+export const config = {
+    
+}
+
+
 // eslint-disable-next-line
 const PageCategoria: NextPage<Props> = ({ products, categories }) => {
 

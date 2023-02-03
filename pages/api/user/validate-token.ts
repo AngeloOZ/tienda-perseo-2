@@ -15,6 +15,7 @@ type Data =
             nombres: string,
             identificacion: string,
             correo: string,
+            rol: string[]
         }
         token: string
     }
@@ -51,6 +52,7 @@ async function verifyJWT(req: NextApiRequest, res: NextApiResponse<Data>) {
                 nombres: user.nombres,
                 identificacion: user.identificacion,
                 correo: user.correo,
+                rol: JSON.parse(user.rol)
             },
             token: await jwt.signToken(user)
         });
