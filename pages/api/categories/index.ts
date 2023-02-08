@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { Categoria } from '@prisma/client';
+import { categoria } from '@prisma/client';
 
 import prisma from 'database/prismaClient';
 
@@ -10,7 +10,7 @@ type Data =
     {
         message: string
     } |
-    Categoria[];
+    categoria[];
 
 // eslint-disable-next-line
 export default async function (req: NextApiRequest, res: NextApiResponse<Data>) {
@@ -43,7 +43,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse<Data>) 
 }
 
 
-export async function obtenerCategorias(): Promise<Categoria[]> {
+export async function obtenerCategorias(): Promise<categoria[]> {
     try {
         const categories = await prisma.categoria.findMany();
         return categories;

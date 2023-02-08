@@ -1,9 +1,9 @@
 import { Box, BoxProps } from "@mui/material"
-import { Categoria } from "@prisma/client"
+import { categoria } from "@prisma/client"
 import { CategoryItem } from "."
 
 interface Props extends BoxProps {
-    categories: Categoria[]
+    categories: categoria[]
 }
 
 export const CategoryList = ({ categories, ...other }: Props) => {

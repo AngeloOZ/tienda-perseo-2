@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Card, Stack, Button, MenuItem, IconButton, CardContent, CardMedia, Typography, CardActions } from '@mui/material';
 
 // @prisma
-import { Producto } from '@prisma/client';
+import { producto } from '@prisma/client';
 
 // components
 import { useSnackbar } from '../../../src/components/snackbar';
@@ -15,7 +15,7 @@ import { PATH_DASHBOARD } from 'src/routes/paths';
 import { useProducto } from './Hooks';
 
 type Props = {
-  product: Producto;
+  product: producto;
 }
 
 export const ProductoItem = ({ product }: Props) => {

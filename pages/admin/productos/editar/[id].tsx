@@ -5,7 +5,7 @@ import { FormAgregarEditarProducto, LinearProgressBar } from 'custom/components'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { tiendaApi } from 'custom/api'
-import { Producto } from '@prisma/client'
+import { producto } from '@prisma/client'
 
 
 
@@ -14,7 +14,7 @@ PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</Das
 
 export default function PageAdmin() {
     const { query } = useRouter();
-    const [currentValue, setCurrentValue] = useState<Producto>();
+    const [currentValue, setCurrentValue] = useState<producto>();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

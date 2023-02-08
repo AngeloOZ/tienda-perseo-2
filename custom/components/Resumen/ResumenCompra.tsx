@@ -1,11 +1,15 @@
-import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardHeader, CardProps, Divider, Stack, Typography } from "@mui/material";
 import { CartContext } from "context";
 import { useContext } from "react";
 
-export const ResumenCompra = () => {
+interface Props extends CardProps {
+
+}
+
+export const ResumenCompra = ({ ...other }: Props) => {
     const { discount, subtotal, shipping, iva, total } = useContext(CartContext);
     return (
-        <Card sx={{ m: 0, p: 0 }}>
+        <Card sx={{ m: 0, p: 0 }} {...other}>
             <CardHeader title="Resumen del pedido" />
             <CardContent>
                 <Stack spacing={1}>

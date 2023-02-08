@@ -23,14 +23,14 @@ import { useProducto } from '.';
 import { IProducto } from '../../../interfaces';
 import { PATH_DASHBOARD } from 'src/routes/paths';
 import { LinearProgressBar } from '../LinearProgressBar';
-import { Producto } from '@prisma/client';
+import { producto } from '@prisma/client';
 import { useObtenerCategories } from '../Categorias';
 
 
 type FormValuesProps = IProducto;
 type Props = {
     isEdit?: boolean;
-    currentProduct?: Producto;
+    currentProduct?: producto;
 }
 
 export function FormAgregarEditarProducto({ isEdit = false, currentProduct }: Props) {

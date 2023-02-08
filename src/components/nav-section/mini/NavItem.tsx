@@ -3,13 +3,13 @@ import { forwardRef } from 'react';
 import NextLink from 'next/link';
 // @mui
 import { Tooltip, Link, ListItemText } from '@mui/material';
+import RoleBasedGuard from 'src/auth/RoleBasedGuard';
 // locales
 import { useLocales } from '../../../locales';
 //
 import Iconify from '../../iconify';
 import { NavItemProps } from '../types';
 import { StyledItem, StyledIcon } from './styles';
-import RoleBasedGuard from 'src/auth/RoleBasedGuard';
 
 // ----------------------------------------------------------------------
 

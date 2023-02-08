@@ -9,7 +9,7 @@ import { Grid } from '@mui/material';
 import { obtenerProductosLocal } from 'pages/api/products';
 import { obtenerCategorias } from 'pages/api/categories';
 import Head from 'next/head';
-import { Categoria as CategoriaID } from '@prisma/client';
+import { categoria as CategoriaID } from '@prisma/client';
 
 
 interface Props {

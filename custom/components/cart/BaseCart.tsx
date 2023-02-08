@@ -9,6 +9,7 @@ import {
   CheckoutCartProductList,
   CheckoutSummary,
 } from '../../../src/sections/checkout';
+import Link from 'next/link';
 
 interface Props {
   checkout: IProductCheckoutState;
@@ -36,7 +37,7 @@ export const BaseCart: FC<Props> = ({
     <Container>
       <Box sx={{ width: 'auto', paddingTop: 3, paddingLeft: 0, paddingRight: 0 }}>
 
-        <Button variant="contained" style={{ margin: 10}} size="large" onClick={funShowCart}>
+        <Button variant="contained" style={{ margin: 10 }} size="large" onClick={funShowCart}>
           <CloseIcon />
         </Button>
 
@@ -81,31 +82,34 @@ export const BaseCart: FC<Props> = ({
               subtotal={subtotal}
               onApplyDiscount={funApplyDiscount}
             />
+            <Link href='/tienda/resumen' legacyBehavior>
+              <Button
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                disabled={!cart.length}
+                sx={{ mb: 2 }}
+
+              >
+                Siguiente
+              </Button>
+            </Link>
+
             <Button
               fullWidth
               size="large"
               type="submit"
-              variant="contained"
-              disabled={!cart.length}              
-              sx={{ mb:2 }}
-            >
-              Siguiente
-            </Button>
-
-            <Button 
-              fullWidth
-              size="large"
-              type="submit"
-              variant="outlined" 
+              variant="outlined"
               onClick={funResetCart}
-              sx={{ mb:2 }}
-              disabled={!cart.length}              
+              sx={{ mb: 2 }}
+              disabled={!cart.length}
               color="error"
-              >
+            >
               Vaciar Carrito
             </Button>
 
-            <Button 
+            {/* <Button 
               fullWidth
               size="large"
               type="submit"
@@ -114,7 +118,7 @@ export const BaseCart: FC<Props> = ({
               sx={{ mb:2 }}
               >
               Cerrar
-            </Button>            
+            </Button>             */}
 
           </Grid>
         </Grid>

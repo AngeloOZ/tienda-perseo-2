@@ -40,7 +40,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
   //  Actualiza el localStorage y cargar el id y la cantidad en las cookies
   useEffect(() => {
     localStorage.setItem('CART', JSON.stringify(state.cart));
-    const cData = state.cart.map((c: ICheckoutCartItem) => ({ id: c.id, quantity: c.quantity }));
+    const cData = state.cart.map((c: ICheckoutCartItem) => ({ id: c.id, quantity: c.quantity, name: c.name }));
     Cookie.set('CART', JSON.stringify(cData));
   }, [state.cart]);
 
@@ -112,6 +112,9 @@ export const CartProvider: FC<Props> = ({ children }) => {
 
   const handleResetCart = () => {
     dispatch({ type: '[Cart] - Reset cart', payload: CART_INITIAL_STATE });
+    Cookie.remove('CART');
+    Cookie.remove('datosFactura');
+    localStorage.removeItem('CART');
   };
 
   return (

@@ -6,7 +6,7 @@ import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
 
 import { FormAgregarEditarCategoria, LinearProgressBar } from 'custom/components'
 import { tiendaApi } from 'custom/api'
-import { Categoria } from '@prisma/client'
+import { categoria } from '@prisma/client'
 
 
 
@@ -15,7 +15,7 @@ PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</Das
 
 export default function PageAdmin() {
     const { query } = useRouter();
-    const [currentValue, setCurrentValue] = useState<Categoria>();
+    const [currentValue, setCurrentValue] = useState<categoria>();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

@@ -81,6 +81,16 @@
       {
         "ignoreCase": false
       }
-    ]
+    ],
+    // "no-shadow": [
+    //   "error",
+    //   {
+    //     "hoist": "all"
+    //   }
+    // ],
+    // "no-shadow": "off",
+    // "@typescript-eslint/no-shadow": ["off"]
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "info"
   }
 }

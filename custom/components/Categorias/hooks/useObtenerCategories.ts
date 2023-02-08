@@ -1,12 +1,12 @@
 
-import { Categoria } from "@prisma/client";
+import { categoria } from "@prisma/client";
 import { tiendaApi } from "custom/api";
 import useSWR from "swr";
 
 const fetcher = (url: string) => tiendaApi.get(url).then(r => r.data)
 
 type Data = {
-    categories: Categoria[];
+    categories: categoria[];
     isLoading: boolean;
     error: any;
     mutateCategories: () => void;

@@ -1,45 +1,58 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider          = "mysql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-model Categoria {
+model categoria {
   id       Int        @id @default(autoincrement())
-  nombre   String     @unique @db.VarChar(100)
-  ruta     String     @unique @db.VarChar(100)
+  nombre   String     @unique(map: "Categoria_nombre_key") @db.VarChar(100)
+  ruta     String     @unique(map: "Categoria_ruta_key") @db.VarChar(100)
   icono    String     @db.LongText
-  producto Producto[]
+  producto producto[]
 }
 
-model Producto {
+model producto {
   id          Int       @id @default(autoincrement())
   name        String    @db.VarChar(255)
-  slug        String    @unique @db.VarChar(255)
+  slug        String    @unique(map: "Producto_slug_key") @db.VarChar(255)
   description String    @db.LongText
   stock       Int       @default(0)
-  price       Float     @default(0.0)
+  price       Float     @default(0)
   images      String    @db.LongText
   cover       String    @db.LongText
   status      Boolean
   rating      Int
   categoriaID Int
-  categoria   Categoria @relation(fields: [categoriaID], references: [id])
+  categoria   categoria @relation(fields: [categoriaID], references: [id], map: "Producto_categoriaID_fkey")
+
+  @@index([categoriaID], map: "Producto_categoriaID_fkey")
 }
 
-model Usuario {
+model usuario {
   id             Int      @id @default(autoincrement())
-  identificacion String   @unique @db.VarChar(10)
+  identificacion String   @unique(map: "Usuario_identificacion_key") @db.VarChar(10)
   correo         String   @db.VarChar(100)
   nombres        String   @db.VarChar(100)
   clave          String   @db.VarChar(100)
   rol            String
   fechacreado    DateTime @default(now())
+  ventas         ventas[]
+}
+
+model ventas {
+  id_venta       Int       @id @default(autoincrement())
+  nombres        String    @db.VarChar(255)
+  identificacion String    @db.VarChar(13)
+  correo         String    @db.VarChar(100)
+  whatsapp       String    @db.VarChar(15)
+  productos      String    @map(" productos") @db.LongText
+  vendedor       Int?
+  fecha_creado   DateTime? @default(now()) @db.DateTime(0)
+  usuario        usuario?  @relation(fields: [vendedor], references: [id], onUpdate: NoAction, map: "fk_vendedores")
+
+  @@index([vendedor], map: "fk_vendedores")
 }

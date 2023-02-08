@@ -2,13 +2,13 @@ import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
-import { Categoria } from '@prisma/client'
+import { categoria } from '@prisma/client'
 import { obtenerCategorias } from 'pages/api/categories'
 import { CategoryList, useObtenerCategories } from 'custom/components'
 import { Container } from '@mui/material'
 
 type Props = {
-    categories: Categoria[]
+    categories: categoria[]
 }
 
 PageAdminCategorias.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>

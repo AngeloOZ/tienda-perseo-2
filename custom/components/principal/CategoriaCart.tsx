@@ -2,12 +2,11 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Image from 'src/components/image/Image';
-// import Link from '@mui/material/Link';
-import { Categoria } from '@prisma/client';
+import { categoria } from '@prisma/client';
 import Link from 'next/link';
 
 interface Props {
-  categoria: Categoria;
+  categoria: categoria;
 }
 
 export default function CategoriaCart({ categoria }: Props) {

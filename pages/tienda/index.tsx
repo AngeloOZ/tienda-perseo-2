@@ -8,7 +8,7 @@ import FormaPago from 'custom/components/principal/FormaPago';
 import { Grid } from '@mui/material';
 import { obtenerProductosLocal } from 'pages/api/products';
 import { obtenerCategorias } from 'pages/api/categories';
-import { Categoria as CategoriaID } from '@prisma/client';
+import { categoria as CategoriaID } from '@prisma/client';
 import { Categoria } from 'custom/components/principal/Categoria';
 
 interface Props {

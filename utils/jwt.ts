@@ -1,8 +1,8 @@
-import { Usuario } from '@prisma/client';
+import { usuario } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 
 
-export const signToken = ({ correo, identificacion, id, rol, nombres }: Usuario) => {
+export const signToken = ({ correo, identificacion, id, rol, nombres }: usuario) => {
 
     if (!process.env.JWT_SECRET_SEED) {
         throw new Error('No hay semilla de JWT - Revisar variables de entorno');

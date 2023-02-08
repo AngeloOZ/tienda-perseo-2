@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient, Producto } from '@prisma/client';
+
+import { PrismaClient, producto } from '@prisma/client';
 
 const prisma = new PrismaClient();
 type Data = {
@@ -33,7 +34,7 @@ const obtenerProductoForName = async (req: NextApiRequest, res: NextApiResponse)
   }
 };
 
-export const obtenerProductoSlug = async (slug: string): Promise<Producto | null> => {
+export const obtenerProductoSlug = async (slug: string): Promise<producto | null> => {
   try {
     const producto = await prisma.producto.findUnique({
       where: {

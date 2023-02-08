@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Grid } from '@mui/material';
 import CategoriaCart from './CategoriaCart';
-import { Categoria as CategoriaI } from '@prisma/client';
+import { categoria as CategoriaI } from '@prisma/client';
 
 interface Props {
   categoria: CategoriaI[];

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Card, Stack, Button, MenuItem, IconButton, CardContent, CardMedia, Typography } from '@mui/material';
 
 // @prisma
-import { Categoria } from '@prisma/client';
+import { categoria } from '@prisma/client';
 
 // components
 import { useSnackbar } from '../../../src/components/snackbar';
@@ -15,7 +15,7 @@ import { PATH_DASHBOARD } from 'src/routes/paths';
 import { useCategories } from '.';
 
 type Props = {
-  category: Categoria;
+  category: categoria;
 }
 
 export const CategoryItem = ({ category }: Props) => {

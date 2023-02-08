@@ -19,7 +19,7 @@ import FormProvider, {
 
 import { ICategoria } from '../../../interfaces';
 import { PATH_DASHBOARD } from 'src/routes/paths';
-import { Categoria } from '@prisma/client';
+import { categoria } from '@prisma/client';
 import { useCategories } from '.';
 
 
@@ -27,7 +27,7 @@ type FormValuesProps = ICategoria;
 
 type Props = {
     isEdit?: boolean;
-    currentCategory?: Categoria;
+    currentCategory?: categoria;
 }
 
 export function FormAgregarEditarCategoria({ isEdit = false, currentCategory }: Props) {

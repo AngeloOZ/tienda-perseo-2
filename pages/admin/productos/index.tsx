@@ -4,11 +4,11 @@ import { GetServerSideProps } from 'next'
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
 import { ProductList, useObtenerProductos } from 'custom/components'
 import { obtenerProductosLocal } from 'pages/api/products'
-import { Producto } from '@prisma/client'
+import { producto } from '@prisma/client'
 import { Container } from '@mui/material'
 
 type Props = {
-    products: Producto[]
+    products: producto[]
 }
 
 PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>
