@@ -29,7 +29,7 @@ const navConfig = [
         title: 'categorias',
         path: PATH_DASHBOARD.categorias.root,
         icon: <Category />,
-        roles: ['admin'],
+        // roles: ['admin'],
         children: [
           { title: 'Listar', path: PATH_DASHBOARD.categorias.root, },
           { title: 'Agregar', path: PATH_DASHBOARD.categorias.agregar },
@@ -41,8 +41,9 @@ const navConfig = [
     subheader: 'Ventas',
     items: [
       {
+        roles: ['vendedor'],
         title: 'Ventas',
-        path: '#',
+        path: PATH_DASHBOARD.ventas.root,
         icon: <MdLoyalty />,
       },
       {

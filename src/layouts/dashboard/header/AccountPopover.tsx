@@ -87,7 +87,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <CustomAvatar src='http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg' alt={user?.nombres} name={user?.nombres} />
+        <CustomAvatar src='https://icons-for-free.com/iconfiles/png/512/avatar+human+people+profile+user+icon-1320168139431219590.png' alt={user?.nombres} name={user?.nombres} />
       </IconButtonAnimate>
 
       <MenuPopover open={openPopover} onClose={handleClosePopover} sx={{ width: 200, p: 0 }}>

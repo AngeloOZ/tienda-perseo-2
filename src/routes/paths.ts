@@ -26,4 +26,7 @@ export const PATH_DASHBOARD = {
     agregar: path(PATH_ADMIN, '/categorias/agregar'),
     editar: path(PATH_ADMIN, '/categorias/editar'),
   },
+  ventas: {
+    root: path(PATH_ADMIN, '/ventas'),
+  }
 };

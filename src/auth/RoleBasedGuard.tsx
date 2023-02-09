@@ -25,8 +25,6 @@ export default function RoleBasedGuard({ hasContent, roles, children }: RoleBase
   const currentRole = user?.rol || [];
   let isAllowed = false;
 
-  console.log(roles);
-
   currentRole.forEach((rol) => {
     if (roles?.includes(rol)) {
       isAllowed = true;

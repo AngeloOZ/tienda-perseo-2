@@ -6,6 +6,7 @@ import { Box, Link, Typography } from '@mui/material';
 // components
 import { AuthContext } from 'src/auth';
 import { CustomAvatar } from '../../../components/custom-avatar';
+import { upperFirst } from 'lodash';
 
 // ----------------------------------------------------------------------
 
@@ -25,13 +26,10 @@ const StyledRoot = styled('div')(({ theme }) => ({
 export default function NavAccount() {
   const { user } = useContext(AuthContext);
 
-  console.log(user);
-  
-
   return (
     <Link underline="none" color="inherit">
       <StyledRoot>
-        <CustomAvatar src='http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg' alt={user?.nombres} name={user?.nombres} />
+        <CustomAvatar src='https://icons-for-free.com/iconfiles/png/512/avatar+human+people+profile+user+icon-1320168139431219590.png' alt={user?.nombres} name={user?.nombres} />
 
         <Box sx={{ ml: 2, minWidth: 0 }}>
           <Typography variant="subtitle2" noWrap>
@@ -39,7 +37,7 @@ export default function NavAccount() {
           </Typography>
 
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
-            {user?.rol}
+            {upperFirst(user?.rol[0]) || ''}
           </Typography>
         </Box>
       </StyledRoot>

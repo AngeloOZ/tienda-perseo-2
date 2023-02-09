@@ -1,6 +1,16 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { createPaginator } from 'prisma-pagination';
+
 import prisma from 'database/prismaClient';
 import { VentaRequest } from 'interfaces';
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { ventas } from '@prisma/client';
+
+export const config = {
+    api: {
+      responseLimit: false,
+    },
+  }
 
 
 export default function (req: NextApiRequest, res: NextApiResponse) {
@@ -26,7 +36,7 @@ export async function obtenerVentas(id?: number) {
             const venta = await prisma.ventas.findUnique({
                 where: {
                     id_venta: id
-                }
+                },
             });
             return venta;
         }
@@ -41,13 +51,34 @@ export async function obtenerVentas(id?: number) {
     }
 }
 
+export async function ventasPaginacion(limit: string, page: string) {
+    try {
+        const paginate = createPaginator({ perPage: limit, page: page });
+
+        const ventas = await paginate(prisma.ventas);
+
+        return ventas;
+    }
+    catch (error) {
+        console.log(error);
+        return [];
+    }
+}
+
 async function obtenerVentasReq(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const { id } = req.query
+        const { id, page, limit } = req.query as { id?: string, page?: string, limit?: string }
+
+        if (limit && page) {
+            const ventas = await ventasPaginacion(limit, page);
+            return res.status(200).json(ventas);
+        }
+
         if (id) {
             const venta = await obtenerVentas(Number(id));
             return res.status(200).json(venta);
         }
+
         const ventas = await obtenerVentas();
         return res.status(200).json(ventas);
     } catch (error) {
@@ -57,7 +88,7 @@ async function obtenerVentasReq(req: NextApiRequest, res: NextApiResponse) {
 
 async function registrarVenta(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const {nombre, ruc, correo, whatsapp, cart } = req.body as VentaRequest;
+        const { nombre, ruc, correo, whatsapp, cart } = req.body as VentaRequest;
         const result = await prisma.ventas.create({
             data: {
                 nombres: nombre,
