@@ -1,20 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import { SkeletonTable } from '../skeletons';
-import { Button, IconButton, InputAdornment, MenuItem, Stack, TextField } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, MenuItem, Stack, TextField, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
 
 import { Delete, Search } from '@mui/icons-material';
+import { AiOutlineFilePdf, AiOutlineFileExcel } from "react-icons/ai";
+import { BiExport } from "react-icons/bi";
+
 import Iconify from 'src/components/iconify/Iconify';
 import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import ConfirmDialog from 'src/components/confirm-dialog/ConfirmDialog';
+import { useExportTable } from 'custom/hooks';
+import { SkeletonTable } from '../skeletons';
 
 
 type HeaderProp = {
@@ -33,14 +29,15 @@ interface Props {
     isActions?: boolean;
     listButton?: boolean;
     isLoading?: boolean;
+    exportOptions?: boolean;
 
     handleDelete?: (item: any) => void;
     handeEdit?: (item: any) => void;
 
 }
 
-export function TableCustom({ headers, dataBody, pagination = true, maxHeight, isActions, listButton = true, isLoading, handleDelete = () => { }, handeEdit = () => { } }: Props) {
-
+export function TableCustom({ headers, dataBody, pagination = true, maxHeight, exportOptions = false, isActions, listButton = true, isLoading, handleDelete = () => { }, handeEdit = () => { } }: Props) {
+    const { exportXLSX, exportPDF } = useExportTable();
     // Filtros
     const [buscador, setBuscador] = useState('');
 
@@ -113,13 +110,13 @@ export function TableCustom({ headers, dataBody, pagination = true, maxHeight, i
         const data = pagination ? allData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : allData;
 
         const body = data.map((row: any) => {
-            return <>
-                <TableRow style={{ padding: 0 }} hover role="checkbox" key={row.id_venta} >
-                    {
-                        headers.map((header) => <TableCell key={header.name} align={header.align || 'left'}>{renderText(row[header.name], header?.type)}</TableCell>)
-                    }
+            return <TableRow style={{ padding: 0 }} hover role="checkbox" key={row.id_venta} >
+                {
+                    headers.map((header, i) => <TableCell key={header.name + i} align={header.align || 'left'}>{renderText(row[header.name], header?.type)}</TableCell>)
+                }
 
-                    {isActions && <TableCell align="center">
+                {isActions &&
+                    <TableCell align="center">
                         {
                             listButton ?
                                 <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
@@ -132,9 +129,8 @@ export function TableCustom({ headers, dataBody, pagination = true, maxHeight, i
                                     </IconButton>
                                 </>
                         }
-                    </TableCell>}
-                </TableRow>
-
+                    </TableCell>
+                }
                 <MenuPopover
                     open={openPopover}
                     onClose={handleClosePopover}
@@ -176,19 +172,65 @@ export function TableCustom({ headers, dataBody, pagination = true, maxHeight, i
                     }
 
                 />
-            </>
+            </TableRow>
         });
 
         return body
     }
 
+    // Exportar
+    const renderExport = () => {
+        const [openPopoverExport, setOpenPopoverExport] = useState<HTMLElement | null>(null);
+
+        const handleOpenPopoverExport = (event: React.MouseEvent<HTMLElement>) => {
+            setOpenPopoverExport(event.currentTarget);
+        };
+
+        const handleClosePopoverExport = () => {
+            setOpenPopoverExport(null);
+        };
+
+        return <Box>
+            <Button variant="outlined" color='secondary' endIcon={<BiExport />} onClick={handleOpenPopoverExport}>
+                Exportar
+            </Button>
+            <MenuPopover
+                open={openPopoverExport}
+                onClose={handleClosePopoverExport}
+                arrow="right-top"
+                sx={{ width: 180 }}
+            >
+                <MenuItem
+                    onClick={() => {
+                        exportXLSX(allData)
+                        handleClosePopoverExport();
+                    }}
+                >
+                    <AiOutlineFileExcel color='#2e7d32' />
+                    Exportar Excel
+                </MenuItem>
+
+                <MenuItem
+                    onClick={() => {
+                        exportPDF("Reporte de ventas", headers, allData);
+                        handleClosePopoverExport();
+                    }}
+                >
+                    <AiOutlineFilePdf color='#d32f2f' />
+                    Exportar PDF
+                </MenuItem>
+            </MenuPopover>
+        </Box>
+    }
+
     return (
         <Paper sx={{ width: '100%' }}>
             <TableContainer sx={{ maxHeight: maxHeight ? maxHeight : 500, padding: 1 }}>
-                <Stack mb={2} >
+                <Stack mb={2} direction="row" justifyContent="space-between" alignItems="center">
                     <TextField
                         variant="outlined"
                         placeholder='Buscador'
+                        size='small'
                         value={buscador}
                         onChange={handleBuscador}
                         InputProps={{
@@ -199,6 +241,9 @@ export function TableCustom({ headers, dataBody, pagination = true, maxHeight, i
                             ),
                         }}
                     />
+
+                    {exportOptions && renderExport()}
+
                 </Stack>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

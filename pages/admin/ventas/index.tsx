@@ -37,8 +37,7 @@ export default function PageAdmin() {
                         { label: 'Fecha', name: 'fecha_creado', type: 'date', serchable: false },
                     ]}
                     dataBody={datosTabla} 
-                    isActions
-                    
+                    exportOptions={true}
                 />
             </Container>
         </>
