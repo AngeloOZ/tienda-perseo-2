@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
-import { producto, ventas } from '@prisma/client'
+import { ventas } from '@prisma/client'
 import { Container } from '@mui/material'
 import { TableCustom } from 'custom/components'
 import { useEffect, useState } from 'react'
@@ -33,7 +33,7 @@ export default function PageAdmin() {
     }
 
     const editarVenta = async (item: ventas) => {
-        router.push(PATH_DASHBOARD.ventas.editar + `/${item.id_venta}`)
+        router.push(`${PATH_DASHBOARD.ventas.editar}/${item.id_venta}`)
 
     }
 
@@ -52,8 +52,8 @@ export default function PageAdmin() {
                         { label: 'Fecha', name: 'fecha_creado', type: 'date', serchable: false },
                     ]}
                     dataBody={datosTabla}
-                    exportOptions={true}
-                    isActions={true}
+                    exportOptions
+                    isActions
                     handeEdit={editarVenta}
                     handleDelete={eliminarVenta}
                     isLoading={isLoading}

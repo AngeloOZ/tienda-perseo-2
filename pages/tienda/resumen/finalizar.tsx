@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import Head from 'next/head';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 
 import { Container, Grid } from '@mui/material';
@@ -48,7 +48,7 @@ const PageTienda = ({ factura }: { factura: any }) => {
                 <Grid container gap={1} display="flex" justifyContent="space-evenly">
                     <Grid item xs={12} md={7} lg={7} xl={6}>
                         <ListadoProductos cart={cart} />
-                        <div id="ButtonPaybox"></div>
+                        <div id="ButtonPaybox" />
                     </Grid>
                     <Grid item xs={12} md={4} lg={4} xl={5}>
                         <ResumenCompra iva={iva} subtotal={subtotal} total={total} discount={discount} shipping={shipping} />
@@ -56,8 +56,8 @@ const PageTienda = ({ factura }: { factura: any }) => {
                     </Grid>
                 </Grid>
             </Container>
-            <Script src=" https://code.jquery.com/jquery-3.4.1.min.js" strategy='beforeInteractive'></Script>
-            <Script src="https://sandbox-paybox.pagoplux.com/paybox/index.js" strategy='beforeInteractive'></Script>
+            <Script src=" https://code.jquery.com/jquery-3.4.1.min.js" strategy='beforeInteractive' />
+            <Script src="https://sandbox-paybox.pagoplux.com/paybox/index.js" strategy='beforeInteractive' />
             <Script strategy='beforeInteractive' >
                 {`
                     var data = {

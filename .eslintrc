@@ -90,7 +90,7 @@
     // ],
     // "no-shadow": "off",
     // "@typescript-eslint/no-shadow": ["off"]
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "info"
+    "no-shadow": 0,
+    "@typescript-eslint/no-shadow": 0
   }
 }

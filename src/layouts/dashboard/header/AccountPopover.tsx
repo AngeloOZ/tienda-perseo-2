@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
+import { Box, Divider, Typography, MenuItem } from '@mui/material';
 
 import { AuthContext } from 'src/auth';
 
@@ -18,25 +18,11 @@ import { IconButtonAnimate } from '../../../components/animate';
 
 // ----------------------------------------------------------------------
 
-const OPTIONS = [
-  {
-    label: 'Home',
-    linkTo: '/',
-  },
-  {
-    label: 'Profile',
-    linkTo: '/',
-  },
-  {
-    label: 'Settings',
-    linkTo: '/',
-  },
-];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
-  const { replace, push } = useRouter();
+  const { push } = useRouter();
 
   const { user, logoutUser } = useContext(AuthContext);
 
@@ -63,10 +49,10 @@ export default function AccountPopover() {
     }
   };
 
-  const handleClickItem = (path: string) => {
-    handleClosePopover();
-    push(path);
-  };
+  // const handleClickItem = (path: string) => {
+  //   handleClosePopover();
+  //   push(path);
+  // };
 
   return (
     <>

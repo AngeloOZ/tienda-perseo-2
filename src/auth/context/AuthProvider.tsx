@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: Props) => {
             logoutUser,
             checkToken,
         }),
-        [state.isInitialized, state.isLoggedIn, state.rol, state.user]
+        [state]
     );
 
     // return (

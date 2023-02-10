@@ -5,8 +5,8 @@ import { Box, Link, Typography } from '@mui/material';
 
 // components
 import { AuthContext } from 'src/auth';
-import { CustomAvatar } from '../../../components/custom-avatar';
 import { upperFirst } from 'lodash';
+import { CustomAvatar } from '../../../components/custom-avatar';
 
 // ----------------------------------------------------------------------
 

@@ -4,7 +4,6 @@ import { createPaginator } from 'prisma-pagination';
 
 import prisma from 'database/prismaClient';
 import { VentaRequest } from 'interfaces';
-import { ventas } from '@prisma/client';
 
 export const config = {
     api: {
@@ -53,7 +52,7 @@ export async function obtenerVentas(id?: number) {
 
 export async function ventasPaginacion(limit: string, page: string) {
     try {
-        const paginate = createPaginator({ perPage: limit, page: page });
+        const paginate = createPaginator({ perPage: limit, page });
 
         const ventas = await paginate(prisma.ventas);
 
@@ -105,7 +104,9 @@ async function obtenerVentaId(id: number) {
 
         const products = JSON.parse(venta.productos);
 
+        // eslint-disable-next-line
         for (const product of products) {
+            // eslint-disable-next-line
             const productoBase = await prisma.producto.findUnique({ where: { id: product.id } });
             product.price = productoBase?.price || 0;
             product.cover = productoBase?.cover || '';

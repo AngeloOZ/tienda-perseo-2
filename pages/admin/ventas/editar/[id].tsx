@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
-import { DatosFactura, FormAgregarEditarProducto, LinearProgressBar, ListadoProductos, ResumenCompra } from 'custom/components'
+import { DatosFactura, LinearProgressBar, ListadoProductos, ResumenCompra } from 'custom/components'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { tiendaApi } from 'custom/api'
