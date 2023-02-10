@@ -40,7 +40,7 @@ export const RenderTableBody = ({
 
     if (isLoading) return <SkeletonTable columns={headers.length + 1} rows={rowsPerPage} />
 
-    if (allData.length === 0) return <TableRow><TableCell colSpan={headers.length + 1} align="center">No hay datos</TableCell></TableRow>
+    if (allData.length === 0) return <TableRow><TableCell colSpan={headers.length + 1} align="center">No hay datos registrados</TableCell></TableRow>
 
     const data = pagination ? allData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : allData;
 

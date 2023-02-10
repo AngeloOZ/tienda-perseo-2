@@ -95,7 +95,13 @@ const EditActionsButtons = ({
                 title="Borrar registro"
                 content="Está seguro de borrar este registro?"
                 action={
-                    <Button variant="contained" color="error" onClick={() => handleClickDelete(row)}>
+                    <Button 
+                        variant="contained"
+                        color="error"
+                        onClick={() => {
+                            handleCloseConfirm();
+                            handleClickDelete(row);
+                        }}>
                         Eliminar
                     </Button>
                 }
