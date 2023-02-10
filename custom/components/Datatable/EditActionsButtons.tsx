@@ -68,6 +68,15 @@ const EditActionsButtons = ({
             >
                 <MenuItem
                     onClick={() => {
+                        handleClickEdit(row);
+                        handleClosePopover();
+                    }}
+                >
+                    <Iconify icon="eva:edit-fill" />
+                    Editar
+                </MenuItem>
+                <MenuItem
+                    onClick={() => {
                         handleOpenConfirm();
                         handleClosePopover();
                     }}
@@ -75,16 +84,6 @@ const EditActionsButtons = ({
                 >
                     <Iconify icon="eva:trash-2-outline" />
                     Eliminar
-                </MenuItem>
-
-                <MenuItem
-                    onClick={() => {
-                        handleClickEdit(row);
-                        handleClosePopover();
-                    }}
-                >
-                    <Iconify icon="eva:edit-fill" />
-                    Editar
                 </MenuItem>
             </MenuPopover>
 
@@ -95,7 +94,7 @@ const EditActionsButtons = ({
                 title="Borrar registro"
                 content="Está seguro de borrar este registro?"
                 action={
-                    <Button 
+                    <Button
                         variant="contained"
                         color="error"
                         onClick={() => {

@@ -8,9 +8,9 @@ import { ventas } from '@prisma/client';
 
 export const config = {
     api: {
-      responseLimit: false,
+        responseLimit: false,
     },
-  }
+}
 
 
 export default function (req: NextApiRequest, res: NextApiResponse) {
@@ -40,7 +40,7 @@ export async function obtenerVentas(id?: number) {
             });
             return venta;
         }
-        const ventas = await prisma.ventas.findMany();
+        const ventas = await prisma.ventas.findMany({orderBy: {id_venta: 'desc'}});
         return ventas;
     } catch (error) {
         console.log(error);
@@ -75,7 +75,7 @@ async function obtenerVentasReq(req: NextApiRequest, res: NextApiResponse) {
         }
 
         if (id) {
-            const venta = await obtenerVentas(Number(id));
+            const venta = await obtenerVentaId(Number(id));
             return res.status(200).json(venta);
         }
 
@@ -85,6 +85,48 @@ async function obtenerVentasReq(req: NextApiRequest, res: NextApiResponse) {
         return res.status(500).json({ message: 'Error al obtener las ventas', error });
     }
 }
+
+async function obtenerVentaId(id: number) {
+    try {
+        const ventaQuery = await prisma.ventas.findUnique({
+            where: {
+                id_venta: id
+            },
+        });
+
+        if (!ventaQuery) return null;
+
+        const venta = {
+            ...ventaQuery,
+            subtotal: 0,
+            total: 0,
+            totalIVA: 0,
+        }
+
+        const products = JSON.parse(venta.productos);
+
+        for (const product of products) {
+            const productoBase = await prisma.producto.findUnique({ where: { id: product.id } });
+            product.price = productoBase?.price || 0;
+            product.cover = productoBase?.cover || '';
+            product.subtotal = product.price * product.quantity;
+            product.stock = productoBase?.stock || 0;
+
+            venta.subtotal += product.subtotal;
+            venta.totalIVA += Math.round(product.subtotal * 0.12);
+        }
+        venta.total = venta.subtotal + venta.totalIVA;
+        venta.productos = products;
+        return venta;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+    finally {
+        await prisma.$disconnect();
+    }
+}
+
 
 async function registrarVenta(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -101,6 +143,7 @@ async function registrarVenta(req: NextApiRequest, res: NextApiResponse) {
         });
         return res.status(201).json(result);
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ message: 'Error al registrar la venta', error });
     }
     finally {

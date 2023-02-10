@@ -28,5 +28,16 @@ export const PATH_DASHBOARD = {
   },
   ventas: {
     root: path(PATH_ADMIN, '/ventas'),
+    editar: path(PATH_ADMIN, '/ventas/editar'),
+  }
+};
+
+export const PATH_TIENDA = '/tienda';
+
+export const PATH_PAGE_TIENDA = {
+  tienda: {
+    root: PATH_TIENDA,
+    resumen: path(PATH_TIENDA, '/resumen'),
+    finalizar: path(PATH_TIENDA, '/resumen/finalizar'),
   }
 };

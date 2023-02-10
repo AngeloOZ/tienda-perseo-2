@@ -10,6 +10,7 @@ import {
   CheckoutSummary,
 } from '../../../src/sections/checkout';
 import Link from 'next/link';
+import { PATH_PAGE_TIENDA } from 'src/routes/paths';
 
 interface Props {
   checkout: IProductCheckoutState;
@@ -82,7 +83,7 @@ export const BaseCart: FC<Props> = ({
               subtotal={subtotal}
               onApplyDiscount={funApplyDiscount}
             />
-            <Link href='/tienda/resumen' legacyBehavior>
+            <Link href={PATH_PAGE_TIENDA.tienda.resumen} legacyBehavior>
               <Button
                 fullWidth
                 size="large"

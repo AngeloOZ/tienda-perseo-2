@@ -31,7 +31,7 @@ export const TableRowBody = ({
 
     const renderText = (value: any, type = 'string') => {
         // if (type === 'date') return new Date(value).toLocaleDateString() + ' ' + new Date(value).toLocaleTimeString();
-        if (type === 'number') return new Intl.NumberFormat('es-ES').format(value);
+        if (type === 'number') return Number(value);
         return value;
     }
 

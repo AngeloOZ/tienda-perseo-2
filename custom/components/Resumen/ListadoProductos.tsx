@@ -1,13 +1,12 @@
-import { useContext } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Card, Typography } from '@mui/material';
 
-import { CartContext } from 'context';
 import Image from 'src/components/image/Image';
+import { ICheckoutCartItem } from 'src/@types/product';
 
-
-export const ListadoProductos = () => {
-  const { cart } = useContext(CartContext);
-
+type Props = {
+  cart: ICheckoutCartItem[];
+}
+export const ListadoProductos = ({ cart }: Props) => {
   return (
     <Card>
       <TableContainer component={Paper}>

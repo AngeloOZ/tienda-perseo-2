@@ -15,12 +15,13 @@ import { tiendaApi } from 'custom/api';
 import { CartContext } from 'context';
 import Script from 'next/script';
 import { jsonBase64 } from 'utils';
+import { PATH_PAGE_TIENDA } from 'src/routes/paths';
 
 // eslint-disable-next-line
-const PageTienda: NextPage = ({ factura }) => {
-    const { enqueueSnackbar } = useSnackbar();
+const PageTienda = ({ factura }: { factura: any }) => {
     const router = useRouter();
-    const { handleResetCart } = useContext(CartContext);
+    const { enqueueSnackbar } = useSnackbar();
+    const { handleResetCart, cart, discount, subtotal, shipping, iva, total } = useContext(CartContext);
 
 
     const onSubmit = async (data: FormFactura) => {
@@ -31,7 +32,7 @@ const PageTienda: NextPage = ({ factura }) => {
 
             enqueueSnackbar('Tu compra ha sido registrada con exito', { variant: 'success' });
             handleResetCart();
-            router.push(`/tienda`);
+            router.push(PATH_PAGE_TIENDA.tienda.root);
         } catch (err) {
             console.log(err);
             enqueueSnackbar('Ha ocurrido un error al registrar tu compra', { variant: 'error' });
@@ -46,11 +47,11 @@ const PageTienda: NextPage = ({ factura }) => {
             <Container maxWidth={false} component="main" sx={{ mt: 2 }}>
                 <Grid container gap={1} display="flex" justifyContent="space-evenly">
                     <Grid item xs={12} md={7} lg={7} xl={6}>
-                        <ListadoProductos />
+                        <ListadoProductos cart={cart} />
                         <div id="ButtonPaybox"></div>
                     </Grid>
                     <Grid item xs={12} md={4} lg={4} xl={5}>
-                        <ResumenCompra />
+                        <ResumenCompra iva={iva} subtotal={subtotal} total={total} discount={discount} shipping={shipping} />
                         <DatosFactura onSubmitEvent={onSubmit} isFinished disabled mt={1.5} />
                     </Grid>
                 </Grid>

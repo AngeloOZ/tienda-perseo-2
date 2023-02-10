@@ -55,7 +55,7 @@ export default function AccountPopover() {
   const handleLogout = async () => {
     try {
       logoutUser();
-      replace(PATH_AUTH.login);
+      push(PATH_AUTH.login);
       handleClosePopover();
     } catch (error) {
       console.error(error);
@@ -103,18 +103,10 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Stack sx={{ p: 1 }}>
-          {OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={() => handleClickItem(option.linkTo)}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Stack>
-
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        {/* <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
         <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
-          Logout
+          Cerrar Sesión
         </MenuItem>
       </MenuPopover>
     </>

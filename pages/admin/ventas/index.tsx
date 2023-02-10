@@ -6,6 +6,8 @@ import { Container } from '@mui/material'
 import { TableCustom } from 'custom/components'
 import { useEffect, useState } from 'react'
 import { tiendaApi } from 'custom/api'
+import { useRouter } from 'next/router'
+import { PATH_DASHBOARD } from 'src/routes/paths'
 
 
 PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout roles={['vendedor']}>{page}</DashboardLayout>
@@ -13,6 +15,8 @@ PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout roles={['ve
 export default function PageAdmin() {
     const [isLoading, setIsLoading] = useState(true)
     const [datosTabla, setDatosTabla] = useState<ventas[]>([]);
+    const router = useRouter();
+
     useEffect(() => {
         obtenerVentas()
     }, [])
@@ -24,12 +28,13 @@ export default function PageAdmin() {
         setIsLoading(false);
     }
 
-    const eliminarVenta = async (item : ventas) => {
+    const eliminarVenta = async (item: ventas) => {
         console.log(item)
     }
 
     const editarVenta = async (item: ventas) => {
-        console.log(item)
+        router.push(PATH_DASHBOARD.ventas.editar + `/${item.id_venta}`)
+
     }
 
     return (
@@ -38,7 +43,7 @@ export default function PageAdmin() {
                 <title>Listado de ventas</title>
             </Head>
             <Container maxWidth={false}>
-                <TableCustom 
+                <TableCustom
                     headers={[
                         { label: "ID", name: "id_venta", type: 'number', serchable: false },
                         { label: 'Identificacion', name: 'identificacion' },
@@ -46,7 +51,7 @@ export default function PageAdmin() {
                         { label: 'WhatsApp', name: 'whatsapp' },
                         { label: 'Fecha', name: 'fecha_creado', type: 'date', serchable: false },
                     ]}
-                    dataBody={datosTabla} 
+                    dataBody={datosTabla}
                     exportOptions={true}
                     isActions={true}
                     handeEdit={editarVenta}

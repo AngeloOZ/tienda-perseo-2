@@ -3,14 +3,18 @@ import { CartContext } from "context";
 import { useContext } from "react";
 
 interface Props extends CardProps {
-
+    discount?: number;
+    subtotal: number;
+    shipping?: number;
+    iva: number;
+    total: number;
+    title?: string;
 }
 
-export const ResumenCompra = ({ ...other }: Props) => {
-    const { discount, subtotal, shipping, iva, total } = useContext(CartContext);
+export const ResumenCompra = ({ title, discount, subtotal, iva, total, shipping, ...other }: Props) => {
     return (
         <Card sx={{ m: 0, p: 0 }} {...other}>
-            <CardHeader title="Resumen del pedido" />
+            <CardHeader title={title || "Resumen del pedido"} />
             <CardContent>
                 <Stack spacing={1}>
                     <Stack direction="row" justifyContent="space-between">

@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useMemo, useReducer } from 'react';
 import Cookies from 'js-cookie';
 
 import { Usuario } from 'interfaces';
@@ -66,36 +66,38 @@ export const AuthProvider = ({ children }: Props) => {
         }
     }
 
-    const logoutUser = async () => {
-
+    const logoutUser = () => {
+        try {
+            Cookies.remove('token');
+            dispatch({ type: 'AUTH_LOGOUT' });
+            return true;
+        }
+        catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
-    // TODO: implementar logout
-
-    // const memoizedValue = useMemo(
-    //     () => ({
-    //         isInitialized: state.isInitialized,
-    //         isAuthenticated: state.isAuthenticated,
-    //         user: state.user,
-    //         method: 'jwt',
-    //         login,
-    //         loginWithGoogle: () => { },
-    //         loginWithGithub: () => { },
-    //         loginWithTwitter: () => { },
-    //         register,
-    //         logout,
-    //     }),
-    //     [state.isAuthenticated, state.isInitialized, state.user, login, logout, register]
-    // );
-    // TODO: implementar useMeno
-    return (
-        // eslint-disable-next-line
-        <AuthContext.Provider value={{
+    const memoizedValue = useMemo(
+        () => ({
             ...state,
-            // Methods
             loginUser,
-            logoutUser
-        }}>
-            {children}
-        </AuthContext.Provider>);
+            logoutUser,
+            checkToken,
+        }),
+        [state.isInitialized, state.isLoggedIn, state.rol, state.user]
+    );
+
+    // return (
+    //     // eslint-disable-next-line
+    //     <AuthContext.Provider value={{
+    //         ...state,
+    //         // Methods
+    //         loginUser,
+    //         logoutUser
+    //     }}>
+    //         {children}
+    //     </AuthContext.Provider>);
+    
+    return (<AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>);
 };
