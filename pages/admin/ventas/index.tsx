@@ -38,6 +38,7 @@ export default function PageAdmin() {
                     ]}
                     dataBody={datosTabla} 
                     exportOptions={true}
+                    isActions={true}
                 />
             </Container>
         </>

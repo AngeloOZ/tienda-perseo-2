@@ -1,16 +1,10 @@
 import { useMemo, useState } from 'react';
 
-import { Box, Button, IconButton, InputAdornment, MenuItem, Stack, TextField, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
+import { InputAdornment, Stack, TextField, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
 
-import { Delete, Search } from '@mui/icons-material';
-import { AiOutlineFilePdf, AiOutlineFileExcel } from "react-icons/ai";
-import { BiExport } from "react-icons/bi";
+import { Search } from '@mui/icons-material';
 
-import Iconify from 'src/components/iconify/Iconify';
-import MenuPopover from 'src/components/menu-popover/MenuPopover';
-import ConfirmDialog from 'src/components/confirm-dialog/ConfirmDialog';
-import { useExportTable } from 'custom/hooks';
-import { SkeletonTable } from '../skeletons';
+import { ExportButtons, RenderTableBody } from '.';
 
 
 type HeaderProp = {
@@ -37,7 +31,6 @@ interface Props {
 }
 
 export function TableCustom({ headers, dataBody, pagination = true, maxHeight, exportOptions = false, isActions, listButton = true, isLoading, handleDelete = () => { }, handeEdit = () => { } }: Props) {
-    const { exportXLSX, exportPDF } = useExportTable();
     // Filtros
     const [buscador, setBuscador] = useState('');
 
@@ -76,153 +69,6 @@ export function TableCustom({ headers, dataBody, pagination = true, maxHeight, e
         setPage(0);
     };
 
-    const renderText = (value: any, type = 'string') => {
-        // if (type === 'date') return new Date(value).toLocaleDateString() + ' ' + new Date(value).toLocaleTimeString();
-        if (type === 'number') return new Intl.NumberFormat('es-ES').format(value);
-        return value;
-    }
-
-    const renderData = () => {
-        const [openConfirm, setOpenConfirm] = useState(false);
-
-        const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
-
-        const handleOpenConfirm = () => {
-            setOpenConfirm(true);
-        };
-
-        const handleCloseConfirm = () => {
-            setOpenConfirm(false);
-        };
-
-        const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
-            setOpenPopover(event.currentTarget);
-        };
-
-        const handleClosePopover = () => {
-            setOpenPopover(null);
-        };
-
-        if (isLoading) return <SkeletonTable columns={headers.length + 1} rows={rowsPerPage} />
-
-        if (dataBody.length === 0) return <TableRow><TableCell colSpan={headers.length + 1} align="center">No hay datos</TableCell></TableRow>
-
-        const data = pagination ? allData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : allData;
-
-        const body = data.map((row: any) => {
-            return <TableRow style={{ padding: 0 }} hover role="checkbox" key={row.id_venta} >
-                {
-                    headers.map((header, i) => <TableCell key={header.name + i} align={header.align || 'left'}>{renderText(row[header.name], header?.type)}</TableCell>)
-                }
-
-                {isActions &&
-                    <TableCell align="center">
-                        {
-                            listButton ?
-                                <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
-                                    <Iconify icon="eva:more-vertical-fill" />
-                                </IconButton>
-                                :
-                                <>
-                                    <IconButton aria-label="delete" size="small" onClick={() => handleDelete(row)}>
-                                        <Delete fontSize="inherit" />
-                                    </IconButton>
-                                </>
-                        }
-                    </TableCell>
-                }
-                <MenuPopover
-                    open={openPopover}
-                    onClose={handleClosePopover}
-                    arrow="right-top"
-                    sx={{ width: 140 }}
-                >
-                    <MenuItem
-                        onClick={() => {
-                            handleOpenConfirm();
-                            handleClosePopover();
-                        }}
-                        sx={{ color: 'error.main' }}
-                    >
-                        <Iconify icon="eva:trash-2-outline" />
-                        Eliminar
-                    </MenuItem>
-
-                    <MenuItem
-                        onClick={() => {
-                            handeEdit(row);
-                            handleClosePopover();
-                        }}
-                    >
-                        <Iconify icon="eva:edit-fill" />
-                        Editar
-                    </MenuItem>
-                </MenuPopover>
-
-                <ConfirmDialog
-                    sx={{ backgroundColor: 'transparent' }}
-                    open={openConfirm}
-                    onClose={handleCloseConfirm}
-                    title="Borrar registro"
-                    content="Está seguro de borrar este registro?"
-                    action={
-                        <Button variant="contained" color="error" onClick={() => handleDelete(row)}>
-                            Eliminar
-                        </Button>
-                    }
-
-                />
-            </TableRow>
-        });
-
-        return body
-    }
-
-    // Exportar
-    const renderExport = () => {
-        const [openPopoverExport, setOpenPopoverExport] = useState<HTMLElement | null>(null);
-
-        const handleOpenPopoverExport = (event: React.MouseEvent<HTMLElement>) => {
-            setOpenPopoverExport(event.currentTarget);
-        };
-
-        const handleClosePopoverExport = () => {
-            setOpenPopoverExport(null);
-        };
-
-        return <Box>
-            <Button variant="outlined" color='secondary' endIcon={<BiExport />} onClick={handleOpenPopoverExport}>
-                Exportar
-            </Button>
-            <MenuPopover
-                open={openPopoverExport}
-                onClose={handleClosePopoverExport}
-                arrow="right-top"
-                sx={{ width: 180 }}
-            >
-                <MenuItem
-                    onClick={() => {
-                        exportXLSX(allData)
-                        handleClosePopoverExport();
-                    }}
-                >
-                    <AiOutlineFileExcel color='#2e7d32' />
-                    Exportar Excel
-                </MenuItem>
-
-                <MenuItem
-                    onClick={() => {
-                        exportPDF("Reporte de ventas", headers, allData);
-                        handleClosePopoverExport();
-                    }}
-                >
-                    <AiOutlineFilePdf color='#d32f2f' />
-                    Exportar PDF
-                </MenuItem>
-            </MenuPopover>
-        </Box>
-    }
-
     return (
         <Paper sx={{ width: '100%' }}>
             <TableContainer sx={{ maxHeight: maxHeight ? maxHeight : 500, padding: 1 }}>
@@ -242,9 +88,10 @@ export function TableCustom({ headers, dataBody, pagination = true, maxHeight, e
                         }}
                     />
 
-                    {exportOptions && renderExport()}
+                    {exportOptions && <ExportButtons data={allData} headers={headers} />}
 
                 </Stack>
+
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
@@ -261,10 +108,22 @@ export function TableCustom({ headers, dataBody, pagination = true, maxHeight, e
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {renderData()}
+                        <RenderTableBody 
+                            isLoading={isLoading}
+                            isActions={isActions}
+                            allData={allData}
+                            headers={headers}
+                            listButton={listButton}
+                            handleClickDelete={handleDelete}
+                            handleClickEdit={handeEdit}
+                            pagination={pagination}
+                            page={page}
+                            rowsPerPage={rowsPerPage}
+                        />
                     </TableBody>
                 </Table>
             </TableContainer>
+
             {
                 pagination &&
                 <TablePagination
@@ -279,6 +138,7 @@ export function TableCustom({ headers, dataBody, pagination = true, maxHeight, e
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             }
+
         </Paper>
     );
 }
