@@ -1,6 +1,7 @@
 // --------SWIPER
 import "swiper/css";
 import "swiper/css/navigation";
+import 'swiper/css/pagination';
 import '../custom/styles/swiper.css'
 
 
@@ -41,12 +42,6 @@ import { MotionLazyContainer } from '../src/components/animate';
 import { ThemeSettings, SettingsProvider } from '../src/components/settings';
 import '../custom/styles/globals.css';
 
-// Check our docs
-// https://docs.minimals.cc/authentication/ts-version
-
-// import { AuthProvider } from '../src/auth/JwtContext';
-
-// ----------------------------------------------------------------------
 
 const clientSideEmotionCache = createEmotionCache();
 

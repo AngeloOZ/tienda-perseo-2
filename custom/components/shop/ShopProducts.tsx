@@ -12,7 +12,7 @@ export const ShopProducts: FC<Props> = ({ products }) => {
       <Box
         gap={3}
         display="grid"
-        padding={10}
+        padding={{ xs: 1, sm: 8 }}
         gridTemplateColumns={{
           xs: 'repeat(1, 1fr)',
           sm: 'repeat(2, 1fr)',

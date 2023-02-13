@@ -12,7 +12,15 @@ interface Props {
 export default function CategoriaCart({ categoria }: Props) {
   return (
 
-    <Card sx={{ width: 170, height: 170, boxShadow: 5, marginX: 1, marginY: 0.7 }}>
+    <Card
+      sx={{
+        width: 170,
+        height: 170,
+        boxShadow: 5,
+        marginX: 1,
+        marginY: 0.7
+      }}
+    >
       <Link href={`/tienda/categoria/${categoria.ruta}`} style={{ textDecoration: 'none' }}>
         <CardActionArea sx={{ width: 170, height: 170, }} >
           <Image
@@ -25,7 +33,7 @@ export default function CategoriaCart({ categoria }: Props) {
 
             }}
           />
-          <Typography variant="subtitle1" paddingTop={3} align='center' color='green'> {categoria.nombre}</Typography>
+          <Typography variant="subtitle1" paddingTop={3} align='center' color='primary'> {categoria.nombre}</Typography>
         </CardActionArea>
       </Link>
 

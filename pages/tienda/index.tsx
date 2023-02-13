@@ -28,10 +28,11 @@ const PageTienda: NextPage<Props> = ({ products, categories }) => {
         <title>Listado de productos</title>
       </Head>
       <ImagenPricipal />
-      <Grid container justifyContent="center" p={2}>
-        <FormaPago />
-        <Categoria categoria={categories} />
-      </Grid>
+
+      <FormaPago />
+
+      <Categoria categoria={categories} />
+
       <ShopProducts products={products} />
     </MainLayout>
   );
