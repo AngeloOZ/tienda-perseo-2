@@ -44,9 +44,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const products = await obtenerProductosLocal();
   const categories = await obtenerCategorias();
 
-  console.log(query);
-  
-
   return {
     props: {
       products,
