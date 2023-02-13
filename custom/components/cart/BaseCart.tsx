@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Grid, Card, Button, CardHeader, Typography } from '@mui/material';
 import { Box, Container } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
@@ -10,7 +10,8 @@ import {
   CheckoutSummary,
 } from '../../../src/sections/checkout';
 import Link from 'next/link';
-import { PATH_PAGE_TIENDA } from 'src/routes/paths';
+import { DEFAULT_VENDEDOR, PATH_PAGE_TIENDA } from 'src/routes/paths';
+import { useRouter } from 'next/router';
 
 interface Props {
   checkout: IProductCheckoutState;
@@ -33,6 +34,9 @@ export const BaseCart: FC<Props> = ({
 }) => {
   const { cart, total, discount, iva, subtotal, totalItems } = checkout;
   const isEmptyCart = !cart.length;
+
+  const { query: { vendedor } } = useRouter() as any;
+  const [idVendedor, setIdVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
 
   return (
     <Container>
@@ -83,7 +87,7 @@ export const BaseCart: FC<Props> = ({
               subtotal={subtotal}
               onApplyDiscount={funApplyDiscount}
             />
-            <Link href={PATH_PAGE_TIENDA.tienda.resumen} legacyBehavior>
+            <Link href={`/${idVendedor}` + PATH_PAGE_TIENDA.tienda.resumen} legacyBehavior>
               <Button
                 fullWidth
                 size="large"
@@ -109,18 +113,6 @@ export const BaseCart: FC<Props> = ({
             >
               Vaciar Carrito
             </Button>
-
-            {/* <Button 
-              fullWidth
-              size="large"
-              type="submit"
-              variant="outlined" 
-              onClick={funShowCart}
-              sx={{ mb:2 }}
-              >
-              Cerrar
-            </Button>             */}
-
           </Grid>
         </Grid>
       </Box>

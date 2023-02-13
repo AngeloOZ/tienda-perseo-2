@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import Head from 'next/head';
@@ -10,7 +10,7 @@ import { DatosFactura, ListadoProductos, ResumenCompra } from 'custom/components
 import MainLayout from 'src/layouts/main/MainLayout';
 import { jsonBase64 } from 'utils';
 import { FormFactura } from 'interfaces';
-import { PATH_PAGE_TIENDA } from 'src/routes/paths';
+import { DEFAULT_VENDEDOR, PATH_PAGE_TIENDA } from 'src/routes/paths';
 import { CartContext } from 'context';
 
 
@@ -19,11 +19,14 @@ const PageTienda: NextPage = () => {
     const router = useRouter();
     const { cart, discount, subtotal, shipping, iva, total } = useContext(CartContext);
 
+    const { query: { vendedor } } = useRouter() as any;
+    const [idVendedor, setIdVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
+
     const onSubmit = async (data: FormFactura) => {
         try {
             jsonBase64.stringifyJSON(data);
             Cookies.set('datosFactura', jsonBase64.stringifyJSON(data));
-            router.push(PATH_PAGE_TIENDA.tienda.finalizar);
+            router.push(`/${idVendedor}` + PATH_PAGE_TIENDA.tienda.finalizar);
         } catch (err) {
             console.log(err);
         }

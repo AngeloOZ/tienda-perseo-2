@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetServerSideProps } from 'next';
 import { useContext } from 'react';
 import Head from 'next/head';
 import { Grid, Container } from '@mui/material';
@@ -9,9 +9,8 @@ import MainLayout from 'src/layouts/main/MainLayout';
 import { Descripcion } from 'custom/components/Descripcion';
 
 import { obtenerProductoSlug } from 'pages/api/products/[name]';
-import { obtenerProductosLocal } from 'pages/api/products';
-import { ProductDetailsSummary, ProductDetailsCarousel } from '../../../src/sections/details';
-import { useSettingsContext } from '../../../src/components/settings';
+import { ProductDetailsSummary, ProductDetailsCarousel } from 'src/sections/details';
+import { useSettingsContext } from 'src/components/settings';
 
 
 interface Props {
@@ -30,9 +29,6 @@ export default function EcommerceProductDetailsPage({ producto }: Props) {
         <title>{`Tienda Perseo: ${producto.name || ''}`}</title>
       </Head>
       <MainLayout>
-        <>
-          {/* {console.log(producto)} */}
-        </>
         <Container maxWidth={themeStretch ? false : 'lg'}>
           {producto && (
             <Grid container spacing={2}>
@@ -62,20 +58,22 @@ export default function EcommerceProductDetailsPage({ producto }: Props) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-  const products = await obtenerProductosLocal();
-
-  return {
-    paths: products.map((prod) => ({ params: { name: prod.slug } })),
-    fallback: false
-  }
-}
-
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, query }) => {
   const { name } = params as { name: string };
   const products = await obtenerProductoSlug(name);
+
+  console.log(query);
+  
+
+  if (!products) {
+    return {
+      redirect: {
+        destination: '/tienda',
+        permanent: false,
+      }
+    };
+  }
 
   const images = JSON.parse(products?.images!);
   const producto = { ...products, images };
@@ -84,33 +82,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       producto
     },
-    revalidate: (60 * 60 * 24),
   }
 }
-
-
-// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-//   try {
-//     const { name } = query as { name: string };
-//     const products = await obtenerProductoSlug(name);
-
-//     if (!products) throw new Error('No existe el producto');
-
-//     const images = JSON.parse(products?.images!);
-//     const producto = { ...products, images };
-
-//     return {
-//       props: {
-//         producto
-//       },
-//       // revalidate: (60 * 60 * 24),
-//     }
-//   } catch (error) {
-//     return {
-//       redirect: {
-//         destination: '/tienda',
-//         permanent: false
-//       }
-//     }
-//   }
-// }

@@ -1,7 +1,9 @@
-import { FC } from 'react';
-import { Box, Typography } from '@mui/material';
+import { FC, useState } from 'react';
+import { Box } from '@mui/material';
 import CategoriaCart from './CategoriaCart';
 import { categoria as CategoriaI } from '@prisma/client';
+import { useRouter } from 'next/router';
+import { DEFAULT_VENDEDOR } from 'src/routes/paths';
 
 interface Props {
   categoria: CategoriaI[];
@@ -10,6 +12,9 @@ interface Props {
 
 
 export const Categoria: FC<Props> = ({ categoria }) => {
+  const { query: { vendedor } } = useRouter() as any;
+  const [idVendedor, setIdVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
+
   return (
     <Box
       width="100%"
@@ -20,6 +25,7 @@ export const Categoria: FC<Props> = ({ categoria }) => {
     >
       {categoria?.map((cate: CategoriaI) => (
         <CategoriaCart
+          vendedor={idVendedor}
           key={cate.id}
           categoria={cate}
         />

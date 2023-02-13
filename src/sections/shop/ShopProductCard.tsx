@@ -23,12 +23,13 @@ import Image from '../../components/image';
 // --------------------------------------s--------------------------------
 
 type Props = {
+  vendedor: string;
   product: IProduct;
 };
 
-export default function ShopProductCard({ product }: Props) {
-  const { id, name, cover, price, stock } = product;  
-  
+export default function ShopProductCard({ vendedor, product }: Props) {
+  const { id, name, cover, price, stock } = product;
+
   // Product used only for the cart.
   const productForCart: ICheckoutCartItem = {
     id,
@@ -41,9 +42,9 @@ export default function ShopProductCard({ product }: Props) {
   };
 
   const router = useRouter();
+  
 
-
-  const linkTo = `/tienda/producto/${product.slug}`;
+  const linkTo = `/${vendedor}/tienda/producto/${product.slug}`;
   const status = '';
 
   const ctx = useContext(CartContext);
@@ -68,10 +69,10 @@ export default function ShopProductCard({ product }: Props) {
         margin: 0,
         ' .add-cart-btn': {
           opacity: 1,
-          
+
         },
       }}
-      
+
     >
       <Box sx={{ position: 'relative', p: 1 }}>
         {status && (
@@ -91,7 +92,7 @@ export default function ShopProductCard({ product }: Props) {
         )}
 
         <Fab
-          disabled={isMaxQuantity}        
+          disabled={isMaxQuantity}
           color="warning"
           size="medium"
           className="add-cart-btn"

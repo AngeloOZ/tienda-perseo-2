@@ -1,11 +1,12 @@
-import { NextPage, GetStaticProps } from 'next';
-import { IProduct } from 'src/@types/product';
 import Head from 'next/head';
+import { NextPage, GetServerSideProps } from 'next';
+
+import { IProduct } from 'src/@types/product';
 import { ShopProducts } from 'custom/components/shop';
 import MainLayout from 'src/layouts/main/MainLayout';
 import ImagenPricipal from 'custom/components/principal/ImagenPrincipal';
 import FormaPago from 'custom/components/principal/FormaPago';
-import { Grid } from '@mui/material';
+
 import { obtenerProductosLocal } from 'pages/api/products';
 import { obtenerCategorias } from 'pages/api/categories';
 import { categoria as CategoriaID } from '@prisma/client';
@@ -39,16 +40,18 @@ const PageTienda: NextPage<Props> = ({ products, categories }) => {
 };
 
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const products = await obtenerProductosLocal();
   const categories = await obtenerCategorias();
+
+  console.log(query);
+  
 
   return {
     props: {
       products,
       categories,
     },
-    revalidate: (60 * 60 * 24),
   };
 }
 

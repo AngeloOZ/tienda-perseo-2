@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -15,7 +15,7 @@ import { tiendaApi } from 'custom/api';
 import { CartContext } from 'context';
 import Script from 'next/script';
 import { jsonBase64 } from 'utils';
-import { PATH_PAGE_TIENDA } from 'src/routes/paths';
+import { DEFAULT_VENDEDOR, PATH_PAGE_TIENDA } from 'src/routes/paths';
 
 // eslint-disable-next-line
 const PageTienda = ({ factura }: { factura: any }) => {
@@ -23,6 +23,8 @@ const PageTienda = ({ factura }: { factura: any }) => {
     const { enqueueSnackbar } = useSnackbar();
     const { handleResetCart, cart, discount, subtotal, shipping, iva, total } = useContext(CartContext);
 
+    const { query: { vendedor } } = useRouter() as any;
+    const [idVendedor, setIdVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
 
     const onSubmit = async (data: FormFactura) => {
         try {
@@ -32,7 +34,7 @@ const PageTienda = ({ factura }: { factura: any }) => {
 
             enqueueSnackbar('Tu compra ha sido registrada con exito', { variant: 'success' });
             handleResetCart();
-            router.push(PATH_PAGE_TIENDA.tienda.root);
+            router.push(`/${idVendedor}` + PATH_PAGE_TIENDA.tienda.root);
         } catch (err) {
             console.log(err);
             enqueueSnackbar('Ha ocurrido un error al registrar tu compra', { variant: 'error' });

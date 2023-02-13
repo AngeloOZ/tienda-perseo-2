@@ -7,9 +7,10 @@ import Link from 'next/link';
 
 interface Props {
   categoria: categoria;
+  vendedor: string;
 }
 
-export default function CategoriaCart({ categoria }: Props) {
+export default function CategoriaCart({ vendedor, categoria }: Props) {
   return (
 
     <Card
@@ -21,7 +22,7 @@ export default function CategoriaCart({ categoria }: Props) {
         marginY: 0.7
       }}
     >
-      <Link href={`/tienda/categoria/${categoria.ruta}`} style={{ textDecoration: 'none' }}>
+      <Link href={`/${vendedor}/tienda/categoria/${categoria.ruta}`} style={{ textDecoration: 'none' }}>
         <CardActionArea sx={{ width: 170, height: 170, }} >
           <Image
             alt={'icono'}

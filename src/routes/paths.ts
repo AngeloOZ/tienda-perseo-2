@@ -12,6 +12,8 @@ export const PATH_AUTH = {
   login: '/login',
 };
 
+export const DEFAULT_VENDEDOR = 1;
+
 export const PATH_ADMIN = '/admin';
 
 export const PATH_DASHBOARD = {

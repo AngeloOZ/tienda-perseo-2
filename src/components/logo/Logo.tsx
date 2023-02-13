@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 // next
 import NextLink from 'next/link';
 // @mui
@@ -6,6 +6,8 @@ import NextLink from 'next/link';
 import { Box, Link, BoxProps } from '@mui/material';
 // import { Image } from '@mui/icons-material';
 import Image from '../image/Image';
+import { useRouter } from 'next/router';
+import { DEFAULT_VENDEDOR } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -15,27 +17,13 @@ export interface LogoProps extends BoxProps {
 
 const Logo = forwardRef<HTMLDivElement, LogoProps>(
   ({ disabledLink = false, sx, ...other }, ref) => {
-    // const theme = useTheme();
 
-  /*   const PRIMARY_LIGHT = theme.palette.primary.light;
-
-    const PRIMARY_MAIN = theme.palette.primary.main;
-
-    const PRIMARY_DARK = theme.palette.primary.dark; */
-
-    // OR using local (public folder)
-    // -------------------------------------------------------
-    // const logo = (
-    //   <Box
-    //     component="img"
-    //     src="/logo/logo_single.svg" => your path
-    //     sx={{ width: 40, height: 40, cursor: 'pointer', ...sx }}
-    //   />
-    // );
+    const { query: { vendedor } } = useRouter() as any;
+    const [idVendedor, setIdVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
 
     const logo = (
       <Box
-         ref={ref}
+        ref={ref}
         component="div"
         sx={{
           width: 120,
@@ -43,13 +31,13 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
           display: 'inline-flex',
           ...sx,
         }}
-     /*   {...other} */
+      /*   {...other} */
       >
-         <Image
-              alt="logo"
-              src="https://tienda.socio-perseo.com/assets/media/perseologo.png"
-              sx={{ width: "100%", height: "100%"}}
-            />
+        <Image
+          alt="logo"
+          src="https://tienda.socio-perseo.com/assets/media/perseologo.png"
+          sx={{ width: "100%", height: "100%" }}
+        />
 
       </Box>
     );
@@ -59,7 +47,7 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
     }
 
     return (
-      <Link component={NextLink} href="/tienda" sx={{ display: 'contents' }}>
+      <Link component={NextLink} href={`/${idVendedor}/tienda`} sx={{ display: 'contents' }}>
         {logo}
       </Link>
     );

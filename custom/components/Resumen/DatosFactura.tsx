@@ -11,7 +11,8 @@ import FormProvider, { RHFTextField } from "src/components/hook-form";
 import { jsonBase64 } from "utils";
 import Cookies from "js-cookie";
 import { FormFactura } from "interfaces";
-import { PATH_PAGE_TIENDA } from "src/routes/paths";
+import { DEFAULT_VENDEDOR, PATH_PAGE_TIENDA } from "src/routes/paths";
+import { useRouter } from "next/router";
 
 type FormValuesProps = FormFactura
 interface Props extends BoxProps {
@@ -24,6 +25,9 @@ interface Props extends BoxProps {
 
 export const DatosFactura: FC<Props> = ({ hiddenButton, isFinished, disabled = false, editFormData, onSubmitEvent, ...other }) => {
     const [defaultValuesCookie, setDefaultValuesCookie] = useState<FormValuesProps>()
+
+    const { query: { vendedor } } = useRouter() as any;
+    const [idVendedor, setIdVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
 
     useEffect(() => {
         const datosCookie = Cookies.get('datosFactura');
@@ -89,11 +93,11 @@ export const DatosFactura: FC<Props> = ({ hiddenButton, isFinished, disabled = f
                                         <Stack direction="row" spacing={2} >
                                             {
                                                 isFinished ?
-                                                    <Link href={PATH_PAGE_TIENDA.tienda.resumen} legacyBehavior>
+                                                    <Link href={`/${idVendedor}`+PATH_PAGE_TIENDA.tienda.resumen} legacyBehavior>
                                                         <Button fullWidth variant="outlined" color="error">Regresar</Button>
                                                     </Link>
                                                     :
-                                                    <Link href={PATH_PAGE_TIENDA.tienda.root} legacyBehavior>
+                                                    <Link href={`/${idVendedor}`+PATH_PAGE_TIENDA.tienda.root} legacyBehavior>
                                                         <Button fullWidth variant="outlined" color="error">Regresar</Button>
                                                     </Link>
                                             }

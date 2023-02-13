@@ -1,4 +1,5 @@
-import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
+
 import { IProduct } from 'src/@types/product';
 import { ShopProducts } from 'custom/components/shop';
 import MainLayout from 'src/layouts/main/MainLayout';
@@ -18,7 +19,7 @@ interface Props {
 }
 
 export const config = {
-    
+
 }
 
 
@@ -40,22 +41,24 @@ const PageCategoria: NextPage<Props> = ({ products, categories }) => {
     );
 };
 
-
-export const getStaticPaths: GetStaticPaths = async (ctx) => {
-    const categories = await obtenerCategorias();
-
-    return {
-        paths: categories.map((cat) => ({ params: { categoria: cat.ruta } })),
-        fallback: false
-    }
-}
+export default PageCategoria;
 
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
     const categories = await obtenerCategorias();
     const { categoria } = params as { categoria: string };
     const currentCategory = categories.find((cat) => cat.ruta === categoria);
+
+    if (!currentCategory) {
+        return {
+            redirect: {
+                destination: '/tienda',
+                permanent: false,
+            }
+        };
+    }
+
     const products = await obtenerProductosLocal(currentCategory!.id);
 
     return {
@@ -63,8 +66,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             products,
             categories
         },
-        revalidate: (60 * 60 * 24),
     };
 }
-
-export default PageCategoria;
