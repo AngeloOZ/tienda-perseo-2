@@ -63,9 +63,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params, query }) 
   const { name } = params as { name: string };
   const products = await obtenerProductoSlug(name);
 
-  console.log(query);
-  
-
   if (!products) {
     return {
       redirect: {

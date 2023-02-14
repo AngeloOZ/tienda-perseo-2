@@ -5,7 +5,7 @@ export interface VentaRequest extends FormFactura {
     cart: {
         id: number;
         quantity: number;
-    }
+    }[];
 };
 export interface VentaPorID {
     id_venta:       number;

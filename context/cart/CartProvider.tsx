@@ -21,6 +21,7 @@ const CART_INITIAL_STATE: IProductCheckoutState = {
 };
 
 export const CartProvider: FC<Props> = ({ children }) => {
+
   const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
   useEffect(() => {
@@ -73,11 +74,12 @@ export const CartProvider: FC<Props> = ({ children }) => {
 
   const handleAddCart = (newProduct: ICheckoutCartItem) => {
     const isEmptyCart = !state.cart.length;
-
+    
     if (isEmptyCart) {
       dispatch({ type: '[Cart] - Add products in cart', payload: { ...newProduct, subtotal: newProduct.quantity * newProduct.price } });
       return;
     }
+
     const productInCart = state.cart.some((p: ICheckoutCartItem) => p.id === newProduct.id);
 
     if (!productInCart) {

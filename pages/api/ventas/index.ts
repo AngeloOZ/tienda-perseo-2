@@ -39,7 +39,7 @@ export async function obtenerVentas(id?: number) {
             });
             return venta;
         }
-        const ventas = await prisma.ventas.findMany({orderBy: {id_venta: 'desc'}});
+        const ventas = await prisma.ventas.findMany({ orderBy: { id_venta: 'desc' } });
         return ventas;
     } catch (error) {
         console.log(error);
@@ -108,6 +108,7 @@ async function obtenerVentaId(id: number) {
         for (const product of products) {
             // eslint-disable-next-line
             const productoBase = await prisma.producto.findUnique({ where: { id: product.id } });
+
             product.price = productoBase?.price || 0;
             product.cover = productoBase?.cover || '';
             product.subtotal = product.price * product.quantity;
@@ -128,21 +129,53 @@ async function obtenerVentaId(id: number) {
     }
 }
 
-
 async function registrarVenta(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const { nombre, ruc, correo, whatsapp, cart } = req.body as VentaRequest;
-        const result = await prisma.ventas.create({
-            data: {
-                nombres: nombre,
-                identificacion: ruc,
-                correo,
-                whatsapp,
-                productos: JSON.stringify(cart),
-                fecha_creado: new Date(),
-            }
+
+        await prisma.$transaction(async () => {
+
+            const { nombre, ruc, correo, whatsapp, cart } = req.body as VentaRequest;
+
+            const result = await prisma.ventas.create({
+                data: {
+                    nombres: nombre,
+                    identificacion: ruc,
+                    correo,
+                    whatsapp,
+                    productos: JSON.stringify(cart),
+                    fecha_creado: new Date(),
+                }
+            });
+
+            cart.forEach(async (product) => {
+                const productoBase = await prisma.producto.findUnique({ where: { id: product.id } });
+                const stock = productoBase?.stock || 0;
+                const newStock = stock - product.quantity;
+
+                if (newStock == 0) {
+                    await prisma.producto.update({
+                        where: {
+                            id: product.id
+                        },
+                        data: {
+                            status: false,
+                            stock: newStock
+                        }
+                    });
+                } else {
+                    await prisma.producto.update({
+                        where: {
+                            id: product.id
+                        },
+                        data: {
+                            stock: newStock
+                        }
+                    });
+                }
+            });
+
+            return res.status(201).json(result);
         });
-        return res.status(201).json(result);
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Error al registrar la venta', error });

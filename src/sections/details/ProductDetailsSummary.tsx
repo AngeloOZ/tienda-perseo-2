@@ -82,14 +82,10 @@ export default function ProductDetailsSummary({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product]);
 
-    // TODO: Fix the quantity of the product in the cart
     useEffect(() => {
         if (cart.length !== 0) {
             const cartRef = cart.find((item) => item.id === id);
-
-            if(cartRef){
-                setValue('quantity', cartRef.quantity);
-            }
+            setValue('quantity', cartRef?.quantity || 1);
 
         } else if (cart.length === 0 && !alreadyProduct) {
             setValue('quantity', stock < 1 ? 0 : 1);
@@ -99,13 +95,11 @@ export default function ProductDetailsSummary({
 
     const funAddCart = async () => {
         try {
-            if (cart.length === 0 && !alreadyProduct) {
-                onAddCart({
-                    ...defaultValues,
-                    quantity: values.quantity,
-                    // subtotal: values.price * values.quantity
-                });
-            }
+            onAddCart({
+                ...defaultValues,
+                quantity: values.quantity,
+            });
+
         } catch (error) {
             console.error(error);
         }
@@ -127,21 +121,6 @@ export default function ProductDetailsSummary({
             : setValue('quantity', values.quantity - 1);
     };
 
-    /*   const onSubmit = async (data: FormValuesProps) => {
-      try {
-        if (!alreadyProduct) {
-          onAddCart({
-            ...data,
-            // colors: [values.colors],
-            subtotal: data.price * data.quantity,
-          });
-        }
-        onGotoStep(0);
-        push('#');
-      } catch (error) {
-        console.error(error);
-      }
-    }; */
 
     return (
         <FormProvider methods={methods} onSubmit={() => { }}>
@@ -202,24 +181,27 @@ export default function ProductDetailsSummary({
                 <Divider sx={{ borderStyle: 'dashed' }} />
 
                 <Stack direction="row" spacing={2}>
-                    {(status) ?
-                        (<Button
-                            fullWidth
-                            disabled={isMaxQuantity}
-                            size="large"
-                            color="warning"
-                            variant="contained"
-                            startIcon={<Iconify icon="ic:round-add-shopping-cart" />}
-                            onClick={funAddCart}
-                            sx={{ whiteSpace: 'nowrap' }}
-                        >
-                            Agregar al Carrito
-                        </Button>)
+                    {(status && stock != 0) ?
+                        (<>
+                            <Button
+                                fullWidth
+                                disabled={isMaxQuantity}
+                                size="large"
+                                color="warning"
+                                variant="contained"
+                                startIcon={<Iconify icon="ic:round-add-shopping-cart" />}
+                                onClick={funAddCart}
+                                sx={{ whiteSpace: 'nowrap' }}
+                            >
+                                Agregar al Carrito
+                            </Button>
+                            <Button fullWidth size="large" type="submit" variant="contained">
+                                Comprar Ahora
+                            </Button>
+                        </>
+                        )
                         :
-                        <Chip label="Agotado" color='error' variant="outlined" />}
-                    <Button fullWidth size="large" type="submit" variant="contained">
-                        Comprar Ahora
-                    </Button>
+                        <Chip label="Agotado" sx={{ width: "100%", height: 45, fontSize: 18 }} color='error' variant="outlined" />}
                 </Stack>
             </Stack>
         </FormProvider>

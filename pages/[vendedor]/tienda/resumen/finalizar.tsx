@@ -58,40 +58,6 @@ const PageTienda = ({ factura }: { factura: any }) => {
                     </Grid>
                 </Grid>
             </Container>
-            <Script src=" https://code.jquery.com/jquery-3.4.1.min.js" strategy='beforeInteractive' />
-            <Script src="https://sandbox-paybox.pagoplux.com/paybox/index.js" strategy='beforeInteractive' />
-            <Script strategy='beforeInteractive' >
-                {`
-                    var data = {
-                        PayboxRemail: "jaime@pegasus.ec",
-                        PayboxSendmail: "angello.ordonez@hotmail.com",
-                        PayboxRename: "Jaime Sarabia",
-                        PayboxSendname: "ANGELLO ORDOÑEZ",
-                        PayboxBase0: 0,
-                        PayboxBase12: 10,
-                        PayboxDescription: "Pago tienda socio-perseo",
-                        PayboxProduction: false,
-                        PayboxEnvironment: "sandbox",
-                        PayboxLanguage: "es",
-                        PayboxRequired: [],
-                        PayboxDirection: "av nidal 2-45 y av. 10 de agosto",
-                        PayBoxClientPhone: "0987654321",
-                        PayBoxClientName: "ANGELLO ORDOÑEZ",
-                        PayBoxClientIdentification: "2300368665",
-                        PayboxPagoPlux: false,
-                        PayboxIdElement: 'idHtmlPay'
-                    };
-        
-                    var onAuthorize = function(response) {
-                        if (response.status == 'succeeded') {
-                            console.log(response);
-
-                        }else{
-                            console.error("Error...!!");
-                        }
-                    };
-                `}
-            </Script>
         </MainLayout>
     );
 };

@@ -28,7 +28,7 @@ type Props = {
 };
 
 export default function ShopProductCard({ vendedor, product }: Props) {
-  const { id, name, cover, price, stock } = product;
+  const { id, name, cover, price, stock, status } = product;
 
   // Product used only for the cart.
   const productForCart: ICheckoutCartItem = {
@@ -42,10 +42,8 @@ export default function ShopProductCard({ vendedor, product }: Props) {
   };
 
   const router = useRouter();
-  
 
   const linkTo = `/${vendedor}/tienda/producto/${product.slug}`;
-  const status = '';
 
   const ctx = useContext(CartContext);
   const { cart, handleAddCart } = ctx;
@@ -67,7 +65,7 @@ export default function ShopProductCard({ vendedor, product }: Props) {
       sx={{
         padding: 0,
         margin: 0,
-        ' .add-cart-btn': {
+        '.add-cart-btn': {
           opacity: 1,
 
         },
@@ -75,10 +73,10 @@ export default function ShopProductCard({ vendedor, product }: Props) {
 
     >
       <Box sx={{ position: 'relative', p: 1 }}>
-        {status && (
-          <Label
+        {
+          (!status || stock == 0) && (<Label
             variant="filled"
-            color={(status === 'sale' && 'error') || 'info'}
+            color='error'
             sx={{
               top: 16,
               right: 16,
@@ -87,31 +85,37 @@ export default function ShopProductCard({ vendedor, product }: Props) {
               textTransform: 'uppercase',
             }}
           >
-            {status}
-          </Label>
-        )}
+            Agotado
+          </Label>)
+        }
 
-        <Fab
-          disabled={isMaxQuantity}
-          color="warning"
-          size="medium"
-          className="add-cart-btn"
-          onClick={onAddCart}
-          sx={{
-            right: 16,
-            bottom: 16,
-            zIndex: 9,
-            opacity: 0,
-            position: 'absolute',
-            transition: (theme) =>
-              theme.transitions.create('all', {
-                easing: theme.transitions.easing.easeInOut,
-                duration: theme.transitions.duration.shorter,
-              }),
-          }}
-        >
-          <Iconify icon="ic:round-add-shopping-cart" />
-        </Fab>
+
+        {
+          status && stock > 0 && (
+            <Fab
+              disabled={isMaxQuantity}
+              color="warning"
+              size="medium"
+              className="add-cart-btn"
+              onClick={onAddCart}
+              sx={{
+                right: 16,
+                bottom: 16,
+                zIndex: 9,
+                opacity: 0,
+                position: 'absolute',
+                transition: (theme) =>
+                  theme.transitions.create('all', {
+                    easing: theme.transitions.easing.easeInOut,
+                    duration: theme.transitions.duration.shorter,
+                  }),
+              }}
+            >
+              <Iconify icon="ic:round-add-shopping-cart" />
+            </Fab>
+          )
+        }
+
         <Image
           alt='Imagen'
           src={cover}
@@ -127,7 +131,6 @@ export default function ShopProductCard({ vendedor, product }: Props) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          {/* <ColorPreview colors={colors} /> */}
 
           <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
             {true && (
@@ -138,8 +141,6 @@ export default function ShopProductCard({ vendedor, product }: Props) {
                 </Typography>
               </Box>
             )}
-
-            {/* <Box component="span">{15.2}</Box> */}
           </Stack>
         </Stack>
       </Stack>
