@@ -1,12 +1,14 @@
 import Head from 'next/head'
 
 import DashboardLayout from 'src/layouts/dashboard/DashboardLayout'
-import { DatosFactura, LinearProgressBar, ListadoProductos, ResumenCompra } from 'custom/components'
+import { EditarDatoVentas, LinearProgressBar, ListadoProductos, ResumenCompra } from 'custom/components'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { tiendaApi } from 'custom/api'
 import { VentaPorID } from 'interfaces'
 import { Box, Grid } from '@mui/material'
+import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/CustomBreadcrumbs'
+import { PATH_DASHBOARD } from 'src/routes/paths'
 
 PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>
 
@@ -31,11 +33,6 @@ export default function PageAdmin() {
         } catch (error) {
             console.log(error);
         }
-
-    }
-
-    const onSubmitEvent = async (data: any) => {
-        console.log(data);
     }
 
     if (isLoading) return <LinearProgressBar />
@@ -45,12 +42,17 @@ export default function PageAdmin() {
             <Head>
                 <title>Editar venta</title>
             </Head>
-            <Grid container>
-                <Grid item xs={12} md={7} xl={8} >
+            <CustomBreadcrumbs
+                heading={`Editar venta #${currentValue?.id_venta!}`}
+                links={[
+                    { name: 'Lista de ventas', href: PATH_DASHBOARD.ventas.root },
+                    { name: currentValue?.identificacion! },
+                ]}
+            />
+            <Grid container spacing={2}>
+                <Grid item xs={12} md={6} >
                     <ListadoProductos cart={currentValue?.productos!} />
-                </Grid>
-                <Grid item xs={12} md={5} xl={4} display="flex" justifyContent="flex-end">
-                    <Box sx={{ width: { xs: "100%" }, marginLeft: { xs: 0, md: 4 } }} width="100%" >
+                    <Box sx={{ width: { xs: "100%" }, marginTop: { xs: 2, md: 2 } }} width="100%" >
                         <ResumenCompra
                             sx={{ width: '100%' }}
                             subtotal={currentValue?.subtotal!}
@@ -60,18 +62,15 @@ export default function PageAdmin() {
                         />
                     </Box>
                 </Grid>
-
-                <Grid item xs={12} mt={2}>
-                    <DatosFactura
-                        editFormData={{
+                <Grid item xs={12} md={6}>
+                    <EditarDatoVentas
+                        initDdataEdit={{
+                            id: currentValue?.id_venta!,
+                            correo: currentValue?.correo!,
                             nombre: currentValue?.nombres!,
                             ruc: currentValue?.identificacion!,
                             whatsapp: currentValue?.whatsapp!,
-                            correo: currentValue?.correo!,
-                            id: currentValue?.id_venta!,
                         }}
-                        hiddenButton
-                        onSubmitEvent={onSubmitEvent}
                     />
                 </Grid>
             </Grid>

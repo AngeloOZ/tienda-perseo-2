@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { tiendaApi } from 'custom/api'
 import { useRouter } from 'next/router'
 import { PATH_DASHBOARD } from 'src/routes/paths'
+import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/CustomBreadcrumbs'
 
 
 PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout roles={['vendedor']}>{page}</DashboardLayout>
@@ -43,6 +44,12 @@ export default function PageAdmin() {
                 <title>Listado de ventas</title>
             </Head>
             <Container maxWidth={false}>
+                <CustomBreadcrumbs
+                    heading="Listado de ventas"
+                    links={[
+                        { name: 'Lista de ventas', href: PATH_DASHBOARD.ventas.root },
+                    ]}
+                />
                 <TableCustom
                     headers={[
                         { label: "ID", name: "id_venta", type: 'number', serchable: false },

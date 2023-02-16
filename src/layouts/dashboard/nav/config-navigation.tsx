@@ -1,6 +1,5 @@
 import { Inventory, Category } from '@mui/icons-material';
 import { MdLoyalty } from 'react-icons/md';
-import { FaFileInvoiceDollar } from 'react-icons/fa';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
@@ -45,11 +44,6 @@ const navConfig = [
         title: 'Ventas',
         path: PATH_DASHBOARD.ventas.root,
         icon: <MdLoyalty />,
-      },
-      {
-        title: 'Facturas',
-        path: '#',
-        icon: <FaFileInvoiceDollar />,
       },
     ],
   },

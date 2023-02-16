@@ -5,9 +5,9 @@ import NextLink from 'next/link';
 // import { useTheme } from '@mui/material/styles';
 import { Box, Link, BoxProps } from '@mui/material';
 // import { Image } from '@mui/icons-material';
-import Image from '../image/Image';
 import { useRouter } from 'next/router';
 import { DEFAULT_VENDEDOR } from 'src/routes/paths';
+import Image from '../image/Image';
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
   ({ disabledLink = false, sx, ...other }, ref) => {
 
     const { query: { vendedor } } = useRouter() as any;
-    const [idVendedor, setIdVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
+    const [idVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
 
     const logo = (
       <Box

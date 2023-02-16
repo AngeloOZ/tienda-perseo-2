@@ -20,13 +20,13 @@ const PageTienda: NextPage = () => {
     const { cart, discount, subtotal, shipping, iva, total } = useContext(CartContext);
 
     const { query: { vendedor } } = useRouter() as any;
-    const [idVendedor, setIdVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
+    const [idVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
 
     const onSubmit = async (data: FormFactura) => {
         try {
             jsonBase64.stringifyJSON(data);
             Cookies.set('datosFactura', jsonBase64.stringifyJSON(data));
-            router.push(`/${idVendedor}` + PATH_PAGE_TIENDA.tienda.finalizar);
+            router.push(`/${idVendedor}${PATH_PAGE_TIENDA.tienda.finalizar}`);
         } catch (err) {
             console.log(err);
         }

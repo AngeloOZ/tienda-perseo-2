@@ -181,7 +181,7 @@ export default function ProductDetailsSummary({
                 <Divider sx={{ borderStyle: 'dashed' }} />
 
                 <Stack direction="row" spacing={2}>
-                    {(status && stock != 0) ?
+                    {(status && stock !== 0) ?
                         (<>
                             <Button
                                 fullWidth

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 import { Container, Grid } from '@mui/material';
 import Cookies from 'js-cookie';
-// import { useSnackbar } from 'notistack';
+
 import { DatosFactura, ListadoProductos, ResumenCompra } from 'custom/components';
 import { useSnackbar } from 'src/components/snackbar';
 
@@ -13,7 +13,6 @@ import MainLayout from 'src/layouts/main/MainLayout';
 import { FormFactura } from 'interfaces';
 import { tiendaApi } from 'custom/api';
 import { CartContext } from 'context';
-import Script from 'next/script';
 import { jsonBase64 } from 'utils';
 import { DEFAULT_VENDEDOR, PATH_PAGE_TIENDA } from 'src/routes/paths';
 
@@ -24,7 +23,7 @@ const PageTienda = ({ factura }: { factura: any }) => {
     const { handleResetCart, cart, discount, subtotal, shipping, iva, total } = useContext(CartContext);
 
     const { query: { vendedor } } = useRouter() as any;
-    const [idVendedor, setIdVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
+    const [idVendedor] = useState<string>(vendedor || DEFAULT_VENDEDOR.toString());
 
     const onSubmit = async (data: FormFactura) => {
         try {
@@ -34,7 +33,7 @@ const PageTienda = ({ factura }: { factura: any }) => {
 
             enqueueSnackbar('Tu compra ha sido registrada con exito', { variant: 'success' });
             handleResetCart();
-            router.push(`/${idVendedor}` + PATH_PAGE_TIENDA.tienda.root);
+            router.push(`/${idVendedor}${PATH_PAGE_TIENDA.tienda.root}`);
         } catch (err) {
             console.log(err);
             enqueueSnackbar('Ha ocurrido un error al registrar tu compra', { variant: 'error' });

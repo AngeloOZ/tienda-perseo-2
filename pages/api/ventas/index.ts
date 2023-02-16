@@ -20,7 +20,7 @@ export default function (req: NextApiRequest, res: NextApiResponse) {
         case 'POST':
             return registrarVenta(req, res);
         case 'PUT':
-            return res.status(200).json({ message: 'PUT' })
+            return actualizarVenta(req, res);
         case 'DELETE':
             return res.status(200).json({ message: 'DELETE' })
         default:
@@ -131,7 +131,6 @@ async function obtenerVentaId(id: number) {
 
 async function registrarVenta(req: NextApiRequest, res: NextApiResponse) {
     try {
-
         await prisma.$transaction(async () => {
 
             const { nombre, ruc, correo, whatsapp, cart } = req.body as VentaRequest;
@@ -152,7 +151,7 @@ async function registrarVenta(req: NextApiRequest, res: NextApiResponse) {
                 const stock = productoBase?.stock || 0;
                 const newStock = stock - product.quantity;
 
-                if (newStock == 0) {
+                if (newStock === 0) {
                     await prisma.producto.update({
                         where: {
                             id: product.id
@@ -176,6 +175,8 @@ async function registrarVenta(req: NextApiRequest, res: NextApiResponse) {
 
             return res.status(201).json(result);
         });
+        return res.status(201).json({ message: 'Venta registrada' });
+
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Error al registrar la venta', error });
@@ -187,12 +188,18 @@ async function registrarVenta(req: NextApiRequest, res: NextApiResponse) {
 
 async function actualizarVenta(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const venta = req.body;
+        const { id, correo, nombre, whatsapp, concepto, ruc } = req.body as VentaRequest;
+
         const result = await prisma.ventas.update({
             where: {
-                id_venta: venta.id_venta
+                id_venta: id
             },
-            data: venta
+            data: {
+                nombres: nombre,
+                correo,
+                whatsapp,
+                identificacion: ruc,
+            }
         });
         return res.status(200).json(result);
     } catch (error) {

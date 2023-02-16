@@ -4,4 +4,5 @@ export interface FormFactura {
     ruc: string;
     whatsapp: string;
     correo: string;
+    concepto?: string;
 }

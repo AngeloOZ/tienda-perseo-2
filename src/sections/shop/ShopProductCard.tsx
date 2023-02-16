@@ -74,7 +74,7 @@ export default function ShopProductCard({ vendedor, product }: Props) {
     >
       <Box sx={{ position: 'relative', p: 1 }}>
         {
-          (!status || stock == 0) && (<Label
+          (!status || stock === 0) && (<Label
             variant="filled"
             color='error'
             sx={{
