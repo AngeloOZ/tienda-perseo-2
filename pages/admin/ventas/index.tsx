@@ -11,7 +11,7 @@ import { PATH_DASHBOARD } from 'src/routes/paths'
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/CustomBreadcrumbs'
 
 
-PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout roles={['vendedor']}>{page}</DashboardLayout>
+PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout roles={['admin','vendedor']}>{page}</DashboardLayout>
 
 export default function PageAdmin() {
     const [isLoading, setIsLoading] = useState(true)

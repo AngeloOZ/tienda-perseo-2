@@ -5,7 +5,7 @@ import { FormAgregarEditarProducto } from 'custom/components'
 
 
 
-PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout >{page}</DashboardLayout>
+PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout roles={['admin','editor']}>{page}</DashboardLayout>
 
 export default function PageAdmin() {
 

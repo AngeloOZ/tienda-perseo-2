@@ -199,6 +199,7 @@ async function actualizarVenta(req: NextApiRequest, res: NextApiResponse) {
                 correo,
                 whatsapp,
                 identificacion: ruc,
+                concepto,
             }
         });
         return res.status(200).json(result);

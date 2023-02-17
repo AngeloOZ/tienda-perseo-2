@@ -11,7 +11,7 @@ type Props = {
     products: producto[]
 }
 
-PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>
+PageAdmin.getLayout = (page: React.ReactElement) => <DashboardLayout roles={['admin','editor']}>{page}</DashboardLayout>
 
 export default function PageAdmin({ products: data }: Props) {
 

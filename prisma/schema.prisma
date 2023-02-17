@@ -50,6 +50,7 @@ model ventas {
   correo         String    @db.VarChar(100)
   whatsapp       String    @db.VarChar(15)
   productos      String    @map(" productos") @db.LongText
+  concepto       String?   @db.VarChar(20)
   vendedor       Int?
   fecha_creado   DateTime? @default(now()) @db.DateTime(0)
   usuario        usuario?  @relation(fields: [vendedor], references: [id], onUpdate: NoAction, map: "fk_vendedores")

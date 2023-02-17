@@ -11,7 +11,7 @@ type Props = {
     categories: categoria[]
 }
 
-PageAdminCategorias.getLayout = (page: React.ReactElement) => <DashboardLayout>{page}</DashboardLayout>
+PageAdminCategorias.getLayout = (page: React.ReactElement) => <DashboardLayout roles={['admin','editor']}>{page}</DashboardLayout>
 
 export default function PageAdminCategorias({ categories: data }: Props) {
 
