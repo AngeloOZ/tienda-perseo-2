@@ -22,6 +22,8 @@ export default function Index() {
         case 'vendedor':
           router.push(PATH_DASHBOARD.ventas.root);
           break;
+        default:
+          router.push(PATH_DASHBOARD.productos.root);
       }
     }
   });
