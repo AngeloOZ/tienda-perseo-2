@@ -17,10 +17,11 @@ export default function ImagenPricipal() {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide><img src="https://png.pngtree.com/thumb_back/fh260/background/20200621/pngtree-abstract-modern-neon-frame-background-image_339537.jpg" /> </SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
+        <SwiperSlide><img src="/img/Carrusel/1.jpg" style={{ objectFit: "cover", objectPosition: "center" }}/></SwiperSlide>
+        <SwiperSlide><img src="/img/Carrusel/2.jpg" style={{ objectFit: "cover", objectPosition: "center" }}/></SwiperSlide>
+        <SwiperSlide><img src="/img/Carrusel/3.jpg" style={{ objectFit: "cover", objectPosition: "center" }}/></SwiperSlide>
+        <SwiperSlide><img src="/img/Carrusel/4.jpg" style={{ objectFit: "cover", objectPosition: "center" }}/></SwiperSlide>
+        <SwiperSlide><img src="/img/Carrusel/5.jpg" style={{ objectFit: "cover", objectPosition: "center" }}/></SwiperSlide>
       </Swiper>
     </>
   );
